@@ -56,7 +56,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -754,19 +753,5 @@ public final class ViewController implements IdentifierChangedReceiver {
 				lm.add(i, cons[i]);
 			}
 		}
-	}
-
-	public void addDb4oGraph(ArrayList<IfmapDataType> features) {
-		GraphPanel graph = new GraphPanel();
-		graph.addNodeSelectedListener(mMainFrame.metadataPanel);
-		graph.setTable(mMainFrame.metadataPanel.table, null);
-		mMainFrame.tabbedPane.addTab("db4o", new ImageIcon(
-				getClass().getClassLoader().getResource("tabConnect.png")),
-				graph, "db4o");
-		mMainFrame.tabbedPane.setTabComponentAt(
-				mMainFrame.tabbedPane.getTabCount() - 1,
-				new CustomTabComponent("db4o", mMainFrame.tabbedPane));
-		graph.processNewPollResult(features, null, null);
-		graph.revalidate();
 	}
 }

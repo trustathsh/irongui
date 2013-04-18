@@ -58,13 +58,9 @@ import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.DefaultListModel;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -84,14 +80,10 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import de.fhhannover.inform.ifmap.communication.Connection;
-import de.fhhannover.inform.ifmap.datastructure.Db4oStorageImpl;
-import de.fhhannover.inform.ifmap.datastructure.IfmapDataType;
-import de.fhhannover.inform.ifmap.util.IfmapUtils;
 import de.fhhannover.inform.ifmap.util.ResourceHelper;
 import de.fhhannover.inform.ifmap.view.component.MetadataPanel;
 import de.fhhannover.inform.ifmap.view.component.NavigationPanel;
 import de.fhhannover.inform.ifmap.view.component.ToolbarPanel;
-import de.fhhannover.inform.trust.Feature;
 
 @SuppressWarnings("serial")
 public class MainFrame extends JFrame {
@@ -115,7 +107,6 @@ public class MainFrame extends JFrame {
 	private JMenuItem mntmSubscribe;
 	private JMenu mnAbout;
 	private JMenuItem mntmIrongui;
-	private JMenuItem mntmOpenDboFile;
 
 	public MainFrame(ViewController vc) {
 		menuBar = new JMenuBar();
@@ -123,23 +114,6 @@ public class MainFrame extends JFrame {
 
 		mnConnection = new JMenu("Connection");
 		menuBar.add(mnConnection);
-
-		mntmOpenDboFile = new JMenuItem("Open db4o file...");
-		mntmOpenDboFile.setVisible(false);
-		mnConnection.add(mntmOpenDboFile);
-		mntmOpenDboFile.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JFileChooser fc = new JFileChooser();
-				int returnVal = fc.showOpenDialog(MainFrame.this);
-				if (returnVal == JFileChooser.APPROVE_OPTION) {
-					String path = fc.getSelectedFile().getAbsolutePath();
-					ArrayList<IfmapDataType> features = IfmapUtils.dbo2Ifmap(path);
-					mViewController.addDb4oGraph(features);
-				}
-			}
-		});
 
 		mntmManageConnections = new JMenuItem("Manage connections...");
 		mntmManageConnections.setMnemonic(KeyEvent.VK_M);

@@ -130,10 +130,6 @@
 
 	<repositories>
     	<repository>
-    		<id>source.db4o</id>
-    		<url>http://source.db4o.com/maven</url>
-	 	</repository>
-    	<repository>
     		<id>source.prefuse</id>
     		<url>http://www.rio-project.org/maven2</url>
 	 	</repository>
@@ -153,21 +149,11 @@
 			<type>jar</type>
 		</dependency>
 		<dependency>
-     		<groupId>com.db4o</groupId>
-     		<artifactId>db4o-full-java5</artifactId>
-      		<version>8.1-SNAPSHOT</version>
-    	</dependency>
-		<dependency>
      		<groupId>org.prefuse</groupId>
      		<artifactId>prefuse</artifactId>
       		<version>2007.10.21</version>
     	</dependency>
     	
-    	<dependency>
-    		<groupId>de.fhhannover.inform.trust</groupId>
-			<artifactId>feature</artifactId>
-      		<version>0.0.5</version>
-    	</dependency>
 		<dependency>
 			<groupId>de.fhhannover.inform.trust</groupId>
 			<artifactId>ifmapj</artifactId>
