@@ -16,15 +16,8 @@ Ricklinger Stadtweg 118, 30459 Hannover, Germany
 Email: trust@f4-i.fh-hannover.de
 Website: http://trust.f4.hs-hannover.de/
 
-This file is part of irongui, version ${project.version}, implemented by the Trust@HsH
-research group at the Hochschule Hannover, a program to visualize the content
-of a MAP Server (MAPS), a crucial component within the TNC architecture.
-
-The development was started within the bachelor
-thesis of Tobias Ruhe at Hochschule Hannover (University of
-Applied Sciences and Arts Hannover). irongui is now maintained
-and extended within the ESUKOM research project. More information
-can be found at the Trust@HsH website.
+This file is part of ${project.name}, version ${project.version},
+implemented by the Trust@HsH research group at the Hochschule Hannover.
 
 <#if addSvnKeyWords>
 <#--Add svn Keywords-->
