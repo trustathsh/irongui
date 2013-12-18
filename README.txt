@@ -26,7 +26,7 @@ The development was started within the bachelor
 thesis of Tobias Ruhe at Hochschule Hannover (University of
 Applied Sciences and Arts Hannover). irongui is now maintained
 and extended within the ESUKOM research project. More information
-can be found at the Trust@FHH website [2].
+can be found at the Trust@HsH website [2].
 
 
 Software Requirements
@@ -99,7 +99,7 @@ URLs
 ====
 [1] http://www.trustedcomputinggroup.org/developers/trusted_network_connect
 
-[2] http://trust.inform.fh-hannover.de
+[2] http://trust.f4.hs-hannover.de
 
 [3] http://www.apache.org/licenses/LICENSE-2.0.html
 

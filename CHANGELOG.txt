@@ -1,59 +1,119 @@
+0.4.1 -> 0.4.2
+* changed to ifmapj-1.0.0
+* refactored package names and structure to hs-hannover.de domain (including license headers, pom.xml, etc)"
+* changed old Trust@FHH logo to new Trust@HsH logo
+
 0.4.0 -> 0.4.1
 * changed from Ant to Maven
 * changed to ifmapj-0.1.5
 
 0.3.3 -> 0.4.0
+
 * irongui is now limited to one subscription to avoid confusion
+
 * added menu panel
+
 * toolbar-panel rework
+
 * icons for dialogs
+
 * links on logos readded
+
 * connection-dialog rework
+
 * tab-header rework
+
 * helper-class for loading icons
+
 * about dialog
+
 * some minor fixes
+
+
 
 0.3.2 -> 0.3.3
+
 * ifmapj-dump dropped, changed to ifmapj-0.1.4
+
 * the main subscription-panel is reworked (ip-range is removed, ipv6 is now working)
+
 * by clicking connect, the choosen connection in navigation-panel is established
+
 * the connection-dialog now has a duplicate-button
+
 * the status-panel is reactivated
+
 * fixed: Quick-Subscribe now working with all identifiers
+
 * fixed: refresh of detail-view on removing metadata
+
 * fixed: crash by connecting to an non-running ifmap-server
+
 * fixed: sometimes not all metadata is removed
+
 * some minor fixes
+
 * new keystore and certificate
 
+
+
 0.3.1 -> 0.3.2
+
 * fixed broken Subscribe Panel
+
 * Quick Subscribe is still buggy for identity identifiers :(
+
 * include ifmapj-dump sources
 
+
+
 0.3.0 -> 0.3.1
+
 * A lot of bugfixes ...
+
 * Overall stability should be better now
+
 * Some known issues with prefuse still present though (if irongui crashes,
+
   just restart it ... )
 
+
+
 0.2.0 -> 0.3.0
+
 * Changed to ifmapj, dropped apache axis (all basic operations + dump)
+
 * Bug fix: delete-anomaly on cutting subscriptions
+
 * Bug fix: multiValue-data not showed
+
 * Bug fix: subscriptions on identities didnt work
+
 * Tooltips rework
+
 * Bezier-curves instead of directed lines
+
 * Some minor refactoring/bug fixing
 
+
+
 0.1.1 -> 0.2.0
+
 * new branch 0.2.0
+
 * fixed: changed max-depth in subscriptionUpdate to 1
+
 * rework of the subscription-panel
+
 * rework of the datastructure
 
+
+
 0.1.0 -> 0.1.1
+
 * fixed: missing picture added
+
 * fixed: if the poll-thread isnt alive anymore, now we create a new thread instead of starting the old one again (a thread which run()-method is done, shouldn`t be start anymore)
+
 * added new certificates
+

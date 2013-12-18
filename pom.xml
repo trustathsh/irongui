@@ -8,18 +8,18 @@
 	</properties>
 
 	<!-- general project information -->
-	<groupId>de.fhhannover.inform.trust</groupId>
+	<groupId>de.hshannover.f4.trust</groupId>
 	<artifactId>irongui</artifactId>
-	<version>0.4.1</version>
+	<version>0.4.2</version>
 	<packaging>jar</packaging>
 	<name>irongui</name>
-	<url>http://trust.inform.fh-hannover.de</url>
+	<url>http://trust.f4.hs-hannover.de</url>
 	<description>
 		an IF-MAP 2.0 visualization client
 	</description>
 	<organization>
-		<name>Trust@FHH</name>
-		<url>http://trust.inform.fh-hannover.de</url>
+		<name>Trust@HsH</name>
+		<url>http://trust.f4.hs-hannover.de</url>
 	</organization>
 
 	<!-- the project license -->
@@ -34,32 +34,30 @@
 
 	<!-- the core developers of the project -->
 	<developers>
-		<developer>
-			<id>tr</id>
-			<name>Tobias Ruhe</name>
-			<email>tobias.ruhe@stud.fh-hannover.de</email>
-		</developer>
+    	<developer>
+    		<name>Trust@HsH</name>
+			<email>trust@f4-i.fh-hannover.de</email>
+    	</developer>
 	</developers>
 
 	<!-- the contributors of the project -->
 	<contributors>
 		<contributor>
+			<name>Tobias Ruhe</name>
+		</contributor>
+		<contributor>
 			<name>Bastian Hellmann</name>
-			<email>bastian.hellmann@hs-hannover.de</email>
 		</contributor>
 		<contributor>
 			<name>Arne Welzel</name>
-			<email>arne.welzel@googlemail.com</email>
 		</contributor>
 		<contributor>
 			<name>Ingo Bente</name>
-			<email>ingo.bente@hs-hannover.de</email>
 		</contributor>
 	</contributors>
 
 	<build>
 		<plugins>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -77,7 +75,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>de.fhhannover.inform.ifmap.Client</mainClass>
+							<mainClass>de.hshannover.f4.trust.irongui.Client</mainClass>
 							<addClasspath>true</addClasspath>
 						</manifest>
 						<manifestEntries>
@@ -108,21 +106,14 @@
 				<configuration>
 					<licenseName>apache_v2</licenseName>
 					<canUpdateDescription>true</canUpdateDescription>
+					<addJavaLicenseAfterPackage>false</addJavaLicenseAfterPackage>
 					<descriptionTemplate>${basedir}/src/license/description_template.ftl</descriptionTemplate>
 					<roots>
 						<root>src/main/java</root>
 						<root>src/test/java</root>
 					</roots>
 				</configuration>
-				<executions>
-					<execution>
-						<id>first</id>
-						<goals>
-							<goal>update-file-header</goal>
-						</goals>
-						<phase>process-sources</phase>
-					</execution>
-				</executions>
+
 			</plugin>
 
 		</plugins>
@@ -155,9 +146,9 @@
     	</dependency>
     	
 		<dependency>
-			<groupId>de.fhhannover.inform.trust</groupId>
+			<groupId>de.hshannover.f4.trust</groupId>
 			<artifactId>ifmapj</artifactId>
-			<version>0.1.5</version>
+			<version>1.0.0</version>
 		</dependency>
 	</dependencies>
 </project>
