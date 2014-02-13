@@ -18,10 +18,10 @@
  * Email: trust@f4-i.fh-hannover.de
  * Website: http://trust.f4.hs-hannover.de/
  * 
- * This file is part of irongui, version 0.4.2,
+ * This file is part of irongui, version 0.4.3,
  * implemented by the Trust@HsH research group at the Hochschule Hannover.
  * %%
- * Copyright (C) 2010 - 2013 Trust@HsH
+ * Copyright (C) 2010 - 2014 Trust@HsH
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -100,6 +100,7 @@ public class ConnectionDialog extends JFrame {
 	public JButton buttonClose;
 	public DefaultListModel mListModel;
 	public JCheckBox checkBoxDump;
+	public JCheckBox checkBoxAutoConnect;
 	public JList mConnectionList;
 	private JPanel panelCenter;
 	private JPanel panelParameter;
@@ -144,7 +145,8 @@ public class ConnectionDialog extends JFrame {
 			param.setBasicAuthEnabled(checkBoxBasicAuth.isSelected());
 			param.setBasicauthUser(textFieldUsername.getText().trim());
 			param.setBasicauthPass(new String(textFieldPassword.getPassword()));
-			param.setAutoSubscribe(checkBoxDump.isSelected());
+			param.setDump(checkBoxDump.isSelected());
+			param.setAutoConnect(checkBoxAutoConnect.isSelected());
 			try {
 				param.setMaxPollSize(Integer.parseInt(textFieldMaxPoll.getText().trim()));
 			}
@@ -198,7 +200,8 @@ public class ConnectionDialog extends JFrame {
 							.trim());
 					previousParam.setBasicauthPass(new String(textFieldPassword
 							.getPassword()));
-					previousParam.setAutoSubscribe(checkBoxDump.isSelected());
+					previousParam.setDump(checkBoxDump.isSelected());
+					previousParam.setAutoConnect(checkBoxAutoConnect.isSelected());
 					try {
 						previousParam.setMaxPollSize(Integer.parseInt(textFieldMaxPoll.getText().trim()));
 					}
@@ -238,7 +241,8 @@ public class ConnectionDialog extends JFrame {
 				else {
 					textFieldMaxPoll.setText(null);
 				}
-				checkBoxDump.setSelected(param.isAutoSubscribe());
+				checkBoxDump.setSelected(param.isDump());
+				checkBoxAutoConnect.setSelected(param.isAutoConnect());
 				labelUsername.setEnabled(param.isBasicAuthEnabled());
 				textFieldUsername.setEnabled(param.isBasicAuthEnabled());
 				labelPassword.setEnabled(param.isBasicAuthEnabled());
@@ -405,12 +409,12 @@ public class ConnectionDialog extends JFrame {
 		panelParameter.add(textFieldPassword);
 
 		buttonTest = new JButton("Test connection");
-		buttonTest.setBounds(145, 359, 123, 25);
+		buttonTest.setBounds(145, 380, 154, 25);
 		panelParameter.add(buttonTest);
 
 		testPanel = new JTextArea();
 		testPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		testPanel.setBounds(145, 397, 336, 166);
+		testPanel.setBounds(145, 413, 336, 150);
 		panelParameter.add(testPanel);
 		testPanel.setLayout(null);
 
@@ -420,9 +424,18 @@ public class ConnectionDialog extends JFrame {
 		panelParameter.add(lblDump);
 
 		checkBoxDump = new JCheckBox("");
-		checkBoxDump.setBounds(145, 325, 25, 25);
+		checkBoxDump.setBounds(145, 323, 25, 25);
 		panelParameter.add(checkBoxDump);
-		
+
+		JLabel lblAutoConnect = new JLabel("Connect on start");
+		lblAutoConnect.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblAutoConnect.setBounds(3, 349, 130, 27);
+		panelParameter.add(lblAutoConnect);
+
+		checkBoxAutoConnect = new JCheckBox("");
+		checkBoxAutoConnect.setBounds(145, 349, 25, 25);
+		panelParameter.add(checkBoxAutoConnect);
+
 		JLabel lblMaxpollsize = new JLabel("max-poll-result-size");
 		lblMaxpollsize.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblMaxpollsize.setBounds(3, 281, 130, 16);

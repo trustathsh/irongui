@@ -18,10 +18,10 @@
  * Email: trust@f4-i.fh-hannover.de
  * Website: http://trust.f4.hs-hannover.de/
  * 
- * This file is part of irongui, version 0.4.2,
+ * This file is part of irongui, version 0.4.3,
  * implemented by the Trust@HsH research group at the Hochschule Hannover.
  * %%
- * Copyright (C) 2010 - 2013 Trust@HsH
+ * Copyright (C) 2010 - 2014 Trust@HsH
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -67,11 +67,12 @@ public class PropertiesRepository {
 	private static String mFileName = ".irongui";
 	private static String defaultConfig =
 			"#Properties automatically stored by IRONGUI. DO NOT MANUALLY EDIT IT!\n" +
-			"#Sun Dec 04 23:31:47 CET 2011\n" +
+			"#Thu Feb 13 21:24:00 CET 2014\n" +
 			"irongui.user.connection.0.basicauth.enabled=true\n" +
 			"irongui.user.connection.0.basicauth.pass=visual\n" +
 			"irongui.user.connection.0.basicauth.user=visual\n" +
 			"irongui.user.connection.0.dumping.enabled=false\n" +
+			"irongui.user.connection.0.autoconnect.enabled=false\n" +			
 			"irongui.user.connection.0.keystore=./keystore/irongui.jks\n" +
 			"irongui.user.connection.0.keystorepass=irongui\n" +
 			"irongui.user.connection.0.name=default-irond-basicauth\n" +
@@ -82,6 +83,7 @@ public class PropertiesRepository {
 			"irongui.user.connection.1.basicauth.pass=\n" +
 			"irongui.user.connection.1.basicauth.user=\n" +
 			"irongui.user.connection.1.dumping.enabled=false\n" +
+			"irongui.user.connection.1.autoconnect.enabled=false\n" +
 			"irongui.user.connection.1.keystore=./keystore/irongui.jks\n" +
 			"irongui.user.connection.1.keystorepass=irongui\n" +
 			"irongui.user.connection.1.name=default-irond-cert\n" +

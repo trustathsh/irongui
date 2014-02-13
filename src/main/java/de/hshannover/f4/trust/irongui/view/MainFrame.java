@@ -18,10 +18,10 @@
  * Email: trust@f4-i.fh-hannover.de
  * Website: http://trust.f4.hs-hannover.de/
  * 
- * This file is part of irongui, version 0.4.2,
+ * This file is part of irongui, version 0.4.3,
  * implemented by the Trust@HsH research group at the Hochschule Hannover.
  * %%
- * Copyright (C) 2010 - 2013 Trust@HsH
+ * Copyright (C) 2010 - 2014 Trust@HsH
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -94,14 +94,12 @@ public class MainFrame extends JFrame {
 	private JMenuBar menuBar;
 	private JMenu mnConnection;
 	private JMenu mnEdit;
-	private JMenu mnAction;
 	private JMenuItem mntmManageConnections;
 	private JSeparator separator;
 	private JSeparator separator_1;
 	public JMenu menuConnectTo;
 	private JMenuItem mntmQuitProgram;
 	private JMenuItem mntmPublisherColor;
-	private JMenuItem mntmSubscribe;
 	private JMenu mnAbout;
 	private JMenuItem mntmIrongui;
 

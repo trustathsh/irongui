@@ -18,10 +18,10 @@
  * Email: trust@f4-i.fh-hannover.de
  * Website: http://trust.f4.hs-hannover.de/
  * 
- * This file is part of irongui, version 0.4.2,
+ * This file is part of irongui, version 0.4.3,
  * implemented by the Trust@HsH research group at the Hochschule Hannover.
  * %%
- * Copyright (C) 2010 - 2013 Trust@HsH
+ * Copyright (C) 2010 - 2014 Trust@HsH
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -65,6 +65,14 @@ import javax.swing.event.MenuListener;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 
+import de.hshannover.f4.trust.ifmapj.IfmapJ;
+import de.hshannover.f4.trust.ifmapj.exception.IfmapErrorResult;
+import de.hshannover.f4.trust.ifmapj.exception.IfmapException;
+import de.hshannover.f4.trust.ifmapj.identifier.Identifier;
+import de.hshannover.f4.trust.ifmapj.identifier.IdentifierFactory;
+import de.hshannover.f4.trust.ifmapj.identifier.IdentityType;
+import de.hshannover.f4.trust.ifmapj.identifier.IpAddress;
+import de.hshannover.f4.trust.irongui.Client;
 import de.hshannover.f4.trust.irongui.communication.Connection;
 import de.hshannover.f4.trust.irongui.communication.ConnectionFactory;
 import de.hshannover.f4.trust.irongui.communication.ConnectionParameter;
@@ -87,13 +95,6 @@ import de.hshannover.f4.trust.irongui.view.subscription.QuickSubscribeIdentity;
 import de.hshannover.f4.trust.irongui.view.subscription.QuickSubscribeIp;
 import de.hshannover.f4.trust.irongui.view.subscription.QuickSubscribeMac;
 import de.hshannover.f4.trust.irongui.view.subscription.QuickSubscribePanel;
-import de.hshannover.f4.trust.ifmapj.IfmapJ;
-import de.hshannover.f4.trust.ifmapj.exception.IfmapErrorResult;
-import de.hshannover.f4.trust.ifmapj.exception.IfmapException;
-import de.hshannover.f4.trust.ifmapj.identifier.Identifier;
-import de.hshannover.f4.trust.ifmapj.identifier.IdentifierFactory;
-import de.hshannover.f4.trust.ifmapj.identifier.IdentityType;
-import de.hshannover.f4.trust.ifmapj.identifier.IpAddress;
 
 public final class ViewController implements IdentifierChangedReceiver {
 
@@ -135,7 +136,7 @@ public final class ViewController implements IdentifierChangedReceiver {
 		// Main Frame
 		mMainFrame.setSize(INIT_WIDTH, INIT_HEIGHT);
 		mMainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		mMainFrame.setTitle("irongui 0.4.2");
+		mMainFrame.setTitle("irongui " + Client.VERSION);
 		mMainFrame.setIconImage(new ImageIcon(getClass().getClassLoader()
 				.getResource("esukom.png")).getImage());
 		// Fill datastructures
@@ -158,6 +159,10 @@ public final class ViewController implements IdentifierChangedReceiver {
 					}
 				});
 				mMainFrame.menuConnectTo.add(mi);
+				if (con.getConnectionParameters().isAutoConnect()) {
+					selectConnection(con);
+					toggleConnection();
+				}
 			}
 		}
 
@@ -338,7 +343,7 @@ public final class ViewController implements IdentifierChangedReceiver {
 			// erase subscribtions if dump is not enabled
 			String erased = null;
 			if (!mSelectedConnection.getConnectionParameters()
-					.isAutoSubscribe()) {
+					.isDump()) {
 				HashMap<String, IdentifierData> subscriptions = SubscriptionRepository
 						.getInstance().getSubscriptions(mSelectedConnection);
 				if (subscriptions != null && !subscriptions.isEmpty()) {
@@ -394,6 +399,7 @@ public final class ViewController implements IdentifierChangedReceiver {
 					IpAddress ipadrr;
 					if (ip.ip4.isSelected()) {
 						ipadrr = mIdentifierFactory.createIp4(ip_value);
+						
 					} else {
 						ipadrr = mIdentifierFactory.createIp6(ip_value);
 					}
@@ -522,7 +528,7 @@ public final class ViewController implements IdentifierChangedReceiver {
 				graph = mConnection2GraphPanel.get(mSelectedConnection);
 				if (!mSelectedConnection.isConnected()) {
 					if (mSelectedConnection.getConnectionParameters()
-							.isAutoSubscribe()) {
+							.isDump()) {
 						enableDump(true);
 					} else {
 						mIfmapFacade.startSession(mSelectedConnection);
@@ -548,7 +554,7 @@ public final class ViewController implements IdentifierChangedReceiver {
 								.removeSubscriptions(mSelectedConnection, keys);
 					}
 					if (mSelectedConnection.getConnectionParameters()
-							.isAutoSubscribe()) {
+							.isDump()) {
 						enableDump(false);
 					}
 					mIfmapFacade.stopSession(mSelectedConnection);

@@ -18,10 +18,10 @@
  * Email: trust@f4-i.fh-hannover.de
  * Website: http://trust.f4.hs-hannover.de/
  * 
- * This file is part of irongui, version 0.4.2,
+ * This file is part of irongui, version 0.4.3,
  * implemented by the Trust@HsH research group at the Hochschule Hannover.
  * %%
- * Copyright (C) 2010 - 2013 Trust@HsH
+ * Copyright (C) 2010 - 2014 Trust@HsH
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -58,7 +58,7 @@ public class ConnectionFactory {
 				params.getKeystorePass(), params.getTruststore(),
 				params.getTruststorePass(), params.isBasicAuthEnabled(),
 				params.getBasicauthUser(), params.getBasicauthPass(),
-				params.isAutoSubscribe(), params.getMaxPollSize());
+				params.isDump(), params.isAutoConnect(), params.getMaxPollSize());
 		return new Connection(tmp);
 	}
 
@@ -72,7 +72,7 @@ public class ConnectionFactory {
 	public static ConnectionParameter createConnectionParameter(String name,
 			String url, String keyPath, String keyPass, String trustPath,
 			String trustPass, boolean enableBasicAuth, String basicUser,
-			String basicPass, boolean autoSubscribe, int maxPoll)
+			String basicPass, boolean dump, boolean autoConnect, int maxPoll)
 			throws ConnectionCreationException {
 		/**
 		 * @TODO do checks here (null, path, passwords)
@@ -87,7 +87,8 @@ public class ConnectionFactory {
 		params.setBasicAuthEnabled(enableBasicAuth);
 		params.setBasicauthUser(basicUser);
 		params.setBasicauthPass(basicPass);
-		params.setAutoSubscribe(autoSubscribe);
+		params.setDump(dump);
+		params.setAutoConnect(autoConnect);
 		params.setMaxPollSize(maxPoll);
 		return params;
 	}

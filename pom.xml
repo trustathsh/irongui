@@ -10,7 +10,7 @@
 	<!-- general project information -->
 	<groupId>de.hshannover.f4.trust</groupId>
 	<artifactId>irongui</artifactId>
-	<version>0.4.2</version>
+	<version>0.4.3</version>
 	<packaging>jar</packaging>
 	<name>irongui</name>
 	<url>http://trust.f4.hs-hannover.de</url>
@@ -107,16 +107,23 @@
 					<licenseName>apache_v2</licenseName>
 					<canUpdateDescription>true</canUpdateDescription>
 					<addJavaLicenseAfterPackage>false</addJavaLicenseAfterPackage>
+					<canUpdateCopyright>false</canUpdateCopyright>
 					<descriptionTemplate>${basedir}/src/license/description_template.ftl</descriptionTemplate>
 					<roots>
 						<root>src/main/java</root>
 						<root>src/test/java</root>
 					</roots>
 				</configuration>
-
 			</plugin>
-
 		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<filtering>true</filtering>
+				<targetPath>../filtered-source/java</targetPath>
+			</resource>
+		</resources>
+		<sourceDirectory>target/filtered-source/java</sourceDirectory>
 	</build>
 
 	<repositories>

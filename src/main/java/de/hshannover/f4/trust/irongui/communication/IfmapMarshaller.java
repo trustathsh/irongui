@@ -18,10 +18,10 @@
  * Email: trust@f4-i.fh-hannover.de
  * Website: http://trust.f4.hs-hannover.de/
  * 
- * This file is part of irongui, version 0.4.2,
+ * This file is part of irongui, version 0.4.3,
  * implemented by the Trust@HsH research group at the Hochschule Hannover.
  * %%
- * Copyright (C) 2010 - 2013 Trust@HsH
+ * Copyright (C) 2010 - 2014 Trust@HsH
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -55,6 +55,10 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import de.hshannover.f4.trust.ifmapj.identifier.Identifier;
+import de.hshannover.f4.trust.ifmapj.messages.PollResult;
+import de.hshannover.f4.trust.ifmapj.messages.ResultItem;
+import de.hshannover.f4.trust.ifmapj.messages.SearchResult;
 import de.hshannover.f4.trust.irongui.datastructure.IdentifierData;
 import de.hshannover.f4.trust.irongui.datastructure.IfmapDataType;
 import de.hshannover.f4.trust.irongui.datastructure.Link;
@@ -64,10 +68,6 @@ import de.hshannover.f4.trust.irongui.datastructure.PollResultContainer;
 import de.hshannover.f4.trust.irongui.datastructure.SubscriptionRepository;
 import de.hshannover.f4.trust.irongui.exception.LinkConstructionException;
 import de.hshannover.f4.trust.irongui.exception.NoValidIdentifierTypeException;
-import de.hshannover.f4.trust.ifmapj.identifier.Identifier;
-import de.hshannover.f4.trust.ifmapj.messages.PollResult;
-import de.hshannover.f4.trust.ifmapj.messages.ResultItem;
-import de.hshannover.f4.trust.ifmapj.messages.SearchResult;
 
 public class IfmapMarshaller {
 
@@ -147,7 +147,7 @@ public class IfmapMarshaller {
 					} else {
 						id1 = (IdentifierData) delData;
 					}
-					if(con.getConnectionParameters().isAutoSubscribe()) {
+					if(con.getConnectionParameters().isDump()) {
 						if (data.equals(id1) || (id2 != null && data.equals(id2))) {
 							deleteResult.add(delData);
 						}

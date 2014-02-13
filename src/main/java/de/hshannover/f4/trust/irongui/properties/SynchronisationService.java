@@ -18,10 +18,10 @@
  * Email: trust@f4-i.fh-hannover.de
  * Website: http://trust.f4.hs-hannover.de/
  * 
- * This file is part of irongui, version 0.4.2,
+ * This file is part of irongui, version 0.4.3,
  * implemented by the Trust@HsH research group at the Hochschule Hannover.
  * %%
- * Copyright (C) 2010 - 2013 Trust@HsH
+ * Copyright (C) 2010 - 2014 Trust@HsH
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -169,8 +169,11 @@ public class SynchronisationService {
 					Config.USER_CONNECTIONS_COUNT.toString(),
 					String.valueOf(count + 1));
 			mPropertiesRep.setProperty(PREFIX
-					+ Config.USER_CONNECTIONS_AUTO_SUBSCRIBE,
-					p.isAutoSubscribe() ? "true" : "false");
+					+ Config.USER_CONNECTIONS_DUMP,
+					p.isDump() ? "true" : "false");
+			mPropertiesRep.setProperty(PREFIX
+					+ Config.USER_CONNECTIONS_AUTOCONNECT,
+					p.isAutoConnect() ? "true" : "false");
 			mPropertiesRep.setProperty(PREFIX
 					+ Config.USER_CONNECTIONS_MAX_POLL_SIZE, String.valueOf(p.getMaxPollSize()));
 		}
@@ -267,9 +270,13 @@ public class SynchronisationService {
 				+ Config.USER_CONNECTIONS_BASICAUTH_USER.toString()));
 		param.setBasicauthPass(mPropertiesRep.getProperty(PREFIX
 				+ Config.USER_CONNECTIONS_BASICAUTH_PASS.toString()));
-		param.setAutoSubscribe(mPropertiesRep
+		param.setDump(mPropertiesRep
 				.getProperty(
-						(PREFIX + Config.USER_CONNECTIONS_AUTO_SUBSCRIBE
+						(PREFIX + Config.USER_CONNECTIONS_DUMP
+								.toString())).equals("true") ? true : false);
+		param.setAutoConnect(mPropertiesRep
+				.getProperty(
+						(PREFIX + Config.USER_CONNECTIONS_AUTOCONNECT
 								.toString())).equals("true") ? true : false);
 		return param;
 	}

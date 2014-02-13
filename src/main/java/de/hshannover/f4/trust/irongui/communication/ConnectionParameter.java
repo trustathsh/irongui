@@ -18,10 +18,10 @@
  * Email: trust@f4-i.fh-hannover.de
  * Website: http://trust.f4.hs-hannover.de/
  * 
- * This file is part of irongui, version 0.4.2,
+ * This file is part of irongui, version 0.4.3,
  * implemented by the Trust@HsH research group at the Hochschule Hannover.
  * %%
- * Copyright (C) 2010 - 2013 Trust@HsH
+ * Copyright (C) 2010 - 2014 Trust@HsH
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -130,12 +130,20 @@ public class ConnectionParameter {
 		this.dumpFilter = dumpFilter;
 	}
 
-	public boolean isAutoSubscribe() {
-		return autoSubscribe;
+	public boolean isDump() {
+		return dump;
+	}
+	
+	public boolean isAutoConnect() {
+		return autoConnect;
 	}
 
-	public void setAutoSubscribe(boolean autoSubscribe) {
-		this.autoSubscribe = autoSubscribe;
+	public void setDump(boolean dump) {
+		this.dump = dump;
+	}
+	
+	public void setAutoConnect(boolean autoConnect) {
+		this.autoConnect = autoConnect;
 	}
 
 	public int getMaxPollSize() {
@@ -154,7 +162,8 @@ public class ConnectionParameter {
 		param.setKeystorePass(getKeystorePass());
 		param.setTruststore(getTruststore());
 		param.setTruststorePass(getTruststorePass());
-		param.setAutoSubscribe(isAutoSubscribe());
+		param.setDump(isDump());
+		param.setAutoConnect(isAutoConnect());
 		param.setBasicAuthEnabled(isBasicAuthEnabled());
 		param.setBasicauthUser(getBasicauthUser());
 		param.setBasicauthPass(getBasicauthPass());
@@ -178,7 +187,8 @@ public class ConnectionParameter {
 	private String basicauthUser;
 	private String basicauthPass;
 	private String dumpFilter;
-	private boolean autoSubscribe;
+	private boolean dump;
+	private boolean autoConnect;
 	private int maxPollSize;	
 
 }

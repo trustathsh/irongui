@@ -18,10 +18,10 @@
  * Email: trust@f4-i.fh-hannover.de
  * Website: http://trust.f4.hs-hannover.de/
  * 
- * This file is part of irongui, version 0.4.2,
+ * This file is part of irongui, version 0.4.3,
  * implemented by the Trust@HsH research group at the Hochschule Hannover.
  * %%
- * Copyright (C) 2010 - 2013 Trust@HsH
+ * Copyright (C) 2010 - 2014 Trust@HsH
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,13 +48,13 @@ import java.util.Collections;
 import java.util.Hashtable;
 import java.util.Map;
 
-import de.hshannover.f4.trust.irongui.datastructure.IdentifierConstants.IdentifierType;
 import de.hshannover.f4.trust.ifmapj.identifier.AccessRequest;
 import de.hshannover.f4.trust.ifmapj.identifier.Device;
 import de.hshannover.f4.trust.ifmapj.identifier.Identifier;
 import de.hshannover.f4.trust.ifmapj.identifier.Identity;
 import de.hshannover.f4.trust.ifmapj.identifier.IpAddress;
 import de.hshannover.f4.trust.ifmapj.identifier.MacAddress;
+import de.hshannover.f4.trust.irongui.datastructure.IdentifierConstants.IdentifierType;
 
 /**
  * Represents an IdentifierData
