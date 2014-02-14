@@ -64,10 +64,10 @@ import java.util.logging.Logger;
 public class PropertiesRepository {
 	private static Logger logger = Logger.getLogger("PropertiesRepository");
 	private static Properties props;
-	private static String mFileName = ".irongui";
+	private static String mFileName = "irongui.properties";
 	private static String defaultConfig =
 			"#Properties automatically stored by IRONGUI. DO NOT MANUALLY EDIT IT!\n" +
-			"#Thu Feb 13 21:24:00 CET 2014\n" +
+			"#Thu Feb 14 13:37:00 CET 2014\n" +
 			"irongui.user.connection.0.basicauth.enabled=true\n" +
 			"irongui.user.connection.0.basicauth.pass=visual\n" +
 			"irongui.user.connection.0.basicauth.user=visual\n" +
