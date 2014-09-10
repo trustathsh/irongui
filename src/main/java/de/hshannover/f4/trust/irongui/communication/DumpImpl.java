@@ -63,6 +63,8 @@ import de.hshannover.f4.trust.ifmapj.messages.RequestHandler;
 import de.hshannover.f4.trust.ifmapj.messages.RequestImpl;
 import de.hshannover.f4.trust.ifmapj.messages.Requests.Helpers;
 import de.hshannover.f4.trust.ifmapj.messages.Result;
+import de.hshannover.f4.trust.irongui.communication.DumpRequest;
+import de.hshannover.f4.trust.irongui.communication.DumpResult;
 
 class DumpRequestHandler implements RequestHandler<DumpRequest> {
 	
@@ -81,7 +83,7 @@ class DumpRequestHandler implements RequestHandler<DumpRequest> {
 		String identFilter = ((DumpRequest)req).getIdentifierFilter();
 		
 		Element ret = doc.createElementNS(Helpers.baseNsUri(),
-				DomHelpers.makeRequestFQName(DUMP_REQ_EL_NAME));
+				DomHelpers.makeRequestFqName(DUMP_REQ_EL_NAME));
 		
 		if (identFilter  != null)
 			DomHelpers.addAttribute(ret, DUMP_REQ_IDENT_FILTER, identFilter);

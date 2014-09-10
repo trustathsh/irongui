@@ -52,15 +52,12 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Semaphore;
 
-import javax.net.ssl.KeyManager;
-import javax.net.ssl.TrustManager;
-
-import de.hshannover.f4.trust.irongui.util.CryptoUtil;
 import de.hshannover.f4.trust.ifmapj.IfmapJ;
-import de.hshannover.f4.trust.ifmapj.IfmapJHelper;
 import de.hshannover.f4.trust.ifmapj.binding.IfmapStrings;
 import de.hshannover.f4.trust.ifmapj.channel.ARC;
 import de.hshannover.f4.trust.ifmapj.channel.SSRC;
+import de.hshannover.f4.trust.ifmapj.config.BasicAuthConfig;
+import de.hshannover.f4.trust.ifmapj.config.CertAuthConfig;
 import de.hshannover.f4.trust.ifmapj.exception.EndSessionException;
 import de.hshannover.f4.trust.ifmapj.exception.IfmapErrorResult;
 import de.hshannover.f4.trust.ifmapj.exception.IfmapException;
@@ -72,6 +69,9 @@ import de.hshannover.f4.trust.ifmapj.messages.Result;
 import de.hshannover.f4.trust.ifmapj.messages.SubscribeDelete;
 import de.hshannover.f4.trust.ifmapj.messages.SubscribeRequest;
 import de.hshannover.f4.trust.ifmapj.messages.SubscribeUpdate;
+import de.hshannover.f4.trust.irongui.communication.DumpRequest;
+import de.hshannover.f4.trust.irongui.communication.DumpResult;
+import de.hshannover.f4.trust.irongui.util.CryptoUtil;
 
 public class IfmapCommunication {
 
@@ -90,13 +90,12 @@ public class IfmapCommunication {
 			String trustPath, String trustPass, boolean enableBasicAuth,
 			String basicUser, String basicPass, int mp)
 			throws InitializationException {
-		TrustManager[] tms = IfmapJHelper
-				.getTrustManagers(trustPath, trustPass);
 		if (enableBasicAuth) {
-			mSSRC = IfmapJ.createSSRC(url, basicUser, basicPass, tms);
+			BasicAuthConfig basicConfig = new BasicAuthConfig(url, basicUser, basicPass, trustPath, trustPass);
+			mSSRC = IfmapJ.createSsrc(basicConfig);
 		} else {
-			KeyManager[] kms = IfmapJHelper.getKeyManagers(keyPath, keyPass);
-			mSSRC = IfmapJ.createSSRC(url, kms, tms);
+			CertAuthConfig certConfig = new CertAuthConfig(url, trustPath, trustPass, trustPath, trustPass);
+			mSSRC = IfmapJ.createSsrc(certConfig);
 		}
 		mSemaphore = new Semaphore(1);
 		maxPoll = mp;
