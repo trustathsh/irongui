@@ -73,10 +73,10 @@ public class PropertiesRepository {
 			"irongui.user.connection.0.basicauth.user=visual\n" +
 			"irongui.user.connection.0.dumping.enabled=false\n" +
 			"irongui.user.connection.0.autoconnect.enabled=false\n" +			
-			"irongui.user.connection.0.keystore=./keystore/irongui.jks\n" +
+			"irongui.user.connection.0.keystore=/keystore/irongui.jks\n" +
 			"irongui.user.connection.0.keystorepass=irongui\n" +
 			"irongui.user.connection.0.name=default-irond-basicauth\n" +
-			"irongui.user.connection.0.truststore=./keystore/irongui.jks\n" +
+			"irongui.user.connection.0.truststore=/keystore/irongui.jks\n" +
 			"irongui.user.connection.0.truststorepass=irongui\n" +
 			"irongui.user.connection.0.url=https\\://localhost\\:8443/\n" +
 			"irongui.user.connection.1.basicauth.enabled=false\n" +
@@ -84,10 +84,10 @@ public class PropertiesRepository {
 			"irongui.user.connection.1.basicauth.user=\n" +
 			"irongui.user.connection.1.dumping.enabled=false\n" +
 			"irongui.user.connection.1.autoconnect.enabled=false\n" +
-			"irongui.user.connection.1.keystore=./keystore/irongui.jks\n" +
+			"irongui.user.connection.1.keystore=/keystore/irongui.jks\n" +
 			"irongui.user.connection.1.keystorepass=irongui\n" +
 			"irongui.user.connection.1.name=default-irond-cert\n" +
-			"irongui.user.connection.1.truststore=./keystore/irongui.jks\n" +
+			"irongui.user.connection.1.truststore=/keystore/irongui.jks\n" +
 			"irongui.user.connection.1.truststorepass=irongui\n" +
 			"irongui.user.connection.1.url=https\\://localhost\\:8444/\n" +
 			"irongui.user.connectioncount=2\n";
