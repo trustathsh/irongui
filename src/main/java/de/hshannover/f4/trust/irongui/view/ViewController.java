@@ -7,17 +7,17 @@
  *    | | | |  | |_| \__ \ |_| | (_| |  _  |\__ \|  _  |
  *    |_| |_|   \__,_|___/\__|\ \__,_|_| |_||___/|_| |_|
  *                             \____/
- * 
+ *
  * =====================================================
- * 
+ *
  * Hochschule Hannover
  * (University of Applied Sciences and Arts, Hannover)
  * Faculty IV, Dept. of Computer Science
  * Ricklinger Stadtweg 118, 30459 Hannover, Germany
- * 
+ *
  * Email: trust@f4-i.fh-hannover.de
  * Website: http://trust.f4.hs-hannover.de/
- * 
+ *
  * This file is part of irongui, version 0.4.4,
  * implemented by the Trust@HsH research group at the Hochschule Hannover.
  * %%
@@ -26,9 +26,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -65,11 +65,10 @@ import javax.swing.event.MenuListener;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 
-import de.hshannover.f4.trust.ifmapj.IfmapJ;
 import de.hshannover.f4.trust.ifmapj.exception.IfmapErrorResult;
 import de.hshannover.f4.trust.ifmapj.exception.IfmapException;
 import de.hshannover.f4.trust.ifmapj.identifier.Identifier;
-import de.hshannover.f4.trust.ifmapj.identifier.IdentifierFactory;
+import de.hshannover.f4.trust.ifmapj.identifier.Identifiers;
 import de.hshannover.f4.trust.ifmapj.identifier.IdentityType;
 import de.hshannover.f4.trust.ifmapj.identifier.IpAddress;
 import de.hshannover.f4.trust.irongui.Client;
@@ -108,7 +107,6 @@ public final class ViewController implements IdentifierChangedReceiver {
 	private HashMap<Connection, TreePanel> mConnection2TreePanel;
 	private Connection mSelectedConnection;
 	private JPopupMenu mQuickPopup;
-	private IdentifierFactory mIdentifierFactory;
 
 	private JMenu menu1;
 	private JMenu menu2;
@@ -125,7 +123,6 @@ public final class ViewController implements IdentifierChangedReceiver {
 		mMainFrame = new MainFrame(this);
 		mConDialog = new ConnectionDialog(null);
 		mSubDialog = new SubscribeDialog();
-		mIdentifierFactory = IfmapJ.createIdentifierFactory();
 		mConnection2GraphPanel = new HashMap<Connection, GraphPanel>();
 		mGraphPanel2Connection = new HashMap<GraphPanel, Connection>();
 		mConnection2TreePanel = new HashMap<Connection, TreePanel>();
@@ -363,7 +360,7 @@ public final class ViewController implements IdentifierChangedReceiver {
 					graph.reset();
 					graph.clearTable();
 					mConnection2TreePanel.get(mSelectedConnection)
-							.removeAllNodes();
+					.removeAllNodes();
 				}
 			}
 			String uuid = mIfmapFacade.subscribe(mSelectedConnection,
@@ -397,15 +394,20 @@ public final class ViewController implements IdentifierChangedReceiver {
 				String ip_admin = ip.textFieldDomain.getText().trim();
 				if (!ip_value.equals("")) {
 					IpAddress ipadrr;
-					if (ip.ip4.isSelected()) {
-						ipadrr = mIdentifierFactory.createIp4(ip_value);
-						
-					} else {
-						ipadrr = mIdentifierFactory.createIp6(ip_value);
-					}
 					if (!ip_admin.equals("")) {
-						ipadrr.setAdministrativeDomain(ip_admin);
+						if (ip.ip4.isSelected()) {
+							ipadrr = Identifiers.createIp4(ip_value, ip_admin);
+						} else {
+							ipadrr = Identifiers.createIp6(ip_value, ip_admin);
+						}
+					} else {
+						if (ip.ip4.isSelected()) {
+							ipadrr = Identifiers.createIp4(ip_value);
+						} else {
+							ipadrr = Identifiers.createIp6(ip_value);
+						}
 					}
+
 					ident = ipadrr;
 				}
 			} else if (menu2.isSelected()) {
@@ -415,7 +417,7 @@ public final class ViewController implements IdentifierChangedReceiver {
 				String mac_val = mac.textFieldValue.getText().trim();
 				String mac_admin = mac.textFieldDomain.getText().trim();
 				if (!mac_val.equals("")) {
-					ident = mIdentifierFactory.createMac(mac_val, mac_admin);
+					ident = Identifiers.createMac(mac_val, mac_admin);
 				}
 			} else if (menu3.isSelected()) {
 				pan = (QuickSubscribePanel) menu3.getMenuComponent(0);
@@ -424,7 +426,7 @@ public final class ViewController implements IdentifierChangedReceiver {
 				String name = ar.textFieldName.getText().trim();
 				String admin = ar.textFieldAdmin.getText().trim();
 				if (!name.equals("")) {
-					ident = mIdentifierFactory.createAr(name, admin);
+					ident = Identifiers.createAr(name);
 				}
 			} else if (menu4.isSelected()) {
 				pan = (QuickSubscribePanel) menu4.getMenuComponent(0);
@@ -435,15 +437,14 @@ public final class ViewController implements IdentifierChangedReceiver {
 				String admin = id.textFieldDomain.getText().trim();
 
 				if (!name.equals("")) {
-					String type = id.type.getSelection().getActionCommand();
-					if (type.equals(IdentityType.other.toString())) {
+					String typeAsString = id.type.getSelection().getActionCommand();
+					if (typeAsString.equals(IdentityType.other.toString())) {
 						if (!other.equals("")) {
-							ident = mIdentifierFactory.createIdentity(name,
-									admin, other);
+							ident = Identifiers.createOtherIdentity(name, admin, other);
 						}
 					} else {
-						ident = mIdentifierFactory.createIdentity(type, name,
-								admin);
+						IdentityType type = Identifiers.getIdentityType(typeAsString);
+						ident = Identifiers.createIdentity(type, name, admin);
 					}
 				}
 
@@ -453,7 +454,7 @@ public final class ViewController implements IdentifierChangedReceiver {
 						.getQuickComponent();
 				String dev_val = dev.textFieldName.getText().trim();
 				if (!dev_val.equals("")) {
-					ident = mIdentifierFactory.createDev(dev_val);
+					ident = Identifiers.createDev(dev_val);
 				}
 			}
 		}
@@ -480,8 +481,8 @@ public final class ViewController implements IdentifierChangedReceiver {
 		mConDialog.addConnections(cons);
 		mConDialog.setLocationRelativeTo(null);
 		mConDialog
-				.setSelectedConnection((Connection) mMainFrame.navigationPanel.panelList
-						.getSelectedValue());
+		.setSelectedConnection((Connection) mMainFrame.navigationPanel.panelList
+				.getSelectedValue());
 		mConDialog.setVisible(true);
 	}
 
@@ -492,7 +493,7 @@ public final class ViewController implements IdentifierChangedReceiver {
 		if (con != null) {
 			if (mMainFrame.navigationPanel.buttonTree.isSelected()) {
 				mMainFrame.navigationPanel
-						.removeView(mMainFrame.navigationPanel.panelTree);
+				.removeView(mMainFrame.navigationPanel.panelTree);
 				TreePanel tree = mConnection2TreePanel.get(con);
 				mMainFrame.navigationPanel.addView(tree);
 				mMainFrame.navigationPanel.panelTree = mConnection2TreePanel
@@ -551,7 +552,7 @@ public final class ViewController implements IdentifierChangedReceiver {
 						final String[] keys = subs.keySet().toArray(
 								new String[0]);
 						SubscriptionRepository.getInstance()
-								.removeSubscriptions(mSelectedConnection, keys);
+						.removeSubscriptions(mSelectedConnection, keys);
 					}
 					if (mSelectedConnection.getConnectionParameters()
 							.isDump()) {
@@ -564,16 +565,16 @@ public final class ViewController implements IdentifierChangedReceiver {
 					graph.enableAnimation(true);
 					mMainFrame.metadataPanel.label.setText("");
 					mConnection2TreePanel.get(mSelectedConnection)
-							.removeAllNodes();
+					.removeAllNodes();
 					mMainFrame.navigationPanel.revalidate();
 					mMainFrame.status.setText("Session "
 							+ mSelectedConnection.getEndpoint() + "terminated");
 					mMainFrame.navigationPanel.panelList.updateUI();
 					graph.updateUI();
-					graph.repaint();					
+					graph.repaint();
 				}
 				mMainFrame.navigationPanel.buttonPlay
-						.setSelected(mSelectedConnection.isConnected());
+				.setSelected(mSelectedConnection.isConnected());
 				mMainFrame.toolbarPanel.buttonAnimation.setSelected(!graph.isAnimationEnabled());
 			}
 
@@ -593,8 +594,8 @@ public final class ViewController implements IdentifierChangedReceiver {
 	}
 
 	public void enableDump(boolean enable) throws FileNotFoundException,
-			PropertiesNotFoundException, IOException, IfmapErrorResult,
-			IfmapException, InterruptedException {
+	PropertiesNotFoundException, IOException, IfmapErrorResult,
+	IfmapException, InterruptedException {
 		if (mSelectedConnection != null) {
 			if (enable) {
 				mIfmapFacade.startSession(mSelectedConnection);
@@ -633,7 +634,7 @@ public final class ViewController implements IdentifierChangedReceiver {
 		mMainFrame.navigationPanel.buttonPlay.setSelected(con.isConnected());
 		mSelectedConnection = con;
 	}
-	
+
 	public void selectConnection(Connection con) {
 		GraphPanel graph = mConnection2GraphPanel.get(con);
 		if (graph == null) {
@@ -659,11 +660,12 @@ public final class ViewController implements IdentifierChangedReceiver {
 		boolean b = false;
 		for (int i = 0; i < mMainFrame.tabbedPane.getTabCount(); i++) {
 			Component c = mMainFrame.tabbedPane.getComponentAt(i);
-			if (c == graph)
+			if (c == graph) {
 				b = true;
+			}
 		}
 
-		if (!b) {			
+		if (!b) {
 			mMainFrame.tabbedPane.addTab(con.getName(), new ImageIcon(
 					getClass().getClassLoader().getResource("tabConnect.png")),
 					graph, con.getName());
@@ -673,7 +675,7 @@ public final class ViewController implements IdentifierChangedReceiver {
 		}
 
 		mMainFrame.tabbedPane.setSelectedComponent(graph);
-		
+
 		mMainFrame.navigationPanel.buttonPlay.setSelected(con.isConnected());
 		mMainFrame.toolbarPanel.buttonAnimation.setSelected(!graph.isAnimationEnabled());
 		graph.revalidate();
@@ -691,7 +693,7 @@ public final class ViewController implements IdentifierChangedReceiver {
 			}
 		}
 		mMainFrame.navigationPanel.updateUI();
-		
+
 	}
 
 	public void conButtonClicked() {
@@ -725,7 +727,7 @@ public final class ViewController implements IdentifierChangedReceiver {
 			p.toggleAnimation();
 		}
 	}
-	
+
 	@Override
 	public void processNewPollResult(Connection con,
 			ArrayList<IfmapDataType> newData,
@@ -738,7 +740,7 @@ public final class ViewController implements IdentifierChangedReceiver {
 				TreePanel tree = mConnection2TreePanel.get(con);
 				tree.processNewPollResult(newData, updateData, deleteData);
 				mPubDialog
-						.processNewPollResult(newData, updateData, deleteData);
+				.processNewPollResult(newData, updateData, deleteData);
 				graph.centerGraph();
 			}
 		}
