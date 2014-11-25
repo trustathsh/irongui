@@ -37,11 +37,7 @@
  * #L%
  */
 
-
-
 package de.hshannover.f4.trust.irongui.communication;
-
-
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -63,63 +59,63 @@ import de.hshannover.f4.trust.ifmapj.messages.RequestHandler;
 import de.hshannover.f4.trust.ifmapj.messages.RequestImpl;
 import de.hshannover.f4.trust.ifmapj.messages.Requests.Helpers;
 import de.hshannover.f4.trust.ifmapj.messages.Result;
-import de.hshannover.f4.trust.irongui.communication.DumpRequest;
-import de.hshannover.f4.trust.irongui.communication.DumpResult;
 
 class DumpRequestHandler implements RequestHandler<DumpRequest> {
-	
-	DumpRequestHandler() { }
-	
+
+	DumpRequestHandler() {
+	}
+
 	public static final String DUMP_REQ_EL_NAME = "dump";
 	public static final String DUMP_REQ_IDENT_FILTER = "identifier";
 	public static final String DUMP_RES_EL_NAME = "dumpResult";
 	public static final String DUMP_RES_LAST_UPDATE_ATTRIB = "last-update";
 
-
 	@Override
 	public Element toElement(Request req, Document doc) throws MarshalException {
-		
+
 		Helpers.checkRequestType(req, this);
-		String identFilter = ((DumpRequest)req).getIdentifierFilter();
-		
+		String identFilter = ((DumpRequest) req).getIdentifierFilter();
+
 		Element ret = doc.createElementNS(Helpers.baseNsUri(),
 				DomHelpers.makeRequestFqName(DUMP_REQ_EL_NAME));
-		
-		if (identFilter  != null)
+
+		if (identFilter != null) {
 			DomHelpers.addAttribute(ret, DUMP_REQ_IDENT_FILTER, identFilter);
-		
+		}
+
 		Helpers.addSessionId(ret, req);
-		
+
 		return ret;
 	}
 
 	@Override
 	public Result fromElement(Element res) throws UnmarshalException,
 			IfmapErrorResult {
-		
+
 		Element content = Helpers.getResponseContentErrorCheck(res);
 		Attr lastUpdateNode = null;
 		String lastUpdate = null;
 		List<Element> children;
 		List<Identifier> resIdents = new ArrayList<Identifier>();
 
-		if (!DomHelpers.elementMatches(content, DUMP_RES_EL_NAME))
+		if (!DomHelpers.elementMatches(content, DUMP_RES_EL_NAME)) {
 			throw new UnmarshalException("No dumpResult element found");
-			
+		}
 
 		lastUpdateNode = content.getAttributeNode(DUMP_RES_LAST_UPDATE_ATTRIB);
-		
-		if (lastUpdateNode == null)
-			throw new UnmarshalException("No " + DUMP_RES_LAST_UPDATE_ATTRIB +
-					" attribute in " + DUMP_RES_EL_NAME + " element found");
-		
+
+		if (lastUpdateNode == null) {
+			throw new UnmarshalException("No " + DUMP_RES_LAST_UPDATE_ATTRIB
+					+ " attribute in " + DUMP_RES_EL_NAME + " element found");
+		}
+
 		lastUpdate = content.getAttribute(DUMP_RES_LAST_UPDATE_ATTRIB);
-		
+
 		children = DomHelpers.getChildElements(content);
-		
+
 		for (Element child : children)
 			resIdents.add((Identifiers.fromElement(child)));
-		
+
 		return new DumpResultImpl(lastUpdate, resIdents);
 	}
 
@@ -130,9 +126,9 @@ class DumpRequestHandler implements RequestHandler<DumpRequest> {
 }
 
 class DumpRequestImpl extends RequestImpl implements DumpRequest {
-	
+
 	private String mIdentifierFilter;
-	
+
 	DumpRequestImpl(String identFilter) {
 		mIdentifierFilter = identFilter;
 	}
@@ -153,19 +149,19 @@ class DumpRequestImpl extends RequestImpl implements DumpRequest {
 }
 
 class DumpResultImpl implements DumpResult {
-	
-	private final String mLastUpdate;
-	
-	private final Collection<Identifier> mIdentifiers;
-	
-	DumpResultImpl(String lastUpdate, Collection<Identifier> identifiers) {
-		
-		if (identifiers == null)
-			throw new NullPointerException("identifiers list is null");
-		
-		if (lastUpdate == null)
-			throw new NullPointerException("lastUpdate is null");
 
+	private final String mLastUpdate;
+
+	private final Collection<Identifier> mIdentifiers;
+
+	DumpResultImpl(String lastUpdate, Collection<Identifier> identifiers) {
+
+		if (identifiers == null) {
+			throw new NullPointerException("identifiers list is null");
+		}
+		if (lastUpdate == null) {
+			throw new NullPointerException("lastUpdate is null");
+		}
 		mLastUpdate = lastUpdate;
 		mIdentifiers = identifiers;
 	}

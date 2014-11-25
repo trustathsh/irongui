@@ -37,12 +37,7 @@
  * #L%
  */
 
-
-
 package de.hshannover.f4.trust.irongui.view.subscription;
-
-
-
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -57,8 +52,8 @@ import javax.swing.border.MatteBorder;
 
 public class QuickSubscribeDevice extends JPanel {
 	private static final long serialVersionUID = 5529174098936914L;
-	public JTextField textFieldName;
-	private JPanel panel;
+	public JTextField mTextFieldName;
+	private JPanel mPanel;
 
 	/**
 	 * Create the panel.
@@ -66,31 +61,31 @@ public class QuickSubscribeDevice extends JPanel {
 	public QuickSubscribeDevice() {
 		setBorder(new MatteBorder(1, 1, 1, 1, (Color) null));
 		setLayout(new BorderLayout(5, 5));
-		
-		panel = new JPanel();
-		add(panel, BorderLayout.CENTER);
-		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{69, 136};
-		
-		gbl_panel.columnWeights = new double[]{0.0, 0.0};
-		gbl_panel.rowWeights = new double[]{0.0};
-		panel.setLayout(gbl_panel);
-		
+
+		mPanel = new JPanel();
+		add(mPanel, BorderLayout.CENTER);
+		GridBagLayout gblPanel = new GridBagLayout();
+		gblPanel.columnWidths = new int[] { 69, 136 };
+
+		gblPanel.columnWeights = new double[] { 0.0, 0.0 };
+		gblPanel.rowWeights = new double[] { 0.0 };
+		mPanel.setLayout(gblPanel);
+
 		JLabel lblName = new JLabel("name");
-		GridBagConstraints gbc_lblName = new GridBagConstraints();
-		gbc_lblName.anchor = GridBagConstraints.EAST;
-		gbc_lblName.insets = new Insets(0, 0, 0, 5);
-		gbc_lblName.gridx = 0;
-		gbc_lblName.gridy = 0;
-		panel.add(lblName, gbc_lblName);
-		
-		textFieldName = new JTextField();
-		GridBagConstraints gbc_textFieldName = new GridBagConstraints();
-		gbc_textFieldName.anchor = GridBagConstraints.WEST;
-		gbc_textFieldName.gridx = 1;
-		gbc_textFieldName.gridy = 0;
-		panel.add(textFieldName, gbc_textFieldName);
-		textFieldName.setColumns(10);
+		GridBagConstraints gbcLblName = new GridBagConstraints();
+		gbcLblName.anchor = GridBagConstraints.EAST;
+		gbcLblName.insets = new Insets(0, 0, 0, 5);
+		gbcLblName.gridx = 0;
+		gbcLblName.gridy = 0;
+		mPanel.add(lblName, gbcLblName);
+
+		mTextFieldName = new JTextField();
+		GridBagConstraints gbcTextFieldName = new GridBagConstraints();
+		gbcTextFieldName.anchor = GridBagConstraints.WEST;
+		gbcTextFieldName.gridx = 1;
+		gbcTextFieldName.gridy = 0;
+		mPanel.add(mTextFieldName, gbcTextFieldName);
+		mTextFieldName.setColumns(10);
 
 	}
 

@@ -37,12 +37,7 @@
  * #L%
  */
 
-
-
 package de.hshannover.f4.trust.irongui.view;
-
-
-
 
 import java.awt.Color;
 import java.awt.Component;
@@ -108,11 +103,11 @@ public final class ViewController implements IdentifierChangedReceiver {
 	private Connection mSelectedConnection;
 	private JPopupMenu mQuickPopup;
 
-	private JMenu menu1;
-	private JMenu menu2;
-	private JMenu menu3;
-	private JMenu menu4;
-	private JMenu menu5;
+	private JMenu mMenu1;
+	private JMenu mMenu2;
+	private JMenu mMenu3;
+	private JMenu mMenu4;
+	private JMenu mMenu5;
 
 	private final int INIT_WIDTH = 1024;
 	private final int INIT_HEIGHT = 768;
@@ -139,7 +134,7 @@ public final class ViewController implements IdentifierChangedReceiver {
 		// Fill datastructures
 		final Connection[] cons = mIfmapFacade.getConnections();
 		if (cons != null && cons.length > 0) {
-			DefaultListModel lm = (DefaultListModel) mMainFrame.navigationPanel.panelList
+			DefaultListModel lm = (DefaultListModel) mMainFrame.mNavigationPanel.mPanelList
 					.getModel();
 			for (int i = 0; i < cons.length; i++) {
 				final Connection con = cons[i];
@@ -155,7 +150,7 @@ public final class ViewController implements IdentifierChangedReceiver {
 						toggleConnection();
 					}
 				});
-				mMainFrame.menuConnectTo.add(mi);
+				mMainFrame.mMenuConnectTo.add(mi);
 				if (con.getConnectionParameters().isAutoConnect()) {
 					selectConnection(con);
 					toggleConnection();
@@ -168,7 +163,7 @@ public final class ViewController implements IdentifierChangedReceiver {
 				mIfmapFacade.getDefaultMetadataColor());
 
 		// Menu connections
-		mMainFrame.menuConnectTo.addMenuListener(new MenuListener() {
+		mMainFrame.mMenuConnectTo.addMenuListener(new MenuListener() {
 			@Override
 			public void menuCanceled(MenuEvent arg0) {
 				// TODO Auto-generated method stub
@@ -183,7 +178,7 @@ public final class ViewController implements IdentifierChangedReceiver {
 
 			@Override
 			public void menuSelected(MenuEvent arg0) {
-				mMainFrame.menuConnectTo.removeAll();
+				mMainFrame.mMenuConnectTo.removeAll();
 				final Connection[] cons = mIfmapFacade.getConnections();
 				for (int i = 0; i < cons.length; i++) {
 					final Connection con = cons[i];
@@ -198,13 +193,11 @@ public final class ViewController implements IdentifierChangedReceiver {
 					});
 					if (con.isConnected()) {
 						mi.setEnabled(false);
-						mi.setIcon(ResourceHelper
-								.getImage("bullet_green.png"));
+						mi.setIcon(ResourceHelper.getImage("bullet_green.png"));
 					} else {
-						mi.setIcon(ResourceHelper
-								.getImage("bullet_red.png"));
+						mi.setIcon(ResourceHelper.getImage("bullet_red.png"));
 					}
-					mMainFrame.menuConnectTo.add(mi);
+					mMainFrame.mMenuConnectTo.add(mi);
 				}
 			}
 		});
@@ -222,24 +215,24 @@ public final class ViewController implements IdentifierChangedReceiver {
 		// Conn. Test
 		mConDialog.buttonTest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				mConDialog.testPanel.setText(null);
-				mConDialog.testPanel.setLineWrap(true);
+				mConDialog.mTestPanel.setText(null);
+				mConDialog.mTestPanel.setLineWrap(true);
 				mConDialog.buttonTest.setEnabled(false);
 				saveConnections();
 				ConnectionParameter param = (ConnectionParameter) mConDialog.mConnectionList
 						.getSelectedValue();
 				try {
 					Connection con = ConnectionFactory.createConnection(param);
-					mConDialog.testPanel.append("Trying newSession...");
+					mConDialog.mTestPanel.append("Trying newSession...");
 					mIfmapFacade.startSession(con);
-					mConDialog.testPanel.append("ok!\r\n");
-					mConDialog.testPanel.append("PID: " + con.getPublisherID()
-							+ "\r\nSID: " + con.getSessionID() + "\r\n");
-					mConDialog.testPanel.append("Trying endSession...");
+					mConDialog.mTestPanel.append("ok!\r\n");
+					mConDialog.mTestPanel.append("PID: " + con.getPublisherId()
+							+ "\r\nSID: " + con.getSessionId() + "\r\n");
+					mConDialog.mTestPanel.append("Trying endSession...");
 					mIfmapFacade.stopSession(con);
-					mConDialog.testPanel.append("ok!");
+					mConDialog.mTestPanel.append("ok!");
 				} catch (Exception e) {
-					mConDialog.testPanel.append("\r\n\r\nException: "
+					mConDialog.mTestPanel.append("\r\n\r\nException: "
 							+ e.getLocalizedMessage());
 					mConDialog.buttonTest.setEnabled(true);
 					e.printStackTrace();
@@ -249,7 +242,7 @@ public final class ViewController implements IdentifierChangedReceiver {
 			}
 		});
 		// Subs. Dialog
-		mSubDialog.buttonSubscribe.addActionListener(new ActionListener() {
+		mSubDialog.mButtonSubscribe.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent evt) {
@@ -268,19 +261,19 @@ public final class ViewController implements IdentifierChangedReceiver {
 
 		// Publisher Dialog
 
-		mPubDialog.okButton.addActionListener(new ActionListener() {
+		mPubDialog.mOkButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				HashMap<String, Color> publisher = mPubDialog.getPublisher();
-				Color default_id = mPubDialog.getDefaultIdentifierColor();
-				Color default_me = mPubDialog.getDefaultMetadataColor();
+				Color defaultId = mPubDialog.getDefaultIdentifierColor();
+				Color defaultMe = mPubDialog.getDefaultMetadataColor();
 				Collection<GraphPanel> graphs = mConnection2GraphPanel.values();
 				for (GraphPanel g : graphs) {
-					g.setNewMetadataColorAction(publisher, default_id,
-							default_me);
+					g.setNewMetadataColorAction(publisher, defaultId,
+							defaultMe);
 				}
-				mIfmapFacade.addPublisher(publisher, default_id, default_me);
+				mIfmapFacade.addPublisher(publisher, defaultId, defaultMe);
 				mPubDialog.setVisible(false);
 			}
 		});
@@ -298,37 +291,37 @@ public final class ViewController implements IdentifierChangedReceiver {
 
 			@Override
 			public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
-				mMainFrame.navigationPanel.buttonSubscribe.setSelected(false);
+				mMainFrame.mNavigationPanel.mButtonSubscribe.setSelected(false);
 			}
 
 			@Override
 			public void popupMenuCanceled(PopupMenuEvent e) {
-				mMainFrame.navigationPanel.buttonSubscribe.setSelected(false);
+				mMainFrame.mNavigationPanel.mButtonSubscribe.setSelected(false);
 			}
 		});
 
-		menu1 = new JMenu("ip-address");
-		menu2 = new JMenu("mac-address");
-		menu3 = new JMenu("access-request");
-		menu4 = new JMenu("identity");
-		menu5 = new JMenu("device");
+		mMenu1 = new JMenu("ip-address");
+		mMenu2 = new JMenu("mac-address");
+		mMenu3 = new JMenu("access-request");
+		mMenu4 = new JMenu("identity");
+		mMenu5 = new JMenu("device");
 
-		menu1.add(new QuickSubscribePanel(new QuickSubscribeIp(), this));
-		menu2.add(new QuickSubscribePanel(new QuickSubscribeMac(), this));
-		menu3.add(new QuickSubscribePanel(new QuickSubscribeAccessRequest(),
+		mMenu1.add(new QuickSubscribePanel(new QuickSubscribeIp(), this));
+		mMenu2.add(new QuickSubscribePanel(new QuickSubscribeMac(), this));
+		mMenu3.add(new QuickSubscribePanel(new QuickSubscribeAccessRequest(),
 				this));
-		menu4.add(new QuickSubscribePanel(new QuickSubscribeIdentity(), this));
-		menu5.add(new QuickSubscribePanel(new QuickSubscribeDevice(), this));
+		mMenu4.add(new QuickSubscribePanel(new QuickSubscribeIdentity(), this));
+		mMenu5.add(new QuickSubscribePanel(new QuickSubscribeDevice(), this));
 
 		// Object preventHide =
 		// qIdent.comboBoxKey.getClientProperty("doNotCancelPopup");
 		// mQuickPopup.putClientProperty("doNotCancelPopup",preventHide);
 
-		mQuickPopup.add(menu1);
-		mQuickPopup.add(menu2);
-		mQuickPopup.add(menu3);
-		mQuickPopup.add(menu4);
-		mQuickPopup.add(menu5);
+		mQuickPopup.add(mMenu1);
+		mQuickPopup.add(mMenu2);
+		mQuickPopup.add(mMenu3);
+		mQuickPopup.add(mMenu4);
+		mQuickPopup.add(mMenu5);
 	}
 
 	private void subscribeToIdentifier(IdentifierData data, int depth,
@@ -339,8 +332,7 @@ public final class ViewController implements IdentifierChangedReceiver {
 
 			// erase subscribtions if dump is not enabled
 			String erased = null;
-			if (!mSelectedConnection.getConnectionParameters()
-					.isDump()) {
+			if (!mSelectedConnection.getConnectionParameters().isDump()) {
 				HashMap<String, IdentifierData> subscriptions = SubscriptionRepository
 						.getInstance().getSubscriptions(mSelectedConnection);
 				if (subscriptions != null && !subscriptions.isEmpty()) {
@@ -360,7 +352,7 @@ public final class ViewController implements IdentifierChangedReceiver {
 					graph.reset();
 					graph.clearTable();
 					mConnection2TreePanel.get(mSelectedConnection)
-					.removeAllNodes();
+							.removeAllNodes();
 				}
 			}
 			String uuid = mIfmapFacade.subscribe(mSelectedConnection,
@@ -370,11 +362,11 @@ public final class ViewController implements IdentifierChangedReceiver {
 				SubscriptionRepository.getInstance().addSubscription(
 						mSelectedConnection, data);
 				String prefix = (erased == null) ? "" : erased;
-				mMainFrame.status.setText(prefix + "Subscription added ("
+				mMainFrame.mStatus.setText(prefix + "Subscription added ("
 						+ uuid + ")");
 				selectConnection(mSelectedConnection);
 			} else {
-				mMainFrame.status.setText("Subscription failed!");
+				mMainFrame.mStatus.setText("Subscription failed!");
 			}
 			// mMainFrame.toolbarPanel.buttonConnect.setSelected(mSelectedConnection.isConnected());
 		}
@@ -386,89 +378,92 @@ public final class ViewController implements IdentifierChangedReceiver {
 		Identifier ident = null;
 		QuickSubscribePanel pan = null;
 		if (mSelectedConnection != null) {
-			if (menu1.isSelected()) {
-				pan = (QuickSubscribePanel) menu1.getMenuComponent(0);
+			if (mMenu1.isSelected()) {
+				pan = (QuickSubscribePanel) mMenu1.getMenuComponent(0);
 				QuickSubscribeIp ip = (QuickSubscribeIp) pan
 						.getQuickComponent();
-				String ip_value = ip.textFieldIp.getText().trim();
-				String ip_admin = ip.textFieldDomain.getText().trim();
-				if (!ip_value.equals("")) {
+				String ipValue = ip.mTextFieldIp.getText().trim();
+				String ipAdmin = ip.mTextFieldDomain.getText().trim();
+				if (!ipValue.equals("")) {
 					IpAddress ipadrr;
-					if (!ip_admin.equals("")) {
-						if (ip.ip4.isSelected()) {
-							ipadrr = Identifiers.createIp4(ip_value, ip_admin);
+					if (!ipAdmin.equals("")) {
+						if (ip.mIp4.isSelected()) {
+							ipadrr = Identifiers.createIp4(ipValue, ipAdmin);
 						} else {
-							ipadrr = Identifiers.createIp6(ip_value, ip_admin);
+							ipadrr = Identifiers.createIp6(ipValue, ipAdmin);
 						}
 					} else {
-						if (ip.ip4.isSelected()) {
-							ipadrr = Identifiers.createIp4(ip_value);
+						if (ip.mIp4.isSelected()) {
+							ipadrr = Identifiers.createIp4(ipValue);
 						} else {
-							ipadrr = Identifiers.createIp6(ip_value);
+							ipadrr = Identifiers.createIp6(ipValue);
 						}
 					}
 
 					ident = ipadrr;
 				}
-			} else if (menu2.isSelected()) {
-				pan = (QuickSubscribePanel) menu2.getMenuComponent(0);
+			} else if (mMenu2.isSelected()) {
+				pan = (QuickSubscribePanel) mMenu2.getMenuComponent(0);
 				QuickSubscribeMac mac = (QuickSubscribeMac) pan
 						.getQuickComponent();
-				String mac_val = mac.textFieldValue.getText().trim();
-				String mac_admin = mac.textFieldDomain.getText().trim();
-				if (!mac_val.equals("")) {
-					ident = Identifiers.createMac(mac_val, mac_admin);
+				String macVal = mac.mTextFieldValue.getText().trim();
+				String macAdmin = mac.mTextFieldDomain.getText().trim();
+				if (!macVal.equals("")) {
+					ident = Identifiers.createMac(macVal, macAdmin);
 				}
-			} else if (menu3.isSelected()) {
-				pan = (QuickSubscribePanel) menu3.getMenuComponent(0);
+			} else if (mMenu3.isSelected()) {
+				pan = (QuickSubscribePanel) mMenu3.getMenuComponent(0);
 				QuickSubscribeAccessRequest ar = (QuickSubscribeAccessRequest) pan
 						.getQuickComponent();
-				String name = ar.textFieldName.getText().trim();
-				String admin = ar.textFieldAdmin.getText().trim();
+				String name = ar.mTextFieldName.getText().trim();
+				String admin = ar.mTextFieldAdmin.getText().trim();
 				if (!name.equals("")) {
 					ident = Identifiers.createAr(name);
 				}
-			} else if (menu4.isSelected()) {
-				pan = (QuickSubscribePanel) menu4.getMenuComponent(0);
+			} else if (mMenu4.isSelected()) {
+				pan = (QuickSubscribePanel) mMenu4.getMenuComponent(0);
 				QuickSubscribeIdentity id = (QuickSubscribeIdentity) pan
 						.getQuickComponent();
-				String name = id.textFieldName.getText().trim();
-				String other = id.textFieldOther.getText().trim();
-				String admin = id.textFieldDomain.getText().trim();
+				String name = id.mTextFieldName.getText().trim();
+				String other = id.mTextFieldOther.getText().trim();
+				String admin = id.mTextFieldDomain.getText().trim();
 
 				if (!name.equals("")) {
-					String typeAsString = id.type.getSelection().getActionCommand();
+					String typeAsString = id.mType.getSelection()
+							.getActionCommand();
 					if (typeAsString.equals(IdentityType.other.toString())) {
 						if (!other.equals("")) {
-							ident = Identifiers.createOtherIdentity(name, admin, other);
+							ident = Identifiers.createOtherIdentity(name,
+									admin, other);
 						}
 					} else {
-						IdentityType type = Identifiers.getIdentityType(typeAsString);
+						IdentityType type = Identifiers
+								.getIdentityType(typeAsString);
 						ident = Identifiers.createIdentity(type, name, admin);
 					}
 				}
 
-			} else if (menu5.isSelected()) {
-				pan = (QuickSubscribePanel) menu5.getMenuComponent(0);
+			} else if (mMenu5.isSelected()) {
+				pan = (QuickSubscribePanel) mMenu5.getMenuComponent(0);
 				QuickSubscribeDevice dev = (QuickSubscribeDevice) pan
 						.getQuickComponent();
-				String dev_val = dev.textFieldName.getText().trim();
-				if (!dev_val.equals("")) {
-					ident = Identifiers.createDev(dev_val);
+				String devVal = dev.mTextFieldName.getText().trim();
+				if (!devVal.equals("")) {
+					ident = Identifiers.createDev(devVal);
 				}
 			}
 		}
 		mQuickPopup.setVisible(false);
 		if (ident != null) {
 			data = new IdentifierData(ident);
-			mMainFrame.status.setText("Trying to subscribe...");
+			mMainFrame.mStatus.setText("Trying to subscribe...");
 			subscribeToIdentifier(data, pan.mMetaPanel.getMaxDepth(),
 					pan.mMetaPanel.getMaxSize(),
 					pan.mMetaPanel.getResultFilter(),
 					pan.mMetaPanel.getMatchLinks(),
 					pan.mMetaPanel.getTerminals());
 		} else {
-			mMainFrame.status.setText("Subscribe canceled.");
+			mMainFrame.mStatus.setText("Subscribe canceled.");
 		}
 	}
 
@@ -481,44 +476,45 @@ public final class ViewController implements IdentifierChangedReceiver {
 		mConDialog.addConnections(cons);
 		mConDialog.setLocationRelativeTo(null);
 		mConDialog
-		.setSelectedConnection((Connection) mMainFrame.navigationPanel.panelList
-				.getSelectedValue());
+				.setSelectedConnection((Connection) mMainFrame.mNavigationPanel.mPanelList
+						.getSelectedValue());
 		mConDialog.setVisible(true);
 	}
 
 	public void tabChanged() {
-		Connection con = mGraphPanel2Connection.get(mMainFrame.tabbedPane
+		Connection con = mGraphPanel2Connection.get(mMainFrame.mTabbedPane
 				.getSelectedComponent());
 		mSelectedConnection = con;
 		if (con != null) {
-			if (mMainFrame.navigationPanel.buttonTree.isSelected()) {
-				mMainFrame.navigationPanel
-				.removeView(mMainFrame.navigationPanel.panelTree);
+			if (mMainFrame.mNavigationPanel.mButtonTree.isSelected()) {
+				mMainFrame.mNavigationPanel
+						.removeView(mMainFrame.mNavigationPanel.mPanelTree);
 				TreePanel tree = mConnection2TreePanel.get(con);
-				mMainFrame.navigationPanel.addView(tree);
-				mMainFrame.navigationPanel.panelTree = mConnection2TreePanel
+				mMainFrame.mNavigationPanel.addView(tree);
+				mMainFrame.mNavigationPanel.mPanelTree = mConnection2TreePanel
 						.get(con);
-				mMainFrame.navigationPanel.panelTree.setVisible(true);
-				mMainFrame.navigationPanel.updateUI();
+				mMainFrame.mNavigationPanel.mPanelTree.setVisible(true);
+				mMainFrame.mNavigationPanel.updateUI();
 			}
-			DefaultListModel model = (DefaultListModel) mMainFrame.navigationPanel.panelList
+			DefaultListModel model = (DefaultListModel) mMainFrame.mNavigationPanel.mPanelList
 					.getModel();
 			for (int i = 0; i < model.getSize(); i++) {
 				Connection c = (Connection) model.get(i);
 				if (c.equals(con)) {
-					mMainFrame.navigationPanel.panelList.setSelectedIndex(i);
+					mMainFrame.mNavigationPanel.mPanelList.setSelectedIndex(i);
 				}
 			}
 
 		}
 		boolean selected = (mSelectedConnection != null && mSelectedConnection
 				.isConnected()) ? true : false;
-		mMainFrame.navigationPanel.buttonPlay.setSelected(selected);
-		if(selected) {
-			mMainFrame.toolbarPanel.buttonAnimation.setSelected(!mConnection2GraphPanel.get(mSelectedConnection).isAnimationEnabled());
-		}
-		else {
-			mMainFrame.toolbarPanel.buttonAnimation.setSelected(false);
+		mMainFrame.mNavigationPanel.mButtonPlay.setSelected(selected);
+		if (selected) {
+			mMainFrame.mToolbarPanel.mButtonAnimation
+					.setSelected(!mConnection2GraphPanel.get(
+							mSelectedConnection).isAnimationEnabled());
+		} else {
+			mMainFrame.mToolbarPanel.mButtonAnimation.setSelected(false);
 		}
 	}
 
@@ -528,18 +524,17 @@ public final class ViewController implements IdentifierChangedReceiver {
 			if (mSelectedConnection != null) {
 				graph = mConnection2GraphPanel.get(mSelectedConnection);
 				if (!mSelectedConnection.isConnected()) {
-					if (mSelectedConnection.getConnectionParameters()
-							.isDump()) {
+					if (mSelectedConnection.getConnectionParameters().isDump()) {
 						enableDump(true);
 					} else {
 						mIfmapFacade.startSession(mSelectedConnection);
-						mMainFrame.navigationPanel.panelList.updateUI();
-						mMainFrame.status.setText("Session "
-								+ mSelectedConnection.getSessionID()
+						mMainFrame.mNavigationPanel.mPanelList.updateUI();
+						mMainFrame.mStatus.setText("Session "
+								+ mSelectedConnection.getSessionId()
 								+ " established on "
 								+ mSelectedConnection.getEndpoint()
 								+ " as publisher "
-								+ mSelectedConnection.getPublisherID());
+								+ mSelectedConnection.getPublisherId());
 					}
 					// GraphPanel graph = mConnection2GraphPanel
 					// .get(mSelectedConnection);
@@ -552,10 +547,9 @@ public final class ViewController implements IdentifierChangedReceiver {
 						final String[] keys = subs.keySet().toArray(
 								new String[0]);
 						SubscriptionRepository.getInstance()
-						.removeSubscriptions(mSelectedConnection, keys);
+								.removeSubscriptions(mSelectedConnection, keys);
 					}
-					if (mSelectedConnection.getConnectionParameters()
-							.isDump()) {
+					if (mSelectedConnection.getConnectionParameters().isDump()) {
 						enableDump(false);
 					}
 					mIfmapFacade.stopSession(mSelectedConnection);
@@ -563,45 +557,46 @@ public final class ViewController implements IdentifierChangedReceiver {
 					graph.reset();
 					graph.clearTable();
 					graph.enableAnimation(true);
-					mMainFrame.metadataPanel.label.setText("");
+					mMainFrame.mMetadataPanel.mLabel.setText("");
 					mConnection2TreePanel.get(mSelectedConnection)
-					.removeAllNodes();
-					mMainFrame.navigationPanel.revalidate();
-					mMainFrame.status.setText("Session "
+							.removeAllNodes();
+					mMainFrame.mNavigationPanel.revalidate();
+					mMainFrame.mStatus.setText("Session "
 							+ mSelectedConnection.getEndpoint() + "terminated");
-					mMainFrame.navigationPanel.panelList.updateUI();
+					mMainFrame.mNavigationPanel.mPanelList.updateUI();
 					graph.updateUI();
 					graph.repaint();
 				}
-				mMainFrame.navigationPanel.buttonPlay
-				.setSelected(mSelectedConnection.isConnected());
-				mMainFrame.toolbarPanel.buttonAnimation.setSelected(!graph.isAnimationEnabled());
+				mMainFrame.mNavigationPanel.mButtonPlay
+						.setSelected(mSelectedConnection.isConnected());
+				mMainFrame.mToolbarPanel.mButtonAnimation.setSelected(!graph
+						.isAnimationEnabled());
 			}
 
 		} catch (Exception e) {
 			mSelectedConnection.brokenDisconnect();
-			mMainFrame.status.setText(mSelectedConnection.getName() + " - "
+			mMainFrame.mStatus.setText(mSelectedConnection.getName() + " - "
 					+ e.getLocalizedMessage());
-			if (mMainFrame.navigationPanel.buttonPlay.isSelected()) {
-				mMainFrame.navigationPanel.buttonPlay.setSelected(false);
+			if (mMainFrame.mNavigationPanel.mButtonPlay.isSelected()) {
+				mMainFrame.mNavigationPanel.mButtonPlay.setSelected(false);
 			}
 			if (graph != null) {
 				graph.updateUI();
 				graph.repaint();
 			}
-			mMainFrame.navigationPanel.panelList.updateUI();
+			mMainFrame.mNavigationPanel.mPanelList.updateUI();
 		}
 	}
 
 	public void enableDump(boolean enable) throws FileNotFoundException,
-	PropertiesNotFoundException, IOException, IfmapErrorResult,
-	IfmapException, InterruptedException {
+			PropertiesNotFoundException, IOException, IfmapErrorResult,
+			IfmapException, InterruptedException {
 		if (mSelectedConnection != null) {
 			if (enable) {
 				mIfmapFacade.startSession(mSelectedConnection);
-				mMainFrame.navigationPanel.panelList.updateUI();
+				mMainFrame.mNavigationPanel.mPanelList.updateUI();
 				mSelectedConnection.enableDumping(true);
-				mMainFrame.status.setText("Start dumping on "
+				mMainFrame.mStatus.setText("Start dumping on "
 						+ mSelectedConnection.getEndpoint());
 				// GraphPanel graph = mConnection2GraphPanel
 				// .get(mSelectedConnection);
@@ -623,15 +618,15 @@ public final class ViewController implements IdentifierChangedReceiver {
 				graph.clear();
 				graph.reset();
 				graph.clearTable();
-				mMainFrame.status.setText("Session "
+				mMainFrame.mStatus.setText("Session "
 						+ mSelectedConnection.getEndpoint() + "terminated");
-				mMainFrame.navigationPanel.panelList.updateUI();
+				mMainFrame.mNavigationPanel.mPanelList.updateUI();
 			}
 		}
 	}
 
 	public void selectConnectionWithoutCreatingTab(Connection con) {
-		mMainFrame.navigationPanel.buttonPlay.setSelected(con.isConnected());
+		mMainFrame.mNavigationPanel.mButtonPlay.setSelected(con.isConnected());
 		mSelectedConnection = con;
 	}
 
@@ -639,8 +634,8 @@ public final class ViewController implements IdentifierChangedReceiver {
 		GraphPanel graph = mConnection2GraphPanel.get(con);
 		if (graph == null) {
 			graph = new GraphPanel();
-			graph.addNodeSelectedListener(mMainFrame.metadataPanel);
-			graph.setTable(mMainFrame.metadataPanel.table, null);
+			graph.addNodeSelectedListener(mMainFrame.mMetadataPanel);
+			graph.setTable(mMainFrame.mMetadataPanel.mTable, null);
 			graph.setNewMetadataColorAction(
 					mIfmapFacade.getPublisherAndColor(),
 					mIfmapFacade.getDefaultIdentifierColor(),
@@ -649,58 +644,64 @@ public final class ViewController implements IdentifierChangedReceiver {
 			mConnection2GraphPanel.put(con, graph);
 			mGraphPanel2Connection.put(graph, con);
 			mConnection2TreePanel.put(con, tree);
-			mMainFrame.tabbedPane.addTab(con.getName(), new ImageIcon(
+			mMainFrame.mTabbedPane.addTab(con.getName(), new ImageIcon(
 					getClass().getClassLoader().getResource("tabConnect.png")),
 					graph, con.getName());
-			mMainFrame.tabbedPane.setTabComponentAt(
-					mMainFrame.tabbedPane.getTabCount() - 1,
-					new CustomTabComponent(con.getName(), mMainFrame.tabbedPane));
+			mMainFrame.mTabbedPane
+					.setTabComponentAt(mMainFrame.mTabbedPane.getTabCount() - 1,
+							new CustomTabComponent(con.getName(),
+									mMainFrame.mTabbedPane));
 		}
 
 		boolean b = false;
-		for (int i = 0; i < mMainFrame.tabbedPane.getTabCount(); i++) {
-			Component c = mMainFrame.tabbedPane.getComponentAt(i);
+		for (int i = 0; i < mMainFrame.mTabbedPane.getTabCount(); i++) {
+			Component c = mMainFrame.mTabbedPane.getComponentAt(i);
 			if (c == graph) {
 				b = true;
 			}
 		}
 
 		if (!b) {
-			mMainFrame.tabbedPane.addTab(con.getName(), new ImageIcon(
+			mMainFrame.mTabbedPane.addTab(con.getName(), new ImageIcon(
 					getClass().getClassLoader().getResource("tabConnect.png")),
 					graph, con.getName());
-			mMainFrame.tabbedPane.setTabComponentAt(
-					mMainFrame.tabbedPane.getTabCount() - 1,
-					new CustomTabComponent(con.getName(), mMainFrame.tabbedPane));
+			mMainFrame.mTabbedPane
+					.setTabComponentAt(mMainFrame.mTabbedPane.getTabCount() - 1,
+							new CustomTabComponent(con.getName(),
+									mMainFrame.mTabbedPane));
 		}
 
-		mMainFrame.tabbedPane.setSelectedComponent(graph);
+		mMainFrame.mTabbedPane.setSelectedComponent(graph);
 
-		mMainFrame.navigationPanel.buttonPlay.setSelected(con.isConnected());
-		mMainFrame.toolbarPanel.buttonAnimation.setSelected(!graph.isAnimationEnabled());
+		mMainFrame.mNavigationPanel.mButtonPlay.setSelected(con.isConnected());
+		mMainFrame.mToolbarPanel.mButtonAnimation.setSelected(!graph
+				.isAnimationEnabled());
 		graph.revalidate();
 		mSelectedConnection = con;
 	}
 
 	public void treeButtonClicked() {
-		mMainFrame.navigationPanel.removeView(mMainFrame.navigationPanel.panelList);
+		mMainFrame.mNavigationPanel
+				.removeView(mMainFrame.mNavigationPanel.mPanelList);
 		if (mSelectedConnection != null) {
 			TreePanel tree = mConnection2TreePanel.get(mSelectedConnection);
-			if(tree != null) {
-				mMainFrame.navigationPanel.addView(tree);
-				mMainFrame.navigationPanel.panelTree = tree;
-				mMainFrame.navigationPanel.panelTree.setVisible(true);
+			if (tree != null) {
+				mMainFrame.mNavigationPanel.addView(tree);
+				mMainFrame.mNavigationPanel.mPanelTree = tree;
+				mMainFrame.mNavigationPanel.mPanelTree.setVisible(true);
 			}
 		}
-		mMainFrame.navigationPanel.updateUI();
+		mMainFrame.mNavigationPanel.updateUI();
 
 	}
 
 	public void conButtonClicked() {
-		mMainFrame.navigationPanel.removeView(mMainFrame.navigationPanel.panelTree);
-		mMainFrame.navigationPanel.addView(mMainFrame.navigationPanel.panelList);
-		mMainFrame.navigationPanel.updateUI();
-		mMainFrame.navigationPanel.panelList.setVisible(true);
+		mMainFrame.mNavigationPanel
+				.removeView(mMainFrame.mNavigationPanel.mPanelTree);
+		mMainFrame.mNavigationPanel
+				.addView(mMainFrame.mNavigationPanel.mPanelList);
+		mMainFrame.mNavigationPanel.updateUI();
+		mMainFrame.mNavigationPanel.mPanelList.setVisible(true);
 	}
 
 	public void showPublisherDialog() {
@@ -710,7 +711,7 @@ public final class ViewController implements IdentifierChangedReceiver {
 	}
 
 	public void showSubsriptionDialog() {
-		if(mSelectedConnection != null) {
+		if (mSelectedConnection != null) {
 			mSubDialog.center();
 			mSubDialog.setVisible(true);
 		}
@@ -722,7 +723,7 @@ public final class ViewController implements IdentifierChangedReceiver {
 	}
 
 	public void toggleAnimation() {
-		if(mSelectedConnection != null) {
+		if (mSelectedConnection != null) {
 			GraphPanel p = mConnection2GraphPanel.get(mSelectedConnection);
 			p.toggleAnimation();
 		}
@@ -740,14 +741,14 @@ public final class ViewController implements IdentifierChangedReceiver {
 				TreePanel tree = mConnection2TreePanel.get(con);
 				tree.processNewPollResult(newData, updateData, deleteData);
 				mPubDialog
-				.processNewPollResult(newData, updateData, deleteData);
+						.processNewPollResult(newData, updateData, deleteData);
 				graph.centerGraph();
 			}
 		}
 	}
 
 	private void saveConnections() {
-		DefaultListModel lm = (DefaultListModel) mMainFrame.navigationPanel.panelList
+		DefaultListModel lm = (DefaultListModel) mMainFrame.mNavigationPanel.mPanelList
 				.getModel();
 		lm.clear();
 		mConDialog.assignParamsToObject();

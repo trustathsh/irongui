@@ -37,12 +37,7 @@
  * #L%
  */
 
-
-
 package de.hshannover.f4.trust.irongui.communication;
-
-
-
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -98,18 +93,18 @@ public class Connection {
 	}
 
 	public boolean isConnected() {
-		if (mIfmap != null && mIfmap.getSessionID() != null) {
+		if (mIfmap != null && mIfmap.getSessionId() != null) {
 			return true;
 		}
 		return false;
 	}
 
-	public String getPublisherID() {
-		return mIfmap.getPublisherID();
+	public String getPublisherId() {
+		return mIfmap.getPublisherId();
 	}
 
-	public String getSessionID() {
-		return mIfmap.getSessionID();
+	public String getSessionId() {
+		return mIfmap.getSessionId();
 	}
 
 	void setConnectionParameter(ConnectionParameter params) {
@@ -122,7 +117,7 @@ public class Connection {
 
 	public void disconnect() throws IfmapErrorResult, IfmapException,
 			InterruptedException {
-		if (this.mIfmap != null) {		
+		if (this.mIfmap != null) {
 			this.enableDumping(false);
 			this.enablePolling(false);
 			this.mIfmap.endSession();
@@ -147,8 +142,7 @@ public class Connection {
 					mParameter.getTruststore(), mParameter.getTruststorePass(),
 					mParameter.isBasicAuthEnabled(),
 					mParameter.getBasicauthUser(),
-					mParameter.getBasicauthPass(),
-					mParameter.getMaxPollSize());
+					mParameter.getBasicauthPass(), mParameter.getMaxPollSize());
 		}
 		mExecuterService = Executors.newCachedThreadPool();
 		mIfmap.newSession();
@@ -196,7 +190,7 @@ public class Connection {
 			mSemaphore0.release();
 		}
 	}
-	
+
 	public void enablePolling(boolean poll) {
 		if (poll) {
 			mPollThread = new Poller();
@@ -215,8 +209,8 @@ public class Connection {
 			fDump = mExecuterService.submit(mDumpThread);
 		} else {
 			mDumpThread.mDone = true;
-			if (fDump != null) {				
-				fDump.cancel(true);			
+			if (fDump != null) {
+				fDump.cancel(true);
 			}
 		}
 	}
@@ -240,17 +234,20 @@ public class Connection {
 
 	@Override
 	public boolean equals(Object o) {
-		if (o == null)
+		if (o == null) {
 			return false;
-		if (this == o)
+		}
+		if (this == o) {
 			return true;
-		if (!(o instanceof Connection))
+		}
+		if (!(o instanceof Connection)) {
 			return false;
-
+		}
 		if (this.hashCode() == o.hashCode()) {
 			return true;
-		} else
+		} else {
 			return false;
+		}
 	}
 
 	@Override
@@ -277,13 +274,13 @@ public class Connection {
 					poll = IfmapMarshaller.filterPollResult(mSelf, poll);
 					IfmapFacade.notifyRepositoryChanged(mSelf, poll);
 					mSemaphore1.release();
-				} catch (Exception e) {				
+				} catch (Exception e) {
 					mDone = true;
 					IfmapFacade.notifyConnectionBroken(mSelf, e);
-					mSemaphore1.release();					
+					mSemaphore1.release();
 				}
 			}
-			
+
 			mDone = true;
 			mSemaphore1.release();
 			return null;
@@ -301,7 +298,7 @@ public class Connection {
 				Identifier ident = itr.next();
 				IdentifierData identData = new IdentifierData(ident);
 				String uuid = CryptoUtil
-						.generateMD5BySize(ident.toString(), 16);
+						.generateMd5BySize(ident.toString(), 16);
 				if (!SubscriptionRepository.getInstance().isAlreadySubscribed(
 						mSelf, identData)) {
 					identData.setSubscriptionName(uuid);
@@ -337,9 +334,9 @@ public class Connection {
 											.addSubscription(mSelf, id);
 									cTemp.add(id.getRequestObject());
 								}
-								//List<String> uuids = 
-									mIfmap.subscribeUpdate(
-										cTemp, 10, null, null, null, null);
+								// List<String> uuids =
+								mIfmap.subscribeUpdate(cTemp, 10, null, null,
+										null, null);
 							}
 						}
 					}
@@ -352,8 +349,8 @@ public class Connection {
 					Thread.sleep(10000);
 				} catch (Exception e) {
 					e.printStackTrace();
-					System.err.println("Dump stopped (Exception occured)");					
-					mSemaphore0.release();					
+					System.err.println("Dump stopped (Exception occured)");
+					mSemaphore0.release();
 					throw e;
 				}
 			}

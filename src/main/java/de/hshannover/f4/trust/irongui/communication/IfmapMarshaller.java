@@ -37,12 +37,7 @@
  * #L%
  */
 
-
-
 package de.hshannover.f4.trust.irongui.communication;
-
-
-
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -116,8 +111,9 @@ public class IfmapMarshaller {
 			ArrayList<IfmapDataType> pd = processSearchUpdateDeleteResult(pDelete);
 			if (pd != null && pd.size() > 0) {
 				for (IfmapDataType arr : pd) {
-					if (!pDelete.contains(arr))
+					if (!pDelete.contains(arr)) {
 						rDelete.add(arr);
+					}
 				}
 			}
 
@@ -147,12 +143,12 @@ public class IfmapMarshaller {
 					} else {
 						id1 = (IdentifierData) delData;
 					}
-					if(con.getConnectionParameters().isDump()) {
-						if (data.equals(id1) || (id2 != null && data.equals(id2))) {
+					if (con.getConnectionParameters().isDump()) {
+						if (data.equals(id1)
+								|| (id2 != null && data.equals(id2))) {
 							deleteResult.add(delData);
 						}
-					}
-					else {
+					} else {
 						deleteResult.add(delData);
 					}
 				}

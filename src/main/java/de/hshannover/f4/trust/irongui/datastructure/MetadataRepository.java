@@ -37,12 +37,7 @@
  * #L%
  */
 
-
-
 package de.hshannover.f4.trust.irongui.datastructure;
-
-
-
 
 import java.util.ArrayList;
 
@@ -122,27 +117,25 @@ public class MetadataRepository {
 
 			mMapLinks.put(link, i1);
 			mMapLinks.put(link, i2);
-		}		
+		}
 	}
 
-	public synchronized void addEntity(IfmapDataType entity){
-		if(entity instanceof IdentifierData){
-			addIdentifier((IdentifierData)entity);
-		}
-		else if (entity instanceof Link){
-			addLink((Link)entity);
-		}
-	}
-	
-	public synchronized void removeEntity(IfmapDataType entity){
-		if(entity instanceof IdentifierData){
-			removeIdentifier((IdentifierData)entity);
-		}
-		else if (entity instanceof Link){
-			removeLink((Link)entity);
+	public synchronized void addEntity(IfmapDataType entity) {
+		if (entity instanceof IdentifierData) {
+			addIdentifier((IdentifierData) entity);
+		} else if (entity instanceof Link) {
+			addLink((Link) entity);
 		}
 	}
-	
+
+	public synchronized void removeEntity(IfmapDataType entity) {
+		if (entity instanceof IdentifierData) {
+			removeIdentifier((IdentifierData) entity);
+		} else if (entity instanceof Link) {
+			removeLink((Link) entity);
+		}
+	}
+
 	private void addIdentifier(IdentifierData ident) {
 		if (ident != null) {
 			if (!mMapIdentifier.hasKey(ident)) {
@@ -152,23 +145,26 @@ public class MetadataRepository {
 				for (Metadata meta : ident.getMetadata()) {
 					identRef.addOrReplaceMetadata(meta);
 				}
-			}			
-		}		
-	}
-	
-	private void removeIdentifier(IdentifierData ident){
-		if(ident != null && this.mMapIdentifier.hasKey(ident)){
-			IdentifierData ident_old = this.mMapIdentifier.getKey(ident);
-			for(Metadata meta : ident.getMetadata()){
-				ident_old.remove(meta);
 			}
-			if(ident_old.getMetadata().isEmpty()){
-				mMapIdentifier.remove(ident_old);
-			}			
 		}
-	}	
-	public void printMaps(){
-		System.err.println("MultiMap<IdentifierData, Link>\r\n"+this.mMapIdentifier.toString());
-		System.err.println("MultiMap<Link, IdentifierData>\r\n"+this.mMapLinks.toString());
+	}
+
+	private void removeIdentifier(IdentifierData ident) {
+		if (ident != null && this.mMapIdentifier.hasKey(ident)) {
+			IdentifierData identOld = this.mMapIdentifier.getKey(ident);
+			for (Metadata meta : ident.getMetadata()) {
+				identOld.remove(meta);
+			}
+			if (identOld.getMetadata().isEmpty()) {
+				mMapIdentifier.remove(identOld);
+			}
+		}
+	}
+
+	public void printMaps() {
+		System.err.println("MultiMap<IdentifierData, Link>\r\n"
+				+ this.mMapIdentifier.toString());
+		System.err.println("MultiMap<Link, IdentifierData>\r\n"
+				+ this.mMapLinks.toString());
 	}
 }

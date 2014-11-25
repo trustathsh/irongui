@@ -37,12 +37,7 @@
  * #L%
  */
 
-
-
 package de.hshannover.f4.trust.irongui.datastructure;
-
-
-
 
 import java.util.Collections;
 import java.util.Hashtable;
@@ -61,7 +56,7 @@ import de.hshannover.f4.trust.irongui.datastructure.IdentifierConstants.Identifi
  * 
  */
 public class IdentifierData extends IfmapDataType {
-	
+
 	private final Hashtable<String, String> mAttributes = new Hashtable<String, String>();
 	private String mName = null;
 	private Identifier mRequestObject = null;
@@ -72,7 +67,7 @@ public class IdentifierData extends IfmapDataType {
 		this.mType = IdentifierConstants.IdentifierType.OTHER;
 		mName = name;
 	}
-	
+
 	public IdentifierData(Identifier o) {
 		super();
 		if (o instanceof AccessRequest) {
@@ -80,15 +75,16 @@ public class IdentifierData extends IfmapDataType {
 			AccessRequest art = (AccessRequest) o;
 			mRequestObject = art;
 			mAttributes.put("name", art.getName());
-			if (art.getAdministrativeDomain() != null)
+			if (art.getAdministrativeDomain() != null) {
 				mAttributes.put("administrative-domain",
 						art.getAdministrativeDomain());
+			}
 			this.mType = IdentifierConstants.IdentifierType.ACCESS_REQUEST;
 		} else if (o instanceof Device) {
 			mName = "device";
 			Device d = (Device) o;
 			mRequestObject = d;
-			mAttributes.put("name", d.getName());			
+			mAttributes.put("name", d.getName());
 			this.mType = IdentifierConstants.IdentifierType.DEVICE;
 		} else if (o instanceof IpAddress) {
 			mName = "ip-address";
@@ -96,9 +92,10 @@ public class IdentifierData extends IfmapDataType {
 			mRequestObject = ipt;
 			mAttributes.put("value", ipt.getValue());
 			mAttributes.put("type", ipt.getType().toString());
-			if (ipt.getAdministrativeDomain() != null)
+			if (ipt.getAdministrativeDomain() != null) {
 				mAttributes.put("administrative-domain",
 						ipt.getAdministrativeDomain());
+			}
 			this.mType = IdentifierConstants.IdentifierType.IP_ADDRESS;
 		} else if (o instanceof Identity) {
 			mName = "identity";
@@ -106,11 +103,11 @@ public class IdentifierData extends IfmapDataType {
 			mRequestObject = it;
 			mAttributes.put("name", it.getName());
 			mAttributes.put("type", it.getType().toString());
-			if (it.getAdministrativeDomain() != null){
+			if (it.getAdministrativeDomain() != null) {
 				mAttributes.put("administrative-domain",
 						it.getAdministrativeDomain());
 			}
-			if (it.getOtherTypeDefinition() != null){
+			if (it.getOtherTypeDefinition() != null) {
 				mAttributes.put("other-type-definition",
 						it.getOtherTypeDefinition());
 			}
@@ -120,12 +117,12 @@ public class IdentifierData extends IfmapDataType {
 			MacAddress mt = (MacAddress) o;
 			mRequestObject = mt;
 			mAttributes.put("value", mt.getValue());
-			if (mt.getAdministrativeDomain() != null)
+			if (mt.getAdministrativeDomain() != null) {
 				mAttributes.put("administrative-domain",
 						mt.getAdministrativeDomain());
+			}
 			this.mType = IdentifierConstants.IdentifierType.MAC_ADDRESS;
-		}
-		else {
+		} else {
 			this.mType = IdentifierConstants.IdentifierType.OTHER;
 		}
 	}
@@ -136,7 +133,7 @@ public class IdentifierData extends IfmapDataType {
 
 	public Identifier getRequestObject() {
 		return mRequestObject;
-	}	
+	}
 
 	private String getAttributeValue(String key) {
 		return mAttributes.get(key);
@@ -153,22 +150,27 @@ public class IdentifierData extends IfmapDataType {
 
 	@Override
 	public boolean equals(Object o) {
-		if (o == null)
+		if (o == null) {
 			return false;
-		if (this == o)
+		}
+		if (this == o) {
 			return true;
-		if (!(o instanceof IdentifierData))
+		}
+		if (!(o instanceof IdentifierData)) {
 			return false;
+		}
 
 		IdentifierData i2 = (IdentifierData) o;
-		
-		if (mType != i2.getType())
+
+		if (mType != i2.getType()) {
 			return false;
+		}
 
 		if (this.hashCode() == i2.hashCode()) {
 			return true;
-		} else
+		} else {
 			return false;
+		}
 	}
 
 	@Override
@@ -203,13 +205,13 @@ public class IdentifierData extends IfmapDataType {
 		}
 		return buf.toString().hashCode();
 	}
-	
-	@Override	
+
+	@Override
 	public String toString() {
 		StringBuffer buf = new StringBuffer();
 		buf.append(this.getName());
-		buf.append(mAttributes.toString()+ " {"+this.hashCode()+"} [M] "+
-				this.getMetadata().toString());
+		buf.append(mAttributes.toString() + " {" + this.hashCode() + "} [M] "
+				+ this.getMetadata().toString());
 		return buf.toString();
 	}
 

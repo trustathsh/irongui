@@ -37,12 +37,7 @@
  * #L%
  */
 
-
-
 package de.hshannover.f4.trust.irongui.view.dialog;
-
-
-
 
 import java.util.ArrayList;
 import java.util.Observable;
@@ -56,153 +51,155 @@ import de.hshannover.f4.trust.ifmapj.identifier.Identity;
 import de.hshannover.f4.trust.ifmapj.identifier.IdentityType;
 
 public class SubscribeDialog extends Observable {
-	
+
 	private Subscription_GUI mGui;
-	public JButton buttonSubscribe;
+	public JButton mButtonSubscribe;
 	private Identifier mIdentifier;
 	private IdentifierFactory mIdentifierFactory;
-	
-	public SubscribeDialog(){
-		mGui = new Subscription_GUI();		
+
+	public SubscribeDialog() {
+		mGui = new Subscription_GUI();
 		mIdentifierFactory = IfmapJ.createIdentifierFactory();
 		mGui.setCallback(this);
-		buttonSubscribe = mGui.btnSubscribe;
+		mButtonSubscribe = mGui.btnSubscribe;
 	}
-	
-	public void setVisible(boolean b){
-		mGui.setVisible(b);			
-	}	
-	
-	private void setIdentifier(Identifier ident){
+
+	public void setVisible(boolean b) {
+		mGui.setVisible(b);
+	}
+
+	private void setIdentifier(Identifier ident) {
 		mIdentifier = ident;
 		setChanged();
-	    notifyObservers();
+		notifyObservers();
 	}
-	
-	public void update(){
-		if(mGui.rdbtnIpaddress.isSelected()){
+
+	public void update() {
+		if (mGui.mRdbtnIpaddress.isSelected()) {
 			String adr;
 			Identifier ident;
-			String admin = mGui.ipAddressPanel.textFieldAdmin.getText().trim();
-			if(mGui.ipAddressPanel.ipRadioButtonV4.isSelected()){
-				adr = mGui.ipAddressPanel.textFieldIp4.getText().trim();
-				if(!adr.equals("")){					
-					ident =  mIdentifierFactory.createIp4(adr, admin);					
+			String admin = mGui.mIpAddressPanel.mTextFieldAdmin.getText().trim();
+			if (mGui.mIpAddressPanel.mIpRadioButtonV4.isSelected()) {
+				adr = mGui.mIpAddressPanel.mTextFieldIp4.getText().trim();
+				if (!adr.equals("")) {
+					ident = mIdentifierFactory.createIp4(adr, admin);
+					setIdentifier(ident);
+				}
+			} else {
+				adr = mGui.mIpAddressPanel.mTextFieldIp6.getText().trim();
+				if (!adr.equals("")) {
+					ident = mIdentifierFactory.createIp6(adr, admin);
 					setIdentifier(ident);
 				}
 			}
-			else {
-				adr = mGui.ipAddressPanel.textFieldIp6.getText().trim();
-				if(!adr.equals("")){					
-					ident =  mIdentifierFactory.createIp6(adr, admin);					
-					setIdentifier(ident);
-				}
-			}							
-		}
-		else if(mGui.rdbtnMacaddress.isSelected()){
-			String mac_val = mGui.macaddresspanel.value.getText().trim();
-			String mac_admin = mGui.macaddresspanel.admin.getText().trim();
-			if(!mac_val.equals("")){
-				Identifier ident =  mIdentifierFactory.createMac(mac_val, mac_admin);				
+		} else if (mGui.mRdbtnMacaddress.isSelected()) {
+			String macVal = mGui.mMacaddresspanel.mValue.getText().trim();
+			String macAdmin = mGui.mMacaddresspanel.mAdmin.getText().trim();
+			if (!macVal.equals("")) {
+				Identifier ident = mIdentifierFactory.createMac(macVal,
+						macAdmin);
 				setIdentifier(ident);
 			}
-		}
-		else if(mGui.rdbtnAccessrequest.isSelected()){
-			String ar_name = mGui.accessrequestpanel.name.getText().trim();
-			String ar_admin = mGui.accessrequestpanel.admin.getText().trim();
-			if(!ar_name.equals("")){
-				Identifier ident =  mIdentifierFactory.createAr(ar_name, ar_admin);
+		} else if (mGui.rdbtnAccessrequest.isSelected()) {
+			String arName = mGui.mAccessrequestpanel.mName.getText().trim();
+			String arAdmin = mGui.mAccessrequestpanel.mAdmin.getText().trim();
+			if (!arName.equals("")) {
+				Identifier ident = mIdentifierFactory.createAr(arName,
+						arAdmin);
 				setIdentifier(ident);
 			}
-		}
-		else if(mGui.rdbtnDevice.isSelected()){
-			String d_name = mGui.devicepanel.name.getText().trim();
-			//String d_aik = mGui.devicepanel.aik.getText().trim();
+		} else if (mGui.rdbtnDevice.isSelected()) {
+			String dName = mGui.mDevicepanel.mName.getText().trim();
+			// String d_aik = mGui.devicepanel.aik.getText().trim();
 			// AIK is deprecated
-			if(!d_name.equals("")){
-				Identifier ident =  mIdentifierFactory.createDev(d_name);				
+			if (!dName.equals("")) {
+				Identifier ident = mIdentifierFactory.createDev(dName);
 				setIdentifier(ident);
 			}
-		}
-		else if(mGui.rdbtnIdentity.isSelected()){
-			String id_name = mGui.identitypanel.name.getText().trim();			
-			if(!id_name.equals("")){
-				IdentityType type = (IdentityType)mGui.identitypanel.type.getSelectedItem();
-				//System.err.println(type.toString());
-				String admin = mGui.identitypanel.admindomain.getText().trim();
+		} else if (mGui.rdbtnIdentity.isSelected()) {
+			String idName = mGui.mIdentitypanel.mName.getText().trim();
+			if (!idName.equals("")) {
+				IdentityType type = (IdentityType) mGui.mIdentitypanel.mType
+						.getSelectedItem();
+				// System.err.println(type.toString());
+				String admin = mGui.mIdentitypanel.mAdmindomain.getText().trim();
 				Identity ident;
-				if(type == IdentityType.other) {
-					ident =  mIdentifierFactory.createIdentity(id_name, admin, 
-							mGui.identitypanel.othertypedefinition.getText().trim());
+				if (type == IdentityType.other) {
+					ident = mIdentifierFactory.createIdentity(idName, admin,
+							mGui.mIdentitypanel.mOthertypedefinition.getText()
+									.trim());
+				} else {
+					ident = mIdentifierFactory.createIdentity(type, idName,
+							admin);
 				}
-				else {
-					ident =  mIdentifierFactory.createIdentity(type, id_name, admin);
-				}
-				
+
 				setIdentifier(ident);
 			}
 		}
 	}
-	
-	public Identifier getIdentifier(){
+
+	public Identifier getIdentifier() {
 		return mIdentifier;
 	}
-	
-	public int getDepth(){
+
+	public int getDepth() {
 		int l = 0;
-		try{
-			l = Integer.parseInt(String.valueOf(mGui.jSpinner1.getValue()));
-		}
-		catch(NumberFormatException err){
+		try {
+			l = Integer.parseInt(String.valueOf(mGui.mJSpinner1.getValue()));
+		} catch (NumberFormatException err) {
 			return l;
 		}
 		return l;
 	}
-	
-	public int getSize(){
+
+	public int getSize() {
 		int l = 0;
-		try{
-			l = Integer.parseInt(String.valueOf(mGui.jSpinner2.getValue()));
-		}
-		catch(NumberFormatException err){
+		try {
+			l = Integer.parseInt(String.valueOf(mGui.mJSpinner2.getValue()));
+		} catch (NumberFormatException err) {
 			return l;
 		}
 		return l;
 	}
-	
-	public String getFilter(){
-		return mGui.jTextField1.getText();
+
+	public String getFilter() {
+		return mGui.mJTextField1.getText();
 	}
-	
-	public String getLinks(){
-		return mGui.jTextField2.getText();
+
+	public String getLinks() {
+		return mGui.mJTextField2.getText();
 	}
-	
-	public String[] getTerminals(){
+
+	public String[] getTerminals() {
 		ArrayList<String> arr = new ArrayList<String>();
-		
-		if(mGui.radioButton.isSelected())
+
+		if (mGui.radioButton.isSelected()) {
 			arr.add(mGui.radioButton.getText());
-		if(mGui.radioButton_1.isSelected())
+		}
+		if (mGui.radioButton_1.isSelected()) {
 			arr.add(mGui.radioButton_1.getText());
-		if(mGui.radioButton_2.isSelected())
+		}
+		if (mGui.radioButton_2.isSelected()) {
 			arr.add(mGui.radioButton_2.getText());
-		if(mGui.radioButton_3.isSelected())
+		}
+		if (mGui.radioButton_3.isSelected()) {
 			arr.add(mGui.radioButton_3.getText());
-		if(mGui.radioButton_4.isSelected())
-			arr.add(mGui.radioButton_4.getText());				
-		
+		}
+		if (mGui.radioButton_4.isSelected()) {
+			arr.add(mGui.radioButton_4.getText());
+		}
+
 		String[] arrString = new String[arr.size()];
-		
-		for(int i = 0; i < arr.size(); i++){
+
+		for (int i = 0; i < arr.size(); i++) {
 			arrString[i] = arr.get(i);
 		}
 		arr = null;
-		return arrString;		
+		return arrString;
 	}
-	
-	public void center(){
+
+	public void center() {
 		mGui.setLocationRelativeTo(null);
 	}
-	
+
 }

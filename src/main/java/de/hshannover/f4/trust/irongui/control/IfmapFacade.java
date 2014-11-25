@@ -37,11 +37,7 @@
  * #L%
  */
 
-
-
 package de.hshannover.f4.trust.irongui.control;
-
-
 
 import java.awt.Color;
 import java.io.FileNotFoundException;
@@ -68,8 +64,8 @@ public final class IfmapFacade {
 	public IfmapFacade(SynchronisationService sync) {
 		mEventService = new EventService();
 		mSync = sync;
-	}	
-	
+	}
+
 	/*
 	 * public void setDumpFilter(String f){ mFilter = f; }
 	 */
@@ -81,62 +77,66 @@ public final class IfmapFacade {
 		mEventService.addUpdateListener(r);
 	}
 
-	public static void notifyRepositoryChanged(Connection con, PollResultContainer prc) {
+	public static void notifyRepositoryChanged(Connection con,
+			PollResultContainer prc) {
 		mEventService.notifyRepositoryChanged(con, prc);
 	}
-	
-	public static void notifyConnectionBroken(Connection con, Exception err){
-		mEventService.notifyStatusChangedReceiver(con, err.getLocalizedMessage());
+
+	public static void notifyConnectionBroken(Connection con, Exception err) {
+		mEventService.notifyStatusChangedReceiver(con,
+				err.getLocalizedMessage());
 	}
-	
-	public void removeConnection(Connection con) throws ConnectionCreationException{
-		if(con != null){
+
+	public void removeConnection(Connection con)
+			throws ConnectionCreationException {
+		if (con != null) {
 			mSync.remove(con);
 		}
 		mSync.sync();
 	}
-	
-	public boolean hasConnection(Connection c){
-		if(c != null){
+
+	public boolean hasConnection(Connection c) {
+		if (c != null) {
 			Connection[] connections = mSync.getConnections();
-			for(Connection con : connections){
-				if(con.equals(c)){
+			for (Connection con : connections) {
+				if (con.equals(c)) {
 					return true;
 				}
 			}
 		}
 		return false;
 	}
-	
-	public void addPublisher(HashMap<String, Color> publisher, Color iColor, Color mColor){
-		if(publisher != null && iColor != null && mColor != null){
+
+	public void addPublisher(HashMap<String, Color> publisher, Color iColor,
+			Color mColor) {
+		if (publisher != null && iColor != null && mColor != null) {
 			mSync.addPublisher(publisher, iColor, mColor);
 			mSync.sync();
 		}
 	}
-	
+
 	public void updateConnections(Connection[] connections) {
 		mSync.clearConnections();
-		if(connections != null){			
-			for(Connection con : connections){
+		if (connections != null) {
+			for (Connection con : connections) {
 				try {
 					mSync.add(con);
 				} catch (ConnectionCreationException e) {
 					e.printStackTrace();
 				}
-			}			
+			}
 		}
 		mSync.sync();
 	}
-	
+
 	public Connection[] getConnections() {
 		return mSync.getConnections();
 	}
-	
-	public HashMap<String, Color> getPublisherAndColor(){
+
+	public HashMap<String, Color> getPublisherAndColor() {
 		return mSync.getPublisherAndColor();
 	}
-	
+
 	public Color getDefaultIdentifierColor() {
 		return mSync.getDefaultIdentifierColor();
 	}
@@ -144,7 +144,7 @@ public final class IfmapFacade {
 	public Color getDefaultMetadataColor() {
 		return mSync.getDefaultMetadataColor();
 	}
-	
+
 	/*
 	 * private synchronized void initProperties() throws
 	 * PropertiesNotFoundException { if (this.mProperties == null) throw new
@@ -160,10 +160,10 @@ public final class IfmapFacade {
 	public void startSession(Connection con) throws FileNotFoundException,
 			PropertiesNotFoundException, IOException, IfmapErrorResult,
 			IfmapException, InterruptedException {
-		if (con != null) {					
-				con.connect();
-				mEventService.notifyStatusChangedReceiver(con, "Connection "
-						+ con.getEndpoint() + " established.");			
+		if (con != null) {
+			con.connect();
+			mEventService.notifyStatusChangedReceiver(con,
+					"Connection " + con.getEndpoint() + " established.");
 		}
 	}
 
@@ -182,10 +182,10 @@ public final class IfmapFacade {
 			int size, String filter, String links, String[] terminal) {
 		return con.subscribeUpdate(ident, depth, size, filter, links, terminal);
 	}
-	
+
 	public void unsubscribe(Connection con, String[] keys) {
-		if(keys != null && keys.length > 0){
+		if (keys != null && keys.length > 0) {
 			con.subscribeDelete(keys);
-		}		
+		}
 	}
 }

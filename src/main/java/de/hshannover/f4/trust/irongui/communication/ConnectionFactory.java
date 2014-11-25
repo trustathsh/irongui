@@ -37,12 +37,7 @@
  * #L%
  */
 
-
-
 package de.hshannover.f4.trust.irongui.communication;
-
-
-
 
 import de.hshannover.f4.trust.irongui.exception.ConnectionCreationException;
 
@@ -58,7 +53,8 @@ public class ConnectionFactory {
 				params.getKeystorePass(), params.getTruststore(),
 				params.getTruststorePass(), params.isBasicAuthEnabled(),
 				params.getBasicauthUser(), params.getBasicauthPass(),
-				params.isDump(), params.isAutoConnect(), params.getMaxPollSize());
+				params.isDump(), params.isAutoConnect(),
+				params.getMaxPollSize());
 		return new Connection(tmp);
 	}
 

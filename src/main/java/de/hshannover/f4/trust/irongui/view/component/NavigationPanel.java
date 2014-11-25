@@ -37,12 +37,7 @@
  * #L%
  */
 
-
-
 package de.hshannover.f4.trust.irongui.view.component;
-
-
-
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -64,76 +59,78 @@ import de.hshannover.f4.trust.irongui.view.navigation.TreePanel;
 
 public class NavigationPanel extends JPanel {
 	private static final long serialVersionUID = 4248002471880371362L;
-	public JToggleButton buttonConnections;
-	public JToggleButton buttonTree;
-	public JList panelList;
-	public TreePanel panelTree;
-	private final ButtonGroup buttonGroup = new ButtonGroup();
-	private JScrollPane scrollPane = new JScrollPane();
-	private JPanel panelBottom;
-	private JToolBar actionPanel;
-	public  JToggleButton buttonPlay;
-	public JToggleButton buttonSubscribe;
+	public JToggleButton mButtonConnections;
+	public JToggleButton mButtonTree;
+	public JList mPanelList;
+	public TreePanel mPanelTree;
+	private final ButtonGroup mButtonGroup = new ButtonGroup();
+	private JScrollPane mScrollPane = new JScrollPane();
+	private JPanel mPanelBottom;
+	private JToolBar mActionPanel;
+	public JToggleButton mButtonPlay;
+	public JToggleButton mButtonSubscribe;
+
 	public NavigationPanel() {
 		setPreferredSize(new Dimension(151, 433));
-		setLayout(new BorderLayout(0, 0));		
-		
+		setLayout(new BorderLayout(0, 0));
+
 		JToolBar panelTop = new JToolBar();
 		panelTop.setFloatable(false);
-		add(panelTop, BorderLayout.NORTH);				
-		
-		buttonConnections = new JToggleButton();
-		buttonConnections.setFocusable(false);
-		buttonConnections.setSelected(true);
-		buttonGroup.add(buttonConnections);
-		//buttonConnections.setPreferredSize(new Dimension(32, 32));
-		buttonConnections.setIcon(ResourceHelper.getImage("server_client.png"));
-		panelTop.add(buttonConnections);
-		
-		buttonTree = new JToggleButton();		
-		buttonTree.setFocusable(false);
-		buttonGroup.add(buttonTree);
-		//buttonTree.setPreferredSize(new Dimension(32, 32));
-		buttonTree.setIcon(ResourceHelper.getImage("node-tree_24x24.png"));
-		panelTop.add(buttonTree);
-		
-		panelBottom = new JPanel();
-		panelBottom.setBorder(new LineBorder(new Color(0, 0, 0)));
-		add(panelBottom, BorderLayout.CENTER);
-		panelBottom.setLayout(new BorderLayout(0, 0));
-		
-		actionPanel = new JToolBar();
-		actionPanel.setFloatable(false);
-		panelBottom.add(actionPanel, BorderLayout.NORTH);
-		
-		buttonPlay = new JToggleButton();		
-		buttonPlay.setToolTipText("Start session with current selection");
-		buttonPlay.setFocusable(false);
-		buttonPlay.setIcon(ResourceHelper.getImage("control_play_blue.png"));
-		buttonPlay.setSelectedIcon(ResourceHelper.getImage("control_stop_blue.png"));
-		actionPanel.add(buttonPlay);
-		
-		buttonSubscribe = new JToggleButton();
-		buttonSubscribe.setToolTipText("Subscribe to metadata...");
-		buttonSubscribe.setFocusable(false);
-		buttonSubscribe.setIcon(ResourceHelper.getImage("feed_add_16x16.png"));
-		actionPanel.add(buttonSubscribe);
-		
-		panelList = new JList();
-		panelList.setModel(new DefaultListModel());
-		panelList.setCellRenderer(new ConnectionListRenderer());
-		panelList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		panelBottom.add(scrollPane);
-		scrollPane.setViewportView(panelList);
-		
-		panelTree = new TreePanel();
+		add(panelTop, BorderLayout.NORTH);
+
+		mButtonConnections = new JToggleButton();
+		mButtonConnections.setFocusable(false);
+		mButtonConnections.setSelected(true);
+		mButtonGroup.add(mButtonConnections);
+		// buttonConnections.setPreferredSize(new Dimension(32, 32));
+		mButtonConnections.setIcon(ResourceHelper.getImage("server_client.png"));
+		panelTop.add(mButtonConnections);
+
+		mButtonTree = new JToggleButton();
+		mButtonTree.setFocusable(false);
+		mButtonGroup.add(mButtonTree);
+		// buttonTree.setPreferredSize(new Dimension(32, 32));
+		mButtonTree.setIcon(ResourceHelper.getImage("node-tree_24x24.png"));
+		panelTop.add(mButtonTree);
+
+		mPanelBottom = new JPanel();
+		mPanelBottom.setBorder(new LineBorder(new Color(0, 0, 0)));
+		add(mPanelBottom, BorderLayout.CENTER);
+		mPanelBottom.setLayout(new BorderLayout(0, 0));
+
+		mActionPanel = new JToolBar();
+		mActionPanel.setFloatable(false);
+		mPanelBottom.add(mActionPanel, BorderLayout.NORTH);
+
+		mButtonPlay = new JToggleButton();
+		mButtonPlay.setToolTipText("Start session with current selection");
+		mButtonPlay.setFocusable(false);
+		mButtonPlay.setIcon(ResourceHelper.getImage("control_play_blue.png"));
+		mButtonPlay.setSelectedIcon(ResourceHelper
+				.getImage("control_stop_blue.png"));
+		mActionPanel.add(mButtonPlay);
+
+		mButtonSubscribe = new JToggleButton();
+		mButtonSubscribe.setToolTipText("Subscribe to metadata...");
+		mButtonSubscribe.setFocusable(false);
+		mButtonSubscribe.setIcon(ResourceHelper.getImage("feed_add_16x16.png"));
+		mActionPanel.add(mButtonSubscribe);
+
+		mPanelList = new JList();
+		mPanelList.setModel(new DefaultListModel());
+		mPanelList.setCellRenderer(new ConnectionListRenderer());
+		mPanelList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		mPanelBottom.add(mScrollPane);
+		mScrollPane.setViewportView(mPanelList);
+
+		mPanelTree = new TreePanel();
 	}
-	
+
 	public void removeView(Component c) {
-		scrollPane.getViewport().remove(c);
+		mScrollPane.getViewport().remove(c);
 	}
-	
+
 	public void addView(Component c) {
-		scrollPane.setViewportView(c);
+		mScrollPane.setViewportView(c);
 	}
 }

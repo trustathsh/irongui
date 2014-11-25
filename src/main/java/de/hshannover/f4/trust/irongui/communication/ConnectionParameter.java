@@ -37,12 +37,7 @@
  * #L%
  */
 
-
-
 package de.hshannover.f4.trust.irongui.communication;
-
-
-
 
 public class ConnectionParameter {
 
@@ -51,109 +46,110 @@ public class ConnectionParameter {
 	}
 
 	public String getName() {
-		return name;
+		return mName;
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.mName = name;
 	}
 
 	public String getEndpoint() {
-		return endpoint;
+		return mEndpoint;
 	}
 
 	public void setEndpoint(String endpoint) {
-		this.endpoint = endpoint;
+		this.mEndpoint = endpoint;
 	}
 
 	public String getKeystore() {
-		return keystore;
+		return mKeystore;
 	}
 
 	public void setKeystore(String keystore) {
-		this.keystore = keystore;
+		this.mKeystore = keystore;
 	}
 
 	public String getTruststore() {
-		return truststore;
+		return mTruststore;
 	}
 
 	public void setTruststore(String truststore) {
-		this.truststore = truststore;
+		this.mTruststore = truststore;
 	}
 
 	public String getKeystorePass() {
-		return keystorePass;
+		return mKeystorePass;
 	}
 
 	public void setKeystorePass(String keystorePass) {
-		this.keystorePass = keystorePass;
+		this.mKeystorePass = keystorePass;
 	}
 
 	public String getTruststorePass() {
-		return truststorePass;
+		return mTruststorePass;
 	}
 
 	public void setTruststorePass(String truststorePass) {
-		this.truststorePass = truststorePass;
+		this.mTruststorePass = truststorePass;
 	}
 
 	public boolean isBasicAuthEnabled() {
-		return basicAuthEnabled;
+		return mBasicAuthEnabled;
 	}
 
 	public void setBasicAuthEnabled(boolean basicAuthEnabled) {
-		this.basicAuthEnabled = basicAuthEnabled;
+		this.mBasicAuthEnabled = basicAuthEnabled;
 	}
 
 	public String getBasicauthUser() {
-		return basicauthUser;
+		return mBasicauthUser;
 	}
 
 	public void setBasicauthUser(String basicauthUser) {
-		this.basicauthUser = basicauthUser;
+		this.mBasicauthUser = basicauthUser;
 	}
 
 	public String getBasicauthPass() {
-		return basicauthPass;
+		return mBasicauthPass;
 	}
 
 	public void setBasicauthPass(String basicauthPass) {
-		this.basicauthPass = basicauthPass;
+		this.mBasicauthPass = basicauthPass;
 	}
 
 	public String getDumpFilter() {
-		return dumpFilter;
+		return mDumpFilter;
 	}
 
 	public void setDumpFilter(String dumpFilter) {
-		this.dumpFilter = dumpFilter;
+		this.mDumpFilter = dumpFilter;
 	}
 
 	public boolean isDump() {
-		return dump;
+		return mDump;
 	}
-	
+
 	public boolean isAutoConnect() {
-		return autoConnect;
+		return mAutoConnect;
 	}
 
 	public void setDump(boolean dump) {
-		this.dump = dump;
+		this.mDump = dump;
 	}
-	
+
 	public void setAutoConnect(boolean autoConnect) {
-		this.autoConnect = autoConnect;
+		this.mAutoConnect = autoConnect;
 	}
 
 	public int getMaxPollSize() {
-		return maxPollSize;
+		return mMaxPollSize;
 	}
 
 	public void setMaxPollSize(int maxPollSize) {
-		this.maxPollSize = maxPollSize;
+		this.mMaxPollSize = maxPollSize;
 	}
-	
+
+	@Override
 	public ConnectionParameter clone() {
 		ConnectionParameter param = new ConnectionParameter();
 		param.setName(getName());
@@ -174,21 +170,21 @@ public class ConnectionParameter {
 
 	@Override
 	public String toString() {
-		return name;
+		return mName;
 	};
 
-	private String name;
-	private String endpoint;
-	private String keystore;
-	private String truststore;
-	private String keystorePass;
-	private String truststorePass;
-	private boolean basicAuthEnabled;
-	private String basicauthUser;
-	private String basicauthPass;
-	private String dumpFilter;
-	private boolean dump;
-	private boolean autoConnect;
-	private int maxPollSize;	
+	private String mName;
+	private String mEndpoint;
+	private String mKeystore;
+	private String mTruststore;
+	private String mKeystorePass;
+	private String mTruststorePass;
+	private boolean mBasicAuthEnabled;
+	private String mBasicauthUser;
+	private String mBasicauthPass;
+	private String mDumpFilter;
+	private boolean mDump;
+	private boolean mAutoConnect;
+	private int mMaxPollSize;
 
 }

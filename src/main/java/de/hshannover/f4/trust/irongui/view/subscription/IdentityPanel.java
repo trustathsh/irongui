@@ -37,12 +37,7 @@
  * #L%
  */
 
-
-
 package de.hshannover.f4.trust.irongui.view.subscription;
-
-
-
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -57,143 +52,150 @@ import javax.swing.JTextField;
 
 import de.hshannover.f4.trust.ifmapj.identifier.IdentityType;
 
-
 /**
-* This code was edited or generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a corporation,
-* company or business for any purpose whatever) then you
-* should purchase a license for each developer using Jigloo.
-* Please visit www.cloudgarden.com for details.
-* Use of Jigloo implies acceptance of these licensing terms.
-* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR
-* THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
-* LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
-*/
+ * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI
+ * Builder, which is free for non-commercial use. If Jigloo is being used
+ * commercially (ie, by a corporation, company or business for any purpose
+ * whatever) then you should purchase a license for each developer using Jigloo.
+ * Please visit www.cloudgarden.com for details. Use of Jigloo implies
+ * acceptance of these licensing terms. A COMMERCIAL LICENSE HAS NOT BEEN
+ * PURCHASED FOR THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED LEGALLY FOR
+ * ANY CORPORATE OR COMMERCIAL PURPOSE.
+ */
 public class IdentityPanel extends JPanel {
 	private static final long serialVersionUID = -5752766552392967794L;
-	public JComboBox type;
-	public JTextField name;
-	private JLabel label;
-	public JTextField admindomain;
-	private JLabel lblName;
-	private JLabel lblType;
-	private JLabel lblOthertypedefinition;
-	public JTextField othertypedefinition;
+	public JComboBox mType;
+	public JTextField mName;
+	private JLabel mLabel;
+	public JTextField mAdmindomain;
+	private JLabel mLblName;
+	private JLabel mLblType;
+	private JLabel mLblOthertypedefinition;
+	public JTextField mOthertypedefinition;
+
 	/**
 	 * Create the panel.
 	 */
 	public IdentityPanel() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWeights = new double[]{0.0, 1.0};
-		
+		gridBagLayout.columnWeights = new double[] {0.0, 1.0 };
+
 		setLayout(gridBagLayout);
-		GridBagConstraints gbc_lblName = new GridBagConstraints();
-		gbc_lblName.anchor = GridBagConstraints.EAST;
-		gbc_lblName.insets = new Insets(0, 0, 5, 5);
-		gbc_lblName.gridx = 0;
-		gbc_lblName.gridy = 0;
-		add(getLblName(), gbc_lblName);
-		GridBagConstraints gbc_name = new GridBagConstraints();
-		gbc_name.insets = new Insets(0, 0, 5, 0);
-		gbc_name.fill = GridBagConstraints.HORIZONTAL;
-		gbc_name.gridx = 1;
-		gbc_name.gridy = 0;
-		add(getIdentityName(), gbc_name);
-		GridBagConstraints gbc_lblType = new GridBagConstraints();
-		gbc_lblType.insets = new Insets(0, 0, 5, 5);
-		gbc_lblType.anchor = GridBagConstraints.EAST;
-		gbc_lblType.gridx = 0;
-		gbc_lblType.gridy = 1;
-		add(getLblType(), gbc_lblType);
-		GridBagConstraints gbc_type = new GridBagConstraints();
-		gbc_type.anchor = GridBagConstraints.WEST;
-		gbc_type.insets = new Insets(0, 0, 5, 0);
-		gbc_type.gridx = 1;
-		gbc_type.gridy = 1;
-		add(getType(), gbc_type);
-		GridBagConstraints gbc_lblOthertypedefinition = new GridBagConstraints();
-		gbc_lblOthertypedefinition.anchor = GridBagConstraints.EAST;
-		gbc_lblOthertypedefinition.insets = new Insets(0, 0, 5, 5);
-		gbc_lblOthertypedefinition.gridx = 0;
-		gbc_lblOthertypedefinition.gridy = 2;
-		add(getLblOthertypedefinition(), gbc_lblOthertypedefinition);
-		GridBagConstraints gbc_othertypedefinition = new GridBagConstraints();
-		gbc_othertypedefinition.insets = new Insets(0, 0, 5, 0);
-		gbc_othertypedefinition.fill = GridBagConstraints.HORIZONTAL;
-		gbc_othertypedefinition.gridx = 1;
-		gbc_othertypedefinition.gridy = 2;
-		add(getOthertypedefinition(), gbc_othertypedefinition);
-		GridBagConstraints gbc_label = new GridBagConstraints();
-		gbc_label.anchor = GridBagConstraints.NORTHEAST;
-		gbc_label.insets = new Insets(0, 0, 0, 5);
-		gbc_label.gridx = 0;
-		gbc_label.gridy = 3;
-		add(getLabel(), gbc_label);
-		GridBagConstraints gbc_admindomain = new GridBagConstraints();
-		gbc_admindomain.anchor = GridBagConstraints.NORTH;
-		gbc_admindomain.fill = GridBagConstraints.HORIZONTAL;
-		gbc_admindomain.gridx = 1;
-		gbc_admindomain.gridy = 3;
-		add(getAdmindomain(), gbc_admindomain);
+		GridBagConstraints gbcLblName = new GridBagConstraints();
+		gbcLblName.anchor = GridBagConstraints.EAST;
+		gbcLblName.insets = new Insets(0, 0, 5, 5);
+		gbcLblName.gridx = 0;
+		gbcLblName.gridy = 0;
+		add(getLblName(), gbcLblName);
+		GridBagConstraints gbcName = new GridBagConstraints();
+		gbcName.insets = new Insets(0, 0, 5, 0);
+		gbcName.fill = GridBagConstraints.HORIZONTAL;
+		gbcName.gridx = 1;
+		gbcName.gridy = 0;
+		add(getIdentityName(), gbcName);
+		GridBagConstraints gbcLblType = new GridBagConstraints();
+		gbcLblType.insets = new Insets(0, 0, 5, 5);
+		gbcLblType.anchor = GridBagConstraints.EAST;
+		gbcLblType.gridx = 0;
+		gbcLblType.gridy = 1;
+		add(getLblType(), gbcLblType);
+		GridBagConstraints gbcType = new GridBagConstraints();
+		gbcType.anchor = GridBagConstraints.WEST;
+		gbcType.insets = new Insets(0, 0, 5, 0);
+		gbcType.gridx = 1;
+		gbcType.gridy = 1;
+		add(getType(), gbcType);
+		GridBagConstraints gbcLblOthertypedefinition = new GridBagConstraints();
+		gbcLblOthertypedefinition.anchor = GridBagConstraints.EAST;
+		gbcLblOthertypedefinition.insets = new Insets(0, 0, 5, 5);
+		gbcLblOthertypedefinition.gridx = 0;
+		gbcLblOthertypedefinition.gridy = 2;
+		add(getLblOthertypedefinition(), gbcLblOthertypedefinition);
+		GridBagConstraints gbcOthertypedefinition = new GridBagConstraints();
+		gbcOthertypedefinition.insets = new Insets(0, 0, 5, 0);
+		gbcOthertypedefinition.fill = GridBagConstraints.HORIZONTAL;
+		gbcOthertypedefinition.gridx = 1;
+		gbcOthertypedefinition.gridy = 2;
+		add(getOthertypedefinition(), gbcOthertypedefinition);
+		GridBagConstraints gbcLabel = new GridBagConstraints();
+		gbcLabel.anchor = GridBagConstraints.NORTHEAST;
+		gbcLabel.insets = new Insets(0, 0, 0, 5);
+		gbcLabel.gridx = 0;
+		gbcLabel.gridy = 3;
+		add(getLabel(), gbcLabel);
+		GridBagConstraints gbcAdmindomain = new GridBagConstraints();
+		gbcAdmindomain.anchor = GridBagConstraints.NORTH;
+		gbcAdmindomain.fill = GridBagConstraints.HORIZONTAL;
+		gbcAdmindomain.gridx = 1;
+		gbcAdmindomain.gridy = 3;
+		add(getAdmindomain(), gbcAdmindomain);
 	}
-	
+
 	private JComboBox getType() {
-			if(type == null) {
-				ComboBoxModel comboBoxModel = 
-					new DefaultComboBoxModel(
-							new IdentityType[] { IdentityType.aikName, IdentityType.distinguishedName,
-									IdentityType.dnsName, IdentityType.emailAddress, IdentityType.kerberosPrincipal,
-									IdentityType.userName, IdentityType.sipUri, IdentityType.telUri, 
-									IdentityType.hipHit, IdentityType.other});						
-				comboBoxModel.setSelectedItem(IdentityType.aikName);
-				type = new JComboBox();
-				type.setModel(comboBoxModel);
-			}
-			return type;
+		if (mType == null) {
+			ComboBoxModel comboBoxModel = new DefaultComboBoxModel(
+					new IdentityType[] {IdentityType.aikName,
+							IdentityType.distinguishedName,
+							IdentityType.dnsName, IdentityType.emailAddress,
+							IdentityType.kerberosPrincipal,
+							IdentityType.userName, IdentityType.sipUri,
+							IdentityType.telUri, IdentityType.hipHit,
+							IdentityType.other });
+			comboBoxModel.setSelectedItem(IdentityType.aikName);
+			mType = new JComboBox();
+			mType.setModel(comboBoxModel);
+		}
+		return mType;
 	}
+
 	private JTextField getIdentityName() {
-		if (name == null) {
-			name = new JTextField();
+		if (mName == null) {
+			mName = new JTextField();
 		}
-		return name;
+		return mName;
 	}
+
 	private JLabel getLabel() {
-		if (label == null) {
-			label = new JLabel();
-			label.setText("administrative-domain");
+		if (mLabel == null) {
+			mLabel = new JLabel();
+			mLabel.setText("administrative-domain");
 		}
-		return label;
+		return mLabel;
 	}
+
 	private JTextField getAdmindomain() {
-		if (admindomain == null) {
-			admindomain = new JTextField();
+		if (mAdmindomain == null) {
+			mAdmindomain = new JTextField();
 		}
-		return admindomain;
+		return mAdmindomain;
 	}
+
 	private JLabel getLblName() {
-		if (lblName == null) {
-			lblName = new JLabel("name");
+		if (mLblName == null) {
+			mLblName = new JLabel("name");
 		}
-		return lblName;
+		return mLblName;
 	}
+
 	private JLabel getLblType() {
-		if (lblType == null) {
-			lblType = new JLabel("type");
+		if (mLblType == null) {
+			mLblType = new JLabel("type");
 		}
-		return lblType;
+		return mLblType;
 	}
+
 	private JLabel getLblOthertypedefinition() {
-		if (lblOthertypedefinition == null) {
-			lblOthertypedefinition = new JLabel("other-type-definition");
+		if (mLblOthertypedefinition == null) {
+			mLblOthertypedefinition = new JLabel("other-type-definition");
 		}
-		return lblOthertypedefinition;
+		return mLblOthertypedefinition;
 	}
+
 	private JTextField getOthertypedefinition() {
-		if (othertypedefinition == null) {
-			othertypedefinition = new JTextField();
-			othertypedefinition.setColumns(10);
+		if (mOthertypedefinition == null) {
+			mOthertypedefinition = new JTextField();
+			mOthertypedefinition.setColumns(10);
 		}
-		return othertypedefinition;
+		return mOthertypedefinition;
 	}
 }

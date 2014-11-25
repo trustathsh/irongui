@@ -37,12 +37,7 @@
  * #L%
  */
 
-
-
 package de.hshannover.f4.trust.irongui.view.dialog;
-
-
-
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -83,31 +78,31 @@ import de.hshannover.f4.trust.irongui.util.ResourceHelper;
 public class ConnectionDialog extends JFrame {
 
 	private static final long serialVersionUID = 6756137933419928418L;
-	private JPanel contentPane;
-	private JTextField textFieldEndpoint;
-	private JTextField textFieldKeystore;
-	private JPasswordField passwordFieldKeystore;
-	private JTextField textFieldTruststore;
-	private JPasswordField passwordFieldTruststore;
-	private JTextField textFieldName;
-	private JTextField textFieldUsername;
-	private JPasswordField textFieldPassword;
-	private JLabel labelUsername = null;
-	private JLabel labelPassword;
-	private ConnectionParameter previousParam = null;
-	private JCheckBox checkBoxBasicAuth;
-	public JTextArea testPanel;
+	private JPanel mContentPane;
+	private JTextField mTextFieldEndpoint;
+	private JTextField mTextFieldKeystore;
+	private JPasswordField mPasswordFieldKeystore;
+	private JTextField mTextFieldTruststore;
+	private JPasswordField mPasswordFieldTruststore;
+	private JTextField mTextFieldName;
+	private JTextField mTextFieldUsername;
+	private JPasswordField mTextFieldPassword;
+	private JLabel mLabelUsername = null;
+	private JLabel mLabelPassword;
+	private ConnectionParameter mPreviousParam = null;
+	private JCheckBox mCheckBoxBasicAuth;
+	public JTextArea mTestPanel;
 	public JButton buttonClose;
 	public DefaultListModel mListModel;
-	public JCheckBox checkBoxDump;
-	public JCheckBox checkBoxAutoConnect;
+	public JCheckBox mCheckBoxDump;
+	public JCheckBox mCheckBoxAutoConnect;
 	public JList mConnectionList;
-	private JPanel panelCenter;
-	private JPanel panelParameter;
-	private JPanel panelBlank;
-	private int dupCounter = 0;
+	private JPanel mPanelCenter;
+	private JPanel mPanelParameter;
+	private JPanel mPanelBlank;
+	private int mDupCounter = 0;
 	public JButton buttonTest;
-	private JTextField textFieldMaxPoll;
+	private JTextField mTextFieldMaxPoll;
 
 	/**
 	 * Launch the application.
@@ -134,23 +129,23 @@ public class ConnectionDialog extends JFrame {
 		ConnectionParameter param = (ConnectionParameter) mConnectionList
 				.getSelectedValue();
 		if (param != null) {
-			param.setName(textFieldName.getText().trim());
-			param.setEndpoint(textFieldEndpoint.getText().trim());
-			param.setTruststore(textFieldTruststore.getText().trim());
-			param.setTruststorePass(new String(passwordFieldTruststore
+			param.setName(mTextFieldName.getText().trim());
+			param.setEndpoint(mTextFieldEndpoint.getText().trim());
+			param.setTruststore(mTextFieldTruststore.getText().trim());
+			param.setTruststorePass(new String(mPasswordFieldTruststore
 					.getPassword()));
-			param.setKeystore(textFieldKeystore.getText().trim());
-			param.setKeystorePass(new String(passwordFieldKeystore
+			param.setKeystore(mTextFieldKeystore.getText().trim());
+			param.setKeystorePass(new String(mPasswordFieldKeystore
 					.getPassword()));
-			param.setBasicAuthEnabled(checkBoxBasicAuth.isSelected());
-			param.setBasicauthUser(textFieldUsername.getText().trim());
-			param.setBasicauthPass(new String(textFieldPassword.getPassword()));
-			param.setDump(checkBoxDump.isSelected());
-			param.setAutoConnect(checkBoxAutoConnect.isSelected());
+			param.setBasicAuthEnabled(mCheckBoxBasicAuth.isSelected());
+			param.setBasicauthUser(mTextFieldUsername.getText().trim());
+			param.setBasicauthPass(new String(mTextFieldPassword.getPassword()));
+			param.setDump(mCheckBoxDump.isSelected());
+			param.setAutoConnect(mCheckBoxAutoConnect.isSelected());
 			try {
-				param.setMaxPollSize(Integer.parseInt(textFieldMaxPoll.getText().trim()));
-			}
-			catch(NumberFormatException err ){
+				param.setMaxPollSize(Integer.parseInt(mTextFieldMaxPoll
+						.getText().trim()));
+			} catch (NumberFormatException err) {
 				param.setMaxPollSize(0);
 			}
 		}
@@ -164,13 +159,13 @@ public class ConnectionDialog extends JFrame {
 		setTitle("Manage IF-MAP connections");
 		setIconImage(ResourceHelper.getAppIconImage().getImage());
 		setBounds(100, 100, 671, 700);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
+		mContentPane = new JPanel();
+		mContentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		mContentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(mContentPane);
 
 		JSplitPane splitPane = new JSplitPane();
-		contentPane.add(splitPane, BorderLayout.CENTER);
+		mContentPane.add(splitPane, BorderLayout.CENTER);
 
 		mConnectionList = new JList();
 		// mConnectionList.setCellRenderer(new ConnectionListRenderer());
@@ -182,72 +177,73 @@ public class ConnectionDialog extends JFrame {
 				if (param == null) {
 					return;
 				}
-				if (previousParam != null) {
-					previousParam.setName(textFieldName.getText().trim());
-					previousParam.setEndpoint(textFieldEndpoint.getText()
+				if (mPreviousParam != null) {
+					mPreviousParam.setName(mTextFieldName.getText().trim());
+					mPreviousParam.setEndpoint(mTextFieldEndpoint.getText()
 							.trim());
-					previousParam.setTruststore(textFieldTruststore.getText()
+					mPreviousParam.setTruststore(mTextFieldTruststore.getText()
 							.trim());
-					previousParam.setTruststorePass(new String(
-							passwordFieldTruststore.getPassword()));
-					previousParam.setKeystore(textFieldKeystore.getText()
+					mPreviousParam.setTruststorePass(new String(
+							mPasswordFieldTruststore.getPassword()));
+					mPreviousParam.setKeystore(mTextFieldKeystore.getText()
 							.trim());
-					previousParam.setKeystorePass(new String(
-							passwordFieldKeystore.getPassword()));
-					previousParam.setBasicAuthEnabled(checkBoxBasicAuth
+					mPreviousParam.setKeystorePass(new String(
+							mPasswordFieldKeystore.getPassword()));
+					mPreviousParam.setBasicAuthEnabled(mCheckBoxBasicAuth
 							.isSelected());
-					previousParam.setBasicauthUser(textFieldUsername.getText()
+					mPreviousParam.setBasicauthUser(mTextFieldUsername.getText()
 							.trim());
-					previousParam.setBasicauthPass(new String(textFieldPassword
+					mPreviousParam.setBasicauthPass(new String(mTextFieldPassword
 							.getPassword()));
-					previousParam.setDump(checkBoxDump.isSelected());
-					previousParam.setAutoConnect(checkBoxAutoConnect.isSelected());
+					mPreviousParam.setDump(mCheckBoxDump.isSelected());
+					mPreviousParam.setAutoConnect(mCheckBoxAutoConnect
+							.isSelected());
 					try {
-						previousParam.setMaxPollSize(Integer.parseInt(textFieldMaxPoll.getText().trim()));
+						mPreviousParam.setMaxPollSize(Integer
+								.parseInt(mTextFieldMaxPoll.getText().trim()));
+					} catch (NumberFormatException err) {
+						mPreviousParam.setMaxPollSize(0);
 					}
-					catch(NumberFormatException err ){
-						previousParam.setMaxPollSize(0);
-					}					
 				}
 
 				// fill fields with actual parameters
-				textFieldName.setText(param.getName());
-				textFieldEndpoint.setText(param.getEndpoint());
-				textFieldKeystore.setText(param.getKeystore());
+				mTextFieldName.setText(param.getName());
+				mTextFieldEndpoint.setText(param.getEndpoint());
+				mTextFieldKeystore.setText(param.getKeystore());
 				if (param.getKeystorePass() != null) {
-					passwordFieldKeystore.setText(new String(param
+					mPasswordFieldKeystore.setText(new String(param
 							.getKeystorePass()));
 				} else {
-					passwordFieldKeystore.setText(null);
+					mPasswordFieldKeystore.setText(null);
 				}
-				textFieldTruststore.setText(param.getTruststore());
+				mTextFieldTruststore.setText(param.getTruststore());
 				if (param.getTruststorePass() != null) {
-					passwordFieldTruststore.setText(new String(param
+					mPasswordFieldTruststore.setText(new String(param
 							.getTruststorePass()));
 				} else {
-					passwordFieldTruststore.setText(null);
+					mPasswordFieldTruststore.setText(null);
 				}
-				checkBoxBasicAuth.setSelected(param.isBasicAuthEnabled());
-				textFieldUsername.setText(param.getBasicauthUser());
+				mCheckBoxBasicAuth.setSelected(param.isBasicAuthEnabled());
+				mTextFieldUsername.setText(param.getBasicauthUser());
 				if (param.getBasicauthPass() != null) {
-					textFieldPassword.setText(new String(param
+					mTextFieldPassword.setText(new String(param
 							.getBasicauthPass()));
 				} else {
-					textFieldPassword.setText(null);
+					mTextFieldPassword.setText(null);
 				}
-				if(param.getMaxPollSize() != 0) {
-					textFieldMaxPoll.setText(String.valueOf(param.getMaxPollSize()));
+				if (param.getMaxPollSize() != 0) {
+					mTextFieldMaxPoll.setText(String.valueOf(param
+							.getMaxPollSize()));
+				} else {
+					mTextFieldMaxPoll.setText(null);
 				}
-				else {
-					textFieldMaxPoll.setText(null);
-				}
-				checkBoxDump.setSelected(param.isDump());
-				checkBoxAutoConnect.setSelected(param.isAutoConnect());
-				labelUsername.setEnabled(param.isBasicAuthEnabled());
-				textFieldUsername.setEnabled(param.isBasicAuthEnabled());
-				labelPassword.setEnabled(param.isBasicAuthEnabled());
-				textFieldPassword.setEnabled(param.isBasicAuthEnabled());
-				previousParam = param;
+				mCheckBoxDump.setSelected(param.isDump());
+				mCheckBoxAutoConnect.setSelected(param.isAutoConnect());
+				mLabelUsername.setEnabled(param.isBasicAuthEnabled());
+				mTextFieldUsername.setEnabled(param.isBasicAuthEnabled());
+				mLabelPassword.setEnabled(param.isBasicAuthEnabled());
+				mTextFieldPassword.setEnabled(param.isBasicAuthEnabled());
+				mPreviousParam = param;
 			}
 		});
 		mConnectionList.setBorder(new LineBorder(
@@ -263,48 +259,48 @@ public class ConnectionDialog extends JFrame {
 
 		splitPane.setLeftComponent(mConnectionList);
 
-		panelCenter = new JPanel();
-		panelCenter.setBorder(new LineBorder(SystemColor.activeCaptionBorder));
-		splitPane.setRightComponent(panelCenter);
-		panelCenter.setLayout(new BorderLayout(0, 0));
+		mPanelCenter = new JPanel();
+		mPanelCenter.setBorder(new LineBorder(SystemColor.activeCaptionBorder));
+		splitPane.setRightComponent(mPanelCenter);
+		mPanelCenter.setLayout(new BorderLayout(0, 0));
 
-		panelParameter = new JPanel();
+		mPanelParameter = new JPanel();
 
-		panelBlank = new JPanel();
-		panelCenter.add(panelBlank, BorderLayout.CENTER);
-		panelBlank.setLayout(null);
+		mPanelBlank = new JPanel();
+		mPanelCenter.add(mPanelBlank, BorderLayout.CENTER);
+		mPanelBlank.setLayout(null);
 
 		JLabel lblNoConnectionsYet = new JLabel("No connections yet.");
 		lblNoConnectionsYet.setBounds(0, 234, 497, 16);
 		lblNoConnectionsYet.setHorizontalAlignment(SwingConstants.CENTER);
-		panelBlank.add(lblNoConnectionsYet);
-		panelParameter.setLayout(null);
+		mPanelBlank.add(lblNoConnectionsYet);
+		mPanelParameter.setLayout(null);
 		// panelCenter.add(panelParameter, BorderLayout.CENTER);
 
 		JLabel label = new JLabel("Endpoint");
 		label.setHorizontalAlignment(SwingConstants.RIGHT);
 		label.setBounds(3, 38, 130, 16);
-		panelParameter.add(label);
+		mPanelParameter.add(label);
 
-		textFieldEndpoint = new JTextField();
-		textFieldEndpoint.setColumns(10);
-		textFieldEndpoint.setBounds(145, 38, 336, 22);
-		panelParameter.add(textFieldEndpoint);
+		mTextFieldEndpoint = new JTextField();
+		mTextFieldEndpoint.setColumns(10);
+		mTextFieldEndpoint.setBounds(145, 38, 336, 22);
+		mPanelParameter.add(mTextFieldEndpoint);
 
-		JLabel label_1 = new JLabel("Truststore");
-		label_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_1.setBounds(3, 126, 130, 16);
-		panelParameter.add(label_1);
+		JLabel label1 = new JLabel("Truststore");
+		label1.setHorizontalAlignment(SwingConstants.RIGHT);
+		label1.setBounds(3, 126, 130, 16);
+		mPanelParameter.add(label1);
 
-		JLabel label_2 = new JLabel("Truststore password");
-		label_2.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_2.setBounds(3, 155, 130, 16);
-		panelParameter.add(label_2);
+		JLabel label2 = new JLabel("Truststore password");
+		label2.setHorizontalAlignment(SwingConstants.RIGHT);
+		label2.setBounds(3, 155, 130, 16);
+		mPanelParameter.add(label2);
 
-		textFieldKeystore = new JTextField();
-		textFieldKeystore.setColumns(10);
-		textFieldKeystore.setBounds(145, 67, 227, 22);
-		panelParameter.add(textFieldKeystore);
+		mTextFieldKeystore = new JTextField();
+		mTextFieldKeystore.setColumns(10);
+		mTextFieldKeystore.setBounds(145, 67, 227, 22);
+		mPanelParameter.add(mTextFieldKeystore);
 
 		JButton button = new JButton("Choose...");
 		button.addActionListener(new ActionListener() {
@@ -312,150 +308,150 @@ public class ConnectionDialog extends JFrame {
 				JFileChooser chooser = new JFileChooser(new File("."));
 				int returnVal = chooser.showOpenDialog(ConnectionDialog.this);
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
-					textFieldKeystore.setText(chooser.getSelectedFile()
+					mTextFieldKeystore.setText(chooser.getSelectedFile()
 							.getAbsolutePath());
 				}
 			}
 		});
 		button.setBounds(384, 66, 97, 25);
-		panelParameter.add(button);
+		mPanelParameter.add(button);
 
-		passwordFieldKeystore = new JPasswordField();
-		passwordFieldKeystore.setBounds(145, 96, 227, 22);
-		panelParameter.add(passwordFieldKeystore);
+		mPasswordFieldKeystore = new JPasswordField();
+		mPasswordFieldKeystore.setBounds(145, 96, 227, 22);
+		mPanelParameter.add(mPasswordFieldKeystore);
 
-		JLabel label_3 = new JLabel("Keystore");
-		label_3.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_3.setBounds(3, 67, 130, 16);
-		panelParameter.add(label_3);
+		JLabel label3 = new JLabel("Keystore");
+		label3.setHorizontalAlignment(SwingConstants.RIGHT);
+		label3.setBounds(3, 67, 130, 16);
+		mPanelParameter.add(label3);
 
-		JLabel label_4 = new JLabel("Keystore password");
-		label_4.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_4.setBounds(3, 96, 130, 16);
-		panelParameter.add(label_4);
+		JLabel label4 = new JLabel("Keystore password");
+		label4.setHorizontalAlignment(SwingConstants.RIGHT);
+		label4.setBounds(3, 96, 130, 16);
+		mPanelParameter.add(label4);
 
-		textFieldTruststore = new JTextField();
-		textFieldTruststore.setColumns(10);
-		textFieldTruststore.setBounds(145, 126, 227, 22);
-		panelParameter.add(textFieldTruststore);
+		mTextFieldTruststore = new JTextField();
+		mTextFieldTruststore.setColumns(10);
+		mTextFieldTruststore.setBounds(145, 126, 227, 22);
+		mPanelParameter.add(mTextFieldTruststore);
 
-		passwordFieldTruststore = new JPasswordField();
-		passwordFieldTruststore.setBounds(145, 155, 227, 22);
-		panelParameter.add(passwordFieldTruststore);
+		mPasswordFieldTruststore = new JPasswordField();
+		mPasswordFieldTruststore.setBounds(145, 155, 227, 22);
+		mPanelParameter.add(mPasswordFieldTruststore);
 
-		JButton button_1 = new JButton("Choose...");
-		button_1.addActionListener(new ActionListener() {
+		JButton button1 = new JButton("Choose...");
+		button1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser chooser = new JFileChooser(new File("."));
 				int returnVal = chooser.showOpenDialog(ConnectionDialog.this);
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
-					textFieldTruststore.setText(chooser.getSelectedFile()
+					mTextFieldTruststore.setText(chooser.getSelectedFile()
 							.getAbsolutePath());
 				}
 			}
 		});
-		button_1.setBounds(384, 125, 97, 25);
-		panelParameter.add(button_1);
+		button1.setBounds(384, 125, 97, 25);
+		mPanelParameter.add(button1);
 
-		JLabel label_5 = new JLabel("Name");
-		label_5.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_5.setBounds(0, 9, 133, 16);
-		panelParameter.add(label_5);
+		JLabel label5 = new JLabel("Name");
+		label5.setHorizontalAlignment(SwingConstants.RIGHT);
+		label5.setBounds(0, 9, 133, 16);
+		mPanelParameter.add(label5);
 
-		textFieldName = new JTextField();
-		textFieldName.setColumns(10);
-		textFieldName.setBounds(145, 9, 227, 22);
-		panelParameter.add(textFieldName);
+		mTextFieldName = new JTextField();
+		mTextFieldName.setColumns(10);
+		mTextFieldName.setBounds(145, 9, 227, 22);
+		mPanelParameter.add(mTextFieldName);
 
-		JLabel label_6 = new JLabel("Basic Authentication");
-		label_6.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_6.setBounds(3, 184, 130, 16);
-		panelParameter.add(label_6);
+		JLabel label6 = new JLabel("Basic Authentication");
+		label6.setHorizontalAlignment(SwingConstants.RIGHT);
+		label6.setBounds(3, 184, 130, 16);
+		mPanelParameter.add(label6);
 
-		checkBoxBasicAuth = new JCheckBox("");
-		checkBoxBasicAuth.addActionListener(new ActionListener() {
+		mCheckBoxBasicAuth = new JCheckBox("");
+		mCheckBoxBasicAuth.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				boolean selected = checkBoxBasicAuth.isSelected();
-				labelUsername.setEnabled(selected);
-				textFieldUsername.setEnabled(selected);
-				labelPassword.setEnabled(selected);
-				textFieldPassword.setEnabled(selected);
+				boolean selected = mCheckBoxBasicAuth.isSelected();
+				mLabelUsername.setEnabled(selected);
+				mTextFieldUsername.setEnabled(selected);
+				mLabelPassword.setEnabled(selected);
+				mTextFieldPassword.setEnabled(selected);
 			}
 		});
-		checkBoxBasicAuth.setBounds(141, 180, 25, 25);
-		panelParameter.add(checkBoxBasicAuth);
+		mCheckBoxBasicAuth.setBounds(141, 180, 25, 25);
+		mPanelParameter.add(mCheckBoxBasicAuth);
 
-		labelUsername = new JLabel("Username");
-		labelUsername.setHorizontalAlignment(SwingConstants.RIGHT);
-		labelUsername.setEnabled(false);
-		labelUsername.setBounds(3, 217, 130, 16);
-		panelParameter.add(labelUsername);
+		mLabelUsername = new JLabel("Username");
+		mLabelUsername.setHorizontalAlignment(SwingConstants.RIGHT);
+		mLabelUsername.setEnabled(false);
+		mLabelUsername.setBounds(3, 217, 130, 16);
+		mPanelParameter.add(mLabelUsername);
 
-		textFieldUsername = new JTextField();
-		textFieldUsername.setEnabled(false);
-		textFieldUsername.setColumns(10);
-		textFieldUsername.setBounds(145, 214, 227, 22);
-		panelParameter.add(textFieldUsername);
+		mTextFieldUsername = new JTextField();
+		mTextFieldUsername.setEnabled(false);
+		mTextFieldUsername.setColumns(10);
+		mTextFieldUsername.setBounds(145, 214, 227, 22);
+		mPanelParameter.add(mTextFieldUsername);
 
-		labelPassword = new JLabel("Password");
-		labelPassword.setHorizontalAlignment(SwingConstants.RIGHT);
-		labelPassword.setEnabled(false);
-		labelPassword.setBounds(3, 252, 130, 16);
-		panelParameter.add(labelPassword);
+		mLabelPassword = new JLabel("Password");
+		mLabelPassword.setHorizontalAlignment(SwingConstants.RIGHT);
+		mLabelPassword.setEnabled(false);
+		mLabelPassword.setBounds(3, 252, 130, 16);
+		mPanelParameter.add(mLabelPassword);
 
-		textFieldPassword = new JPasswordField();
-		textFieldPassword.setEnabled(false);
-		textFieldPassword.setBounds(145, 249, 227, 22);
-		panelParameter.add(textFieldPassword);
+		mTextFieldPassword = new JPasswordField();
+		mTextFieldPassword.setEnabled(false);
+		mTextFieldPassword.setBounds(145, 249, 227, 22);
+		mPanelParameter.add(mTextFieldPassword);
 
 		buttonTest = new JButton("Test connection");
 		buttonTest.setBounds(145, 380, 154, 25);
-		panelParameter.add(buttonTest);
+		mPanelParameter.add(buttonTest);
 
-		testPanel = new JTextArea();
-		testPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		testPanel.setBounds(145, 413, 336, 150);
-		panelParameter.add(testPanel);
-		testPanel.setLayout(null);
+		mTestPanel = new JTextArea();
+		mTestPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		mTestPanel.setBounds(145, 413, 336, 150);
+		mPanelParameter.add(mTestPanel);
+		mTestPanel.setLayout(null);
 
 		JLabel lblDump = new JLabel("Dump");
 		lblDump.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblDump.setBounds(36, 323, 97, 27);
-		panelParameter.add(lblDump);
+		mPanelParameter.add(lblDump);
 
-		checkBoxDump = new JCheckBox("");
-		checkBoxDump.setBounds(145, 323, 25, 25);
-		panelParameter.add(checkBoxDump);
+		mCheckBoxDump = new JCheckBox("");
+		mCheckBoxDump.setBounds(145, 323, 25, 25);
+		mPanelParameter.add(mCheckBoxDump);
 
 		JLabel lblAutoConnect = new JLabel("Connect on start");
 		lblAutoConnect.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblAutoConnect.setBounds(3, 349, 130, 27);
-		panelParameter.add(lblAutoConnect);
+		mPanelParameter.add(lblAutoConnect);
 
-		checkBoxAutoConnect = new JCheckBox("");
-		checkBoxAutoConnect.setBounds(145, 349, 25, 25);
-		panelParameter.add(checkBoxAutoConnect);
+		mCheckBoxAutoConnect = new JCheckBox("");
+		mCheckBoxAutoConnect.setBounds(145, 349, 25, 25);
+		mPanelParameter.add(mCheckBoxAutoConnect);
 
 		JLabel lblMaxpollsize = new JLabel("max-poll-result-size");
 		lblMaxpollsize.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblMaxpollsize.setBounds(3, 281, 130, 16);
-		panelParameter.add(lblMaxpollsize);
-		
+		mPanelParameter.add(lblMaxpollsize);
+
 		JLabel lbloptional = new JLabel("(optional)");
 		lbloptional.setBounds(77, 298, 56, 16);
-		panelParameter.add(lbloptional);
-		
-		textFieldMaxPoll = new JTextField();
-		textFieldMaxPoll.setBounds(145, 284, 116, 22);
-		panelParameter.add(textFieldMaxPoll);
-		textFieldMaxPoll.setColumns(10);
-		checkBoxDump.addActionListener(new ActionListener() {
+		mPanelParameter.add(lbloptional);
+
+		mTextFieldMaxPoll = new JTextField();
+		mTextFieldMaxPoll.setBounds(145, 284, 116, 22);
+		mPanelParameter.add(mTextFieldMaxPoll);
+		mTextFieldMaxPoll.setColumns(10);
+		mCheckBoxDump.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				if (checkBoxDump.isSelected()) {
+				if (mCheckBoxDump.isSelected()) {
 					JOptionPane
 							.showMessageDialog(
-									contentPane,
+									mContentPane,
 									"Dumping is NOT IF-MAP 2.0 compliant and can only be used with irond.",
 									"Warning", JOptionPane.WARNING_MESSAGE);
 				}
@@ -463,9 +459,9 @@ public class ConnectionDialog extends JFrame {
 		});
 		splitPane.setDividerLocation(150);
 
-		JPanel panel_1 = new JPanel();
-		contentPane.add(panel_1, BorderLayout.NORTH);
-		panel_1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
+		JPanel panel1 = new JPanel();
+		mContentPane.add(panel1, BorderLayout.NORTH);
+		panel1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 
 		JButton addButton = new JButton("New");
 		addButton.addActionListener(new ActionListener() {
@@ -480,14 +476,14 @@ public class ConnectionDialog extends JFrame {
 					e.printStackTrace();
 				}
 				mListModel.add(mListModel.getSize(), param);
-				panelCenter.remove(panelBlank);
-				panelCenter.add(panelParameter, BorderLayout.CENTER);
-				panelCenter.updateUI();
+				mPanelCenter.remove(mPanelBlank);
+				mPanelCenter.add(mPanelParameter, BorderLayout.CENTER);
+				mPanelCenter.updateUI();
 				mConnectionList.setSelectedIndex(mListModel.getSize() - 1);
 
 			}
 		});
-		panel_1.add(addButton);
+		panel1.add(addButton);
 
 		JButton removeButton = new JButton("Delete");
 		removeButton.addActionListener(new ActionListener() {
@@ -499,14 +495,14 @@ public class ConnectionDialog extends JFrame {
 						index = (index == 0) ? 0 : index - 1;
 						mConnectionList.setSelectedIndex(index);
 					} else {
-						panelCenter.remove(panelParameter);
-						panelCenter.add(panelBlank, BorderLayout.CENTER);
-						panelCenter.updateUI();
+						mPanelCenter.remove(mPanelParameter);
+						mPanelCenter.add(mPanelBlank, BorderLayout.CENTER);
+						mPanelCenter.updateUI();
 					}
 				}
 			}
 		});
-		panel_1.add(removeButton);
+		panel1.add(removeButton);
 
 		JButton copyButton = new JButton("Duplicate");
 		copyButton.addActionListener(new ActionListener() {
@@ -519,28 +515,28 @@ public class ConnectionDialog extends JFrame {
 					int id = param.getName().lastIndexOf('(');
 					if (id > -1) {
 						name = param.getName().substring(0, id - 1) + " ("
-								+ (++dupCounter) + ")";
+								+ (++mDupCounter) + ")";
 					} else {
-						name = param.getName() + " (" + (++dupCounter) + ")";
+						name = param.getName() + " (" + (++mDupCounter) + ")";
 					}
 					param.setName(name);
 					mListModel.add(mListModel.getSize(), param);
-					panelCenter.remove(panelBlank);
-					panelCenter.add(panelParameter, BorderLayout.CENTER);
-					panelCenter.updateUI();
+					mPanelCenter.remove(mPanelBlank);
+					mPanelCenter.add(mPanelParameter, BorderLayout.CENTER);
+					mPanelCenter.updateUI();
 					mConnectionList.setSelectedIndex(mListModel.getSize() - 1);
 				}
 			}
 		});
-		panel_1.add(copyButton);
+		panel1.add(copyButton);
 
-		JPanel panel_2 = new JPanel();
-		FlowLayout flowLayout = (FlowLayout) panel_2.getLayout();
+		JPanel panel2 = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) panel2.getLayout();
 		flowLayout.setAlignment(FlowLayout.RIGHT);
-		contentPane.add(panel_2, BorderLayout.SOUTH);
+		mContentPane.add(panel2, BorderLayout.SOUTH);
 
 		buttonClose = new JButton("Close");
-		panel_2.add(buttonClose);
+		panel2.add(buttonClose);
 
 		if (!mListModel.isEmpty()) {
 			mConnectionList.setSelectedIndex(0);
@@ -573,9 +569,9 @@ public class ConnectionDialog extends JFrame {
 			for (int i = 0; i < cons.length; i++) {
 				mListModel.add(i, cons[i].getConnectionParameters());
 			}
-			panelCenter.remove(panelBlank);
-			panelCenter.add(panelParameter, BorderLayout.CENTER);
-			panelCenter.updateUI();
+			mPanelCenter.remove(mPanelBlank);
+			mPanelCenter.add(mPanelParameter, BorderLayout.CENTER);
+			mPanelCenter.updateUI();
 			if (!mListModel.isEmpty()) {
 				mConnectionList.setSelectedIndex(0);
 			}

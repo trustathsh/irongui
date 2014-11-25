@@ -37,12 +37,7 @@
  * #L%
  */
 
-
-
 package de.hshannover.f4.trust.irongui.util;
-
-
-
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -61,14 +56,13 @@ public class DateUtil {
 		mCalendar.setTimeInMillis(timestamp);
 		return mDateFormatDump.format(mCalendar.getTime());
 	}
-	
+
 	public static String getFormattedDateFromTimestamp(String timestamp) {
-		try{
+		try {
 			long time = Long.parseLong(timestamp);
 			return getFormattedDateFromTimestamp(time);
-		}
-		catch (NumberFormatException e) {
+		} catch (NumberFormatException e) {
 			return timestamp;
-		}		
+		}
 	}
 }

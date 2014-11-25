@@ -37,11 +37,7 @@
  * #L%
  */
 
-
-
 package de.hshannover.f4.trust.irongui.view.subscription;
-
-
 
 import java.awt.Cursor;
 import java.awt.GridBagConstraints;
@@ -60,32 +56,28 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 /**
-* This code was edited or generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a corporation,
-* company or business for any purpose whatever) then you
-* should purchase a license for each developer using Jigloo.
-* Please visit www.cloudgarden.com for details.
-* Use of Jigloo implies acceptance of these licensing terms.
-* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR
-* THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
-* LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
-*/
+ * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI
+ * Builder, which is free for non-commercial use. If Jigloo is being used
+ * commercially (ie, by a corporation, company or business for any purpose
+ * whatever) then you should purchase a license for each developer using Jigloo.
+ * Please visit www.cloudgarden.com for details. Use of Jigloo implies
+ * acceptance of these licensing terms. A COMMERCIAL LICENSE HAS NOT BEEN
+ * PURCHASED FOR THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED LEGALLY FOR
+ * ANY CORPORATE OR COMMERCIAL PURPOSE.
+ */
 public class IpAddressPanel extends javax.swing.JPanel {
 	private static final long serialVersionUID = -1460817304520223857L;
-	public JRadioButton ipRadioButtonV4;
-	public JRadioButton ipRadioButtonV6;
-	public JTextField textFieldIp4;
-	public JTextField textFieldIp6;
-	public JTextField textFieldAdmin;
-	private ButtonGroup buttonGroup1;	
-	private JLabel lblAdministrativedomain;
-	
-	
+	public JRadioButton mIpRadioButtonV4;
+	public JRadioButton mIpRadioButtonV6;
+	public JTextField mTextFieldIp4;
+	public JTextField mTextFieldIp6;
+	public JTextField mTextFieldAdmin;
+	private ButtonGroup mButtonGroup1;
+	private JLabel mLblAdministrativedomain;
+
 	/**
-	* Auto-generated main method to display this 
-	* JPanel inside a new JFrame.
-	*/
+	 * Auto-generated main method to display this JPanel inside a new JFrame.
+	 */
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
 		frame.getContentPane().add(new IpAddressPanel());
@@ -93,94 +85,106 @@ public class IpAddressPanel extends javax.swing.JPanel {
 		frame.pack();
 		frame.setVisible(true);
 	}
-	
+
 	public IpAddressPanel() {
 		super();
-		initGUI();
+		initGui();
 	}
-	
-	private void initGUI() {
+
+	private void initGui() {
 		try {
 			GridBagLayout thisLayout = new GridBagLayout();
-			thisLayout.rowWeights = new double[] {0.0, 0.0, 0.0};
-			thisLayout.rowHeights = new int[] {7, 7, 0};
-			thisLayout.columnWeights = new double[] {0.0, 1.0};
-			thisLayout.columnWidths = new int[] {-1, 183};
+			thisLayout.rowWeights = new double[] {0.0, 0.0, 0.0 };
+			thisLayout.rowHeights = new int[] {7, 7, 0 };
+			thisLayout.columnWeights = new double[] {0.0, 1.0 };
+			thisLayout.columnWidths = new int[] {-1, 183 };
 			this.setLayout(thisLayout);
 			this.setPreferredSize(new java.awt.Dimension(373, 109));
 			{
-				ipRadioButtonV4 = new JRadioButton();
-				this.add(ipRadioButtonV4, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 5, 5), 0, 0));
-				ipRadioButtonV4.setText("IPv4");				
-				ipRadioButtonV4.addActionListener(new ActionListener() {
-					
+				mIpRadioButtonV4 = new JRadioButton();
+				this.add(mIpRadioButtonV4, new GridBagConstraints(0, 0, 1, 1,
+						0.0, 0.0, GridBagConstraints.EAST,
+						GridBagConstraints.NONE, new Insets(0, 0, 5, 5), 0, 0));
+				mIpRadioButtonV4.setText("IPv4");
+				mIpRadioButtonV4.addActionListener(new ActionListener() {
+
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
-						textFieldIp4.setEnabled(true);
-						textFieldIp6.setEnabled(false);						
-					}
-				});				
-				getButtonGroup1().add(ipRadioButtonV4);				
-			}
-			{
-				ipRadioButtonV6 = new JRadioButton();
-				ipRadioButtonV6.addActionListener(new ActionListener() {
-					
-					@Override
-					public void actionPerformed(ActionEvent arg0) {
-						textFieldIp4.setEnabled(false);
-						textFieldIp6.setEnabled(true);											
+						mTextFieldIp4.setEnabled(true);
+						mTextFieldIp6.setEnabled(false);
 					}
 				});
-				this.add(ipRadioButtonV6, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 5, 5), 0, 0));
-				ipRadioButtonV6.setText("IPv6");
-				getButtonGroup1().add(ipRadioButtonV6);
+				getButtonGroup1().add(mIpRadioButtonV4);
 			}
 			{
-				textFieldIp4 = new JTextField();				
-				this.add(textFieldIp4, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 5, 0), 0, 0));
-				textFieldIp4.addMouseListener(new MouseAdapter() {
+				mIpRadioButtonV6 = new JRadioButton();
+				mIpRadioButtonV6.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						mTextFieldIp4.setEnabled(false);
+						mTextFieldIp6.setEnabled(true);
+					}
+				});
+				this.add(mIpRadioButtonV6, new GridBagConstraints(0, 1, 1, 1,
+						0.0, 0.0, GridBagConstraints.EAST,
+						GridBagConstraints.NONE, new Insets(0, 0, 5, 5), 0, 0));
+				mIpRadioButtonV6.setText("IPv6");
+				getButtonGroup1().add(mIpRadioButtonV6);
+			}
+			{
+				mTextFieldIp4 = new JTextField();
+				this.add(mTextFieldIp4, new GridBagConstraints(1, 0, 1, 1, 0.0,
+						0.0, GridBagConstraints.CENTER,
+						GridBagConstraints.HORIZONTAL, new Insets(0, 0, 5, 0),
+						0, 0));
+				mTextFieldIp4.addMouseListener(new MouseAdapter() {
 					public void mouseExited(MouseEvent evt) {
-						textFieldIp4.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));						
+						mTextFieldIp4
+								.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 					}
+
 					public void mouseEntered(MouseEvent evt) {
-						textFieldIp4.setCursor(new Cursor(Cursor.TEXT_CURSOR));						
+						mTextFieldIp4.setCursor(new Cursor(Cursor.TEXT_CURSOR));
 					}
 				});
 			}
 			{
-				textFieldIp6 = new JTextField();
-				this.add(textFieldIp6, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 5, 0), 0, 0));
+				mTextFieldIp6 = new JTextField();
+				this.add(mTextFieldIp6, new GridBagConstraints(1, 1, 1, 1, 0.0,
+						0.0, GridBagConstraints.CENTER,
+						GridBagConstraints.HORIZONTAL, new Insets(0, 0, 5, 0),
+						0, 0));
 			}
 			{
-				lblAdministrativedomain = new JLabel("administrative-domain");
-				GridBagConstraints gbc_lblAdministrativedomain = new GridBagConstraints();
-				gbc_lblAdministrativedomain.anchor = GridBagConstraints.EAST;
-				gbc_lblAdministrativedomain.insets = new Insets(0, 0, 0, 5);
-				gbc_lblAdministrativedomain.gridx = 0;
-				gbc_lblAdministrativedomain.gridy = 2;
-				add(lblAdministrativedomain, gbc_lblAdministrativedomain);
+				mLblAdministrativedomain = new JLabel("administrative-domain");
+				GridBagConstraints gbcLblAdministrativedomain = new GridBagConstraints();
+				gbcLblAdministrativedomain.anchor = GridBagConstraints.EAST;
+				gbcLblAdministrativedomain.insets = new Insets(0, 0, 0, 5);
+				gbcLblAdministrativedomain.gridx = 0;
+				gbcLblAdministrativedomain.gridy = 2;
+				add(mLblAdministrativedomain, gbcLblAdministrativedomain);
 			}
 			{
-				textFieldAdmin = new JTextField();
-				GridBagConstraints gbc_textFieldAdmin = new GridBagConstraints();
-				gbc_textFieldAdmin.fill = GridBagConstraints.HORIZONTAL;
-				gbc_textFieldAdmin.gridx = 1;
-				gbc_textFieldAdmin.gridy = 2;
-				add(textFieldAdmin, gbc_textFieldAdmin);
-				textFieldAdmin.setColumns(10);
+				mTextFieldAdmin = new JTextField();
+				GridBagConstraints gbcTextFieldAdmin = new GridBagConstraints();
+				gbcTextFieldAdmin.fill = GridBagConstraints.HORIZONTAL;
+				gbcTextFieldAdmin.gridx = 1;
+				gbcTextFieldAdmin.gridy = 2;
+				add(mTextFieldAdmin, gbcTextFieldAdmin);
+				mTextFieldAdmin.setColumns(10);
 			}
-			ipRadioButtonV4.doClick();
+			mIpRadioButtonV4.doClick();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private ButtonGroup getButtonGroup1() {
-		if(buttonGroup1 == null) {
-			buttonGroup1 = new ButtonGroup();
+		if (mButtonGroup1 == null) {
+			mButtonGroup1 = new ButtonGroup();
 		}
-		return buttonGroup1;
+		return mButtonGroup1;
 	}
 
 }

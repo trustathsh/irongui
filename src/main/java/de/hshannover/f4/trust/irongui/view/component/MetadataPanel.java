@@ -37,12 +37,7 @@
  * #L%
  */
 
-
-
 package de.hshannover.f4.trust.irongui.view.component;
-
-
-
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -63,33 +58,33 @@ import java.awt.BorderLayout;
 
 public class MetadataPanel extends JPanel implements NodeSelectedReceiver {
 	private static final long serialVersionUID = 1999982246037981208L;
-	
-	private JPanel ifmapMetadata;
-	public JTable table;
-	public JLabel label;
-	
+
+	private JPanel mIfmapMetadata;
+	public JTable mTable;
+	public JLabel mLabel;
+
 	public MetadataPanel() {
 		setPreferredSize(new Dimension(getWidth(), 150));
 		setBackground(new java.awt.Color(255, 255, 255));
-		setLayout(new BorderLayout());		
-		label = new JLabel();
-		label.setHorizontalAlignment(SwingConstants.LEFT);
-		label.setHorizontalTextPosition(SwingConstants.LEFT);
-		//label.setPreferredSize(new Dimension(getWidth(), 20));
-		
-		ifmapMetadata = new JPanel();
-		ifmapMetadata.setPreferredSize(new Dimension(100, 24));
-		ifmapMetadata.setLayout(new FlowLayout(FlowLayout.LEFT));
-		ifmapMetadata.add(label);		
-		add(ifmapMetadata, BorderLayout.NORTH);
+		setLayout(new BorderLayout());
+		mLabel = new JLabel();
+		mLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		mLabel.setHorizontalTextPosition(SwingConstants.LEFT);
+		// label.setPreferredSize(new Dimension(getWidth(), 20));
+
+		mIfmapMetadata = new JPanel();
+		mIfmapMetadata.setPreferredSize(new Dimension(100, 24));
+		mIfmapMetadata.setLayout(new FlowLayout(FlowLayout.LEFT));
+		mIfmapMetadata.add(mLabel);
+		add(mIfmapMetadata, BorderLayout.NORTH);
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBackground(new java.awt.Color(255, 255, 255));				
-		table = new JTable();
-		table.setCellSelectionEnabled(true);
-		table.setBackground(new java.awt.Color(255, 255, 255));
-		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-		table.setAutoCreateRowSorter(true);
-		scrollPane.setViewportView(table);
+		scrollPane.setBackground(new java.awt.Color(255, 255, 255));
+		mTable = new JTable();
+		mTable.setCellSelectionEnabled(true);
+		mTable.setBackground(new java.awt.Color(255, 255, 255));
+		mTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		mTable.setAutoCreateRowSorter(true);
+		scrollPane.setViewportView(mTable);
 		add(scrollPane, BorderLayout.CENTER);
 	}
 
@@ -99,9 +94,9 @@ public class MetadataPanel extends JPanel implements NodeSelectedReceiver {
 		if (item.get("object") instanceof IdentifierData) {
 			IdentifierData ident = (IdentifierData) item.get("object");
 			buf.append("<html><strong>");
-			buf.append(ident.getName());			
+			buf.append(ident.getName());
 			buf.append("</strong></html>");
-			label.setText(buf.toString());
+			mLabel.setText(buf.toString());
 		} else if (item.get("object") instanceof Metadata) {
 			Metadata meta = (Metadata) item.get("object");
 			buf.append("<html><strong>");
@@ -113,7 +108,7 @@ public class MetadataPanel extends JPanel implements NodeSelectedReceiver {
 			buf.append("</strong>   <i>ifmap-cardinality</i>: <strong>");
 			buf.append(meta.getCardinality());
 			buf.append("</strong> ]</html>");
-			label.setText(buf.toString());
-		}		
-	}	
+			mLabel.setText(buf.toString());
+		}
+	}
 }

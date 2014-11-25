@@ -37,12 +37,7 @@
  * #L%
  */
 
-
-
 package de.hshannover.f4.trust.irongui.event;
-
-
-
 
 import java.util.ArrayList;
 
@@ -55,16 +50,19 @@ public class EventService {
 	private ArrayList<IdentifierChangedReceiver> mIdentifierReceiver = new ArrayList<IdentifierChangedReceiver>();
 
 	public void addStatusListener(StatusChangedReceiver r) {
-		if (!mStatusReceiver.contains(r))
+		if (!mStatusReceiver.contains(r)) {
 			mStatusReceiver.add(r);
+		}
 	}
 
 	public void addUpdateListener(IdentifierChangedReceiver r) {
-		if (!mIdentifierReceiver.contains(r))
+		if (!mIdentifierReceiver.contains(r)) {
 			mIdentifierReceiver.add(r);
+		}
 	}
 
-	public synchronized void notifyRepositoryChanged(Connection con, PollResultContainer prc) {
+	public synchronized void notifyRepositoryChanged(Connection con,
+			PollResultContainer prc) {
 		if (prc != null) {
 			for (IdentifierChangedReceiver r : mIdentifierReceiver) {
 				r.processNewPollResult(con, prc.getNew(), prc.getUpdate(),
@@ -73,7 +71,8 @@ public class EventService {
 		}
 	}
 
-	public synchronized void notifyStatusChangedReceiver(Connection con, String evt) {
+	public synchronized void notifyStatusChangedReceiver(Connection con,
+			String evt) {
 		if (evt != null) {
 			for (StatusChangedReceiver r : mStatusReceiver) {
 				r.processStatusEvent(con, evt);

@@ -37,12 +37,7 @@
  * #L%
  */
 
-
-
 package de.hshannover.f4.trust.irongui.datastructure;
-
-
-
 
 import java.util.ArrayList;
 
@@ -86,7 +81,7 @@ public abstract class IfmapDataType {
 	public ArrayList<Metadata> getMetadata() {
 		return mMetadata;
 	}
-	
+
 	public String getSubscriptionName() {
 		return mSubscriptionName;
 	}
@@ -95,8 +90,10 @@ public abstract class IfmapDataType {
 		this.mSubscriptionName = mSubscriptionName;
 	}
 
+	@Override
 	public abstract boolean equals(Object o);
 
+	@Override
 	public abstract int hashCode();
 	// public abstract E clone();
 

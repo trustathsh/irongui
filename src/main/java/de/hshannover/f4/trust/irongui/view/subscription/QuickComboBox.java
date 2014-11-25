@@ -37,12 +37,7 @@
  * #L%
  */
 
-
-
 package de.hshannover.f4.trust.irongui.view.subscription;
-
-
-
 
 import java.awt.Component;
 import java.awt.event.KeyEvent;
@@ -60,34 +55,33 @@ public class QuickComboBox extends JComboBox implements MenuElement {
 	private static final long serialVersionUID = 5676645360606860268L;
 
 	public QuickComboBox() {
-		//setPopupVisible(false);
+		// setPopupVisible(false);
 		this.addPopupMenuListener(new PopupMenuListener() {
-			
+
 			@Override
 			public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
-				
-				
+
 			}
-			
+
 			@Override
 			public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void popupMenuCanceled(PopupMenuEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
 	}
-	
+
 	@Override
-	public  void hidePopup() {
+	public void hidePopup() {
 		System.err.println("hidePopup");
 	}
-	
+
 	@Override
 	public void processMouseEvent(MouseEvent event, MenuElement[] path,
 			MenuSelectionManager manager) {
@@ -118,7 +112,7 @@ public class QuickComboBox extends JComboBox implements MenuElement {
 	}
 
 	@Override
-	public MenuElement[] getSubElements() {		
+	public MenuElement[] getSubElements() {
 		return new MenuElement[0];
 	}
 

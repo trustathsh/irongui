@@ -37,12 +37,7 @@
  * #L%
  */
 
-
-
 package de.hshannover.f4.trust.irongui.view.navigation;
-
-
-
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -68,9 +63,9 @@ public class TreePanel extends JTree implements TreeSelectionListener {
 
 	private static final long serialVersionUID = -7542566619876278915L;
 	private DefaultTreeModel mModel;
-	private HashMap<IdentifierData, DefaultMutableTreeNode> ident2node;
+	private HashMap<IdentifierData, DefaultMutableTreeNode> mIdent2node;
 	private GraphPanel mPrefuse;
-	private JScrollPane scrollPane = new JScrollPane();
+	private JScrollPane mScrollPane = new JScrollPane();
 
 	public TreePanel() {
 		this(null);
@@ -79,7 +74,7 @@ public class TreePanel extends JTree implements TreeSelectionListener {
 	public TreePanel(GraphPanel prefuse) {
 		super();
 		mPrefuse = prefuse;
-		ident2node = new HashMap<IdentifierData, DefaultMutableTreeNode>();
+		mIdent2node = new HashMap<IdentifierData, DefaultMutableTreeNode>();
 		mModel = new JTreeModel().getDefaultTreeModel();
 		this.setModel(mModel);
 		this.setBackground(Color.WHITE);
@@ -87,7 +82,7 @@ public class TreePanel extends JTree implements TreeSelectionListener {
 		this.getSelectionModel().setSelectionMode(
 				TreeSelectionModel.SINGLE_TREE_SELECTION);
 		this.addTreeSelectionListener(this);
-		scrollPane.add(this);
+		mScrollPane.add(this);
 	}
 
 	public void processNewPollResult(ArrayList<IfmapDataType> newData,
@@ -101,14 +96,14 @@ public class TreePanel extends JTree implements TreeSelectionListener {
 			for (IfmapDataType j : updateData)
 				this.addNode(j);
 		}
-		if (deleteData != null) {			
-			for (IfmapDataType m : deleteData){
+		if (deleteData != null) {
+			for (IfmapDataType m : deleteData) {
 				this.removeNode(m);
 			}
 			this.clearSelection();
 		}
 		EventQueue.invokeLater(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				updateUI();
@@ -137,11 +132,11 @@ public class TreePanel extends JTree implements TreeSelectionListener {
 				IdentifierType nodeType = (IdentifierType) identNode
 						.getUserObject();
 				if (type.equals(nodeType)) {
-					DefaultMutableTreeNode treeNode = ident2node
+					DefaultMutableTreeNode treeNode = mIdent2node
 							.get(identifier);
 					if (treeNode == null) {
 						treeNode = new DefaultMutableTreeNode(identifier);
-						ident2node.put(identifier, treeNode);
+						mIdent2node.put(identifier, treeNode);
 					}
 
 					// treeNode.setParent(identNode);
@@ -191,8 +186,8 @@ public class TreePanel extends JTree implements TreeSelectionListener {
 		IdentifierData i2 = link.getIdentifier2();
 		this.addIdentifier(i1);
 		this.addIdentifier(i2);
-		DefaultMutableTreeNode i1node = ident2node.get(i1);
-		DefaultMutableTreeNode i2node = ident2node.get(i2);
+		DefaultMutableTreeNode i1node = mIdent2node.get(i1);
+		DefaultMutableTreeNode i2node = mIdent2node.get(i2);
 
 		ArrayList<Metadata> metadata = link.getMetadata();
 		for (Metadata meta : metadata) {
@@ -246,8 +241,8 @@ public class TreePanel extends JTree implements TreeSelectionListener {
 	private void removeLink(Link ifmap) {
 		removeIdentifier(ifmap.getIdentifier1());
 		removeIdentifier(ifmap.getIdentifier2());
-		DefaultMutableTreeNode node = ident2node.get(ifmap.getIdentifier1());
-		DefaultMutableTreeNode node2 = ident2node.get(ifmap.getIdentifier2());
+		DefaultMutableTreeNode node = mIdent2node.get(ifmap.getIdentifier1());
+		DefaultMutableTreeNode node2 = mIdent2node.get(ifmap.getIdentifier2());
 		ArrayList<Metadata> meta = ifmap.getMetadata();
 		if (meta != null && !meta.isEmpty()) {
 			if (node != null) {
@@ -269,7 +264,7 @@ public class TreePanel extends JTree implements TreeSelectionListener {
 
 				if (node.getChildCount() == 0) {
 					node.removeFromParent();
-					ident2node.remove(ifmap.getIdentifier1());
+					mIdent2node.remove(ifmap.getIdentifier1());
 				}
 			}
 
@@ -292,7 +287,7 @@ public class TreePanel extends JTree implements TreeSelectionListener {
 
 				if (node2.getChildCount() == 0) {
 					node2.removeFromParent();
-					ident2node.remove(ifmap.getIdentifier2());
+					mIdent2node.remove(ifmap.getIdentifier2());
 				}
 			}
 		}
@@ -300,7 +295,7 @@ public class TreePanel extends JTree implements TreeSelectionListener {
 
 	private void removeIdentifier(IdentifierData ifmap) {
 		if (ifmap != null) {
-			DefaultMutableTreeNode node = ident2node.get(ifmap);
+			DefaultMutableTreeNode node = mIdent2node.get(ifmap);
 			if (node != null) {
 				ArrayList<Metadata> meta = ifmap.getMetadata();
 				if (meta != null && !meta.isEmpty()) {
@@ -328,7 +323,7 @@ public class TreePanel extends JTree implements TreeSelectionListener {
 	}
 
 	public void removeAllNodes() {
-		DefaultMutableTreeNode node = (DefaultMutableTreeNode)mModel.getRoot();		
+		DefaultMutableTreeNode node = (DefaultMutableTreeNode) mModel.getRoot();
 		int size = node.getChildCount();
 		for (int i = 0; i < size; i++) {
 			DefaultMutableTreeNode identNode = (DefaultMutableTreeNode) node
@@ -336,9 +331,9 @@ public class TreePanel extends JTree implements TreeSelectionListener {
 			identNode.removeAllChildren();
 		}
 		mModel.reload();
-		ident2node.clear();
+		mIdent2node.clear();
 	}
-	
+
 	@Override
 	public String convertValueToText(Object value, boolean selected,
 			boolean expanded, boolean leaf, int row, boolean hasFocus) {
@@ -361,8 +356,9 @@ public class TreePanel extends JTree implements TreeSelectionListener {
 	public void valueChanged(TreeSelectionEvent e) {
 		DefaultMutableTreeNode node = (DefaultMutableTreeNode) getLastSelectedPathComponent();
 
-		if (node == null)
+		if (node == null) {
 			return;
+		}
 
 		Object nodeObject = node.getUserObject();
 		if (nodeObject instanceof IdentifierData) {

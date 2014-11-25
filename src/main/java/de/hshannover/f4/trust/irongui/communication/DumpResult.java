@@ -37,11 +37,7 @@
  * #L%
  */
 
-
-
 package de.hshannover.f4.trust.irongui.communication;
-
-
 
 import java.util.Collection;
 
@@ -55,16 +51,16 @@ import de.hshannover.f4.trust.ifmapj.messages.Result;
  *
  */
 public interface DumpResult extends Result {
-	
+
 	/**
 	 * @return value of the last-update string
 	 */
-	public String getLastUpdate();
-	
+	String getLastUpdate();
+
 	/**
-	 * @return a list of identifiers which represent identifiers
-	 *         having metadata attached to them.
+	 * @return a list of identifiers which represent identifiers having metadata
+	 *         attached to them.
 	 */
-	public Collection<Identifier> getIdentifiers();
+	Collection<Identifier> getIdentifiers();
 
 }

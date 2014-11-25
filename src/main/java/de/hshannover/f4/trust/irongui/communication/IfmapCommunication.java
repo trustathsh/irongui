@@ -37,14 +37,8 @@
  * #L%
  */
 
-
-
 package de.hshannover.f4.trust.irongui.communication;
 
-
-
-
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -69,8 +63,6 @@ import de.hshannover.f4.trust.ifmapj.messages.Result;
 import de.hshannover.f4.trust.ifmapj.messages.SubscribeDelete;
 import de.hshannover.f4.trust.ifmapj.messages.SubscribeRequest;
 import de.hshannover.f4.trust.ifmapj.messages.SubscribeUpdate;
-import de.hshannover.f4.trust.irongui.communication.DumpRequest;
-import de.hshannover.f4.trust.irongui.communication.DumpResult;
 import de.hshannover.f4.trust.irongui.util.CryptoUtil;
 
 public class IfmapCommunication {
@@ -78,47 +70,49 @@ public class IfmapCommunication {
 	static {
 		Requests.registerRequestHandler(new DumpRequestHandler());
 	}
-	private SSRC mSSRC = null;
-	private ARC mARC = null;
+	private SSRC mSsrc = null;
+	private ARC mArc = null;
 
-	private volatile String mIfmapPublisherID = null;
-	private volatile String mSessionID = null;
+	private volatile String mIfmapPublisherId = null;
+	private volatile String mSessionId = null;
 	private Semaphore mSemaphore;
-	private int maxPoll = 0;
+	private int mMaxPoll = 0;
 
 	IfmapCommunication(String url, String keyPath, String keyPass,
 			String trustPath, String trustPass, boolean enableBasicAuth,
 			String basicUser, String basicPass, int mp)
 			throws InitializationException {
 		if (enableBasicAuth) {
-			BasicAuthConfig basicConfig = new BasicAuthConfig(url, basicUser, basicPass, trustPath, trustPass);
-			mSSRC = IfmapJ.createSsrc(basicConfig);
+			BasicAuthConfig basicConfig = new BasicAuthConfig(url, basicUser,
+					basicPass, trustPath, trustPass);
+			mSsrc = IfmapJ.createSsrc(basicConfig);
 		} else {
-			CertAuthConfig certConfig = new CertAuthConfig(url, trustPath, trustPass, trustPath, trustPass);
-			mSSRC = IfmapJ.createSsrc(certConfig);
+			CertAuthConfig certConfig = new CertAuthConfig(url, trustPath,
+					trustPass, trustPath, trustPass);
+			mSsrc = IfmapJ.createSsrc(certConfig);
 		}
 		mSemaphore = new Semaphore(1);
-		maxPoll = mp;
+		mMaxPoll = mp;
 	}
 
-	String getPublisherID() {
-		return mIfmapPublisherID;
+	String getPublisherId() {
+		return mIfmapPublisherId;
 	}
 
-	String getSessionID() {
-		return mSessionID;
+	String getSessionId() {
+		return mSessionId;
 	}
 
 	void newSession() throws IfmapErrorResult, IfmapException,
 			InterruptedException {
 		// mSemaphore.acquire();
-		if (maxPoll == 0) {
-			mSSRC.newSession();
+		if (mMaxPoll == 0) {
+			mSsrc.newSession();
 		} else {
-			mSSRC.newSession(maxPoll);
+			mSsrc.newSession(mMaxPoll);
 		}
-		mSessionID = mSSRC.getSessionId();
-		mIfmapPublisherID = mSSRC.getPublisherId();
+		mSessionId = mSsrc.getSessionId();
+		mIfmapPublisherId = mSsrc.getPublisherId();
 		// mSemaphore.release();
 	}
 
@@ -129,9 +123,9 @@ public class IfmapCommunication {
 				SubscribeDelete delete = Requests.createSubscribeDelete(uuid);
 				req.addSubscribeElement(delete);
 			}
-			if (mSessionID != null) {
+			if (mSessionId != null) {
 				try {
-					mSSRC.subscribe(req);
+					mSsrc.subscribe(req);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -146,9 +140,9 @@ public class IfmapCommunication {
 				SubscribeDelete delete = Requests.createSubscribeDelete(uuid);
 				req.addSubscribeElement(delete);
 			}
-			if (mSessionID != null) {
+			if (mSessionId != null) {
 				try {
-					mSSRC.subscribe(req);
+					mSsrc.subscribe(req);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -167,18 +161,22 @@ public class IfmapCommunication {
 				Identifier ident = iter.next();
 				update.setStartIdentifier(ident);
 				String uuid = CryptoUtil
-						.generateMD5BySize(ident.toString(), 16);
+						.generateMd5BySize(ident.toString(), 16);
 				update.setName(uuid);
 				uuids.add(uuid);
 
-				if (depth != null && depth > 0)
+				if (depth != null && depth > 0) {
 					update.setMaxDepth(depth);
-				if (size != null && size > 0)
+				}
+				if (size != null && size > 0){
 					update.setMaxSize(size);
-				if (filter != null && !filter.trim().isEmpty())
+				}
+				if (filter != null && !filter.trim().isEmpty()){
 					update.setResultFilter(filter);
-				if (links != null && !links.trim().isEmpty())
+				}
+				if (links != null && !links.trim().isEmpty()){
 					update.setMatchLinksFilter(links);
+				}
 
 				if (terminal != null && terminal.length > 0) {
 					StringBuffer sb = new StringBuffer();
@@ -202,7 +200,7 @@ public class IfmapCommunication {
 				req.addSubscribeElement(update);
 			}
 			try {
-				mSSRC.subscribe(req);
+				mSsrc.subscribe(req);
 			} catch (IfmapErrorResult e) {
 				System.err.println(e.getErrorString());
 				e.printStackTrace();
@@ -222,17 +220,21 @@ public class IfmapCommunication {
 			throws InterruptedException {
 		SubscribeUpdate update = Requests.createSubscribeUpdate();
 		update.setStartIdentifier(identifier);
-		String uuid = CryptoUtil.generateMD5BySize(identifier.toString(), 16);
+		String uuid = CryptoUtil.generateMd5BySize(identifier.toString(), 16);
 		update.setName(uuid);
 
-		if (depth != null && depth > 0)
+		if (depth != null && depth > 0) {
 			update.setMaxDepth(depth);
-		if (size != null && size > 0)
+		}
+		if (size != null && size > 0) {
 			update.setMaxSize(size);
-		if (filter != null && !filter.trim().isEmpty())
+		}
+		if (filter != null && !filter.trim().isEmpty()) {
 			update.setResultFilter(filter);
-		if (links != null && !links.trim().isEmpty())
+		}
+		if (links != null && !links.trim().isEmpty()) {
 			update.setMatchLinksFilter(links);
+		}
 
 		// FIXME: hack to add meta prefix, no matter what ...
 		update.addNamespaceDeclaration(IfmapStrings.STD_METADATA_PREFIX,
@@ -263,10 +265,10 @@ public class IfmapCommunication {
 		// System.err.println(element.toString());
 		// }
 		try {
-			if (mSessionID == null) {
+			if (mSessionId == null) {
 				this.newSession();
 			}
-			mSSRC.subscribe(req);
+			mSsrc.subscribe(req);
 		} catch (IfmapErrorResult e) {
 			System.err.println(e.getErrorString());
 			e.printStackTrace();
@@ -289,24 +291,24 @@ public class IfmapCommunication {
 	 * @throws RemoteException
 	 */
 	void endSession() {
-		if (mSSRC != null) {
+		if (mSsrc != null) {
 			try {
 				mSemaphore.acquire();
-				mSSRC.endSession();
-				mSSRC.closeTcpConnection();
-				this.mARC.closeTcpConnection();
-				this.mARC = null;
-				mIfmapPublisherID = null;
-				mSessionID = null;
+				mSsrc.endSession();
+				mSsrc.closeTcpConnection();
+				this.mArc.closeTcpConnection();
+				this.mArc = null;
+				mIfmapPublisherId = null;
+				mSessionId = null;
 				mSemaphore.release();
 			} catch (InterruptedException e) {
 			} catch (IfmapErrorResult e) {
-				mIfmapPublisherID = null;
-				mSessionID = null;
+				mIfmapPublisherId = null;
+				mSessionId = null;
 				mSemaphore.release();
 			} catch (IfmapException e) {
-				mIfmapPublisherID = null;
-				mSessionID = null;
+				mIfmapPublisherId = null;
+				mSessionId = null;
 				mSemaphore.release();
 			}
 		}
@@ -314,10 +316,10 @@ public class IfmapCommunication {
 
 	public PollResult poll() throws IfmapErrorResult, EndSessionException,
 			IfmapException {
-		if (this.mARC == null) {
-			mARC = mSSRC.getArc();
+		if (this.mArc == null) {
+			mArc = mSsrc.getArc();
 		}
-		return this.mARC.poll();
+		return this.mArc.poll();
 	}
 
 	public DumpResult dump(String filter) throws IfmapErrorResult,
@@ -327,22 +329,25 @@ public class IfmapCommunication {
 		DumpRequest dreq = new DumpRequestImpl(filter);
 
 		// if SSRC not there, do no request!
-		if (this.mSSRC == null)
+		if (this.mSsrc == null) {
 			return null;
+		}
 
-		if (mSessionID == null)
+		if (mSessionId == null) {
 			newSession();
+		}
 
 		mSemaphore.acquire();
 
-		res = this.mSSRC.genericRequestWithSessionId(dreq);
+		res = this.mSsrc.genericRequestWithSessionId(dreq);
 
 		mSemaphore.release();
 
 		// If we don't get back a DumpResult instance something is messed up...
-		if (!(res instanceof DumpResult))
+		if (!(res instanceof DumpResult)) {
 			throw new IfmapException("DumpRequestHandler:",
 					"dumpRequest didn't result in dumpResult");
+		}
 
 		return (DumpResult) res;
 	}

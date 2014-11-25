@@ -37,12 +37,7 @@
  * #L%
  */
 
-
-
 package de.hshannover.f4.trust.irongui.properties;
-
-
-
 
 import java.awt.Color;
 import java.io.IOException;
@@ -74,63 +69,69 @@ public class SynchronisationService {
 			e.printStackTrace();
 		}
 	}
-	
-	public void clearConnections(){
+
+	public void clearConnections() {
 		Connection[] cons = mConnectionRep.getConnections();
-		if(cons != null){
-			for(Connection c : cons){
+		if (cons != null) {
+			for (Connection c : cons) {
 				mConnectionRep.remove(c);
 			}
-			mPropertiesRep.clear();		
+			mPropertiesRep.clear();
 		}
 	}
-	
-	public void remove(Connection c) throws ConnectionCreationException{
-		if(c != null){
+
+	public void remove(Connection c) throws ConnectionCreationException {
+		if (c != null) {
 			mConnectionRep.remove(c);
 			mPropertiesRep.clear();
 			Connection[] cons = mConnectionRep.getConnections();
-			for(Connection con : cons){
+			for (Connection con : cons) {
 				add(con);
 			}
 		}
-		
+
 	}
 
-	public void addPublisher(HashMap<String, Color> publisher, Color iColor, Color mColor){
-		if(publisher != null && iColor != null && mColor != null){
+	public void addPublisher(HashMap<String, Color> publisher, Color iColor,
+			Color mColor) {
+		if (publisher != null && iColor != null && mColor != null) {
 			mPublisherRep.add(publisher);
 			mPublisherRep.setIdentifierColor(iColor);
 			mPublisherRep.setMetadataColor(mColor);
-			
+
 			int count = 0;
-			
-			// FIXME if not commented out, it will add publisher colors to config file, even if they are already stored; count will increase every time, "ok" is clicked inside the PublisherDialog 
-//			String countStr = mPropertiesRep
-//					.getProperty(Config.USER_PUBLISHER_COUNT.toString());
-//			if (!countStr.equals("")) {
-//				count = Integer.parseInt(countStr);
-//			}
-			
-			mPropertiesRep.setProperty(Config.COLOR_IDENTIFIER_DEFAULT.toString(), 
+
+			// FIXME if not commented out, it will add publisher colors to
+			// config file, even if they are already stored; count will increase
+			// every time, "ok" is clicked inside the PublisherDialog
+			// String countStr = mPropertiesRep
+			// .getProperty(Config.USER_PUBLISHER_COUNT.toString());
+			// if (!countStr.equals("")) {
+			// count = Integer.parseInt(countStr);
+			// }
+
+			mPropertiesRep.setProperty(
+					Config.COLOR_IDENTIFIER_DEFAULT.toString(),
 					String.valueOf(iColor.getRGB()));
-			mPropertiesRep.setProperty(Config.COLOR_METADATA_DEFAULT.toString(), 
+			mPropertiesRep.setProperty(
+					Config.COLOR_METADATA_DEFAULT.toString(),
 					String.valueOf(mColor.getRGB()));
-			
-			for(String p : publisher.keySet()){
+
+			for (String p : publisher.keySet()) {
 				String PREFIX = Config.USER_PUBLISHER_PREFIX.toString() + count;
-				mPropertiesRep.setProperty(PREFIX + Config.USER_PUBLISHER_NAME, p);
-				mPropertiesRep.setProperty(PREFIX + Config.USER_PUBLISHER_COLOR, 
-						String.valueOf(publisher.get(p).getRGB()));				
+				mPropertiesRep.setProperty(PREFIX + Config.USER_PUBLISHER_NAME,
+						p);
+				mPropertiesRep.setProperty(
+						PREFIX + Config.USER_PUBLISHER_COLOR,
+						String.valueOf(publisher.get(p).getRGB()));
 				count++;
 			}
-			
-			mPropertiesRep.setProperty(
-					Config.USER_PUBLISHER_COUNT.toString(),
-					String.valueOf(count));			
+
+			mPropertiesRep.setProperty(Config.USER_PUBLISHER_COUNT.toString(),
+					String.valueOf(count));
 		}
 	}
-	
+
 	public void add(Connection c) throws ConnectionCreationException {
 		if (c != null) {
 			int count = 0;
@@ -141,7 +142,8 @@ public class SynchronisationService {
 			}
 
 			ConnectionParameter p = c.getConnectionParameters();
-			String PREFIX = Config.USER_CONNECTIONS_PREFIX.toString() + count +".";
+			String PREFIX = Config.USER_CONNECTIONS_PREFIX.toString() + count
+					+ ".";
 			mPropertiesRep.setProperty(PREFIX + Config.USER_CONNECTIONS_NAME,
 					p.getName());
 			mPropertiesRep.setProperty(PREFIX + Config.USER_CONNECTIONS_URL,
@@ -168,14 +170,14 @@ public class SynchronisationService {
 			mPropertiesRep.setProperty(
 					Config.USER_CONNECTIONS_COUNT.toString(),
 					String.valueOf(count + 1));
-			mPropertiesRep.setProperty(PREFIX
-					+ Config.USER_CONNECTIONS_DUMP,
+			mPropertiesRep.setProperty(PREFIX + Config.USER_CONNECTIONS_DUMP,
 					p.isDump() ? "true" : "false");
 			mPropertiesRep.setProperty(PREFIX
 					+ Config.USER_CONNECTIONS_AUTOCONNECT,
 					p.isAutoConnect() ? "true" : "false");
 			mPropertiesRep.setProperty(PREFIX
-					+ Config.USER_CONNECTIONS_MAX_POLL_SIZE, String.valueOf(p.getMaxPollSize()));
+					+ Config.USER_CONNECTIONS_MAX_POLL_SIZE,
+					String.valueOf(p.getMaxPollSize()));
 		}
 		mConnectionRep.add(c);
 
@@ -185,10 +187,10 @@ public class SynchronisationService {
 		return mConnectionRep.getConnections();
 	}
 
-	public HashMap<String, Color> getPublisherAndColor(){
+	public HashMap<String, Color> getPublisherAndColor() {
 		return mPublisherRep.getPublisherAndColor();
 	}
-	
+
 	public synchronized Color getDefaultIdentifierColor() {
 		return mPublisherRep.getIdentifierColor();
 	}
@@ -197,7 +199,6 @@ public class SynchronisationService {
 		return mPublisherRep.getMetadataColor();
 	}
 
-	
 	public void init() {
 		// read connections and store them in repository
 		String tmp = mPropertiesRep.getProperty(Config.USER_CONNECTIONS_COUNT
@@ -218,21 +219,25 @@ public class SynchronisationService {
 		// read publishers and their colors
 		String pCount = mPropertiesRep.getProperty(Config.USER_PUBLISHER_COUNT
 				.toString());
-		if(pCount != null && !pCount.equals("")){
+		if (pCount != null && !pCount.equals("")) {
 			HashMap<String, Color> publisher = new HashMap<String, Color>();
 			int count = Integer.parseInt(pCount);
 			for (int i = 0; i < count; i++) {
 				String PREFIX = Config.USER_PUBLISHER_PREFIX.toString() + i;
-				String name = mPropertiesRep.getProperty(PREFIX + Config.USER_PUBLISHER_NAME);
-				String c = mPropertiesRep.getProperty(PREFIX + Config.USER_PUBLISHER_COLOR);
+				String name = mPropertiesRep.getProperty(PREFIX
+						+ Config.USER_PUBLISHER_NAME);
+				String c = mPropertiesRep.getProperty(PREFIX
+						+ Config.USER_PUBLISHER_COLOR);
 				Color color = new Color(Integer.parseInt(c));
-				publisher.put(name, color);				
+				publisher.put(name, color);
 			}
-			String ic = mPropertiesRep.getProperty(Config.COLOR_IDENTIFIER_DEFAULT.toString());
-			String mc = mPropertiesRep.getProperty(Config.COLOR_METADATA_DEFAULT.toString());
+			String ic = mPropertiesRep
+					.getProperty(Config.COLOR_IDENTIFIER_DEFAULT.toString());
+			String mc = mPropertiesRep
+					.getProperty(Config.COLOR_METADATA_DEFAULT.toString());
 			Color ident = new Color(Integer.parseInt(ic));
 			Color meta = new Color(Integer.parseInt(mc));
-			
+
 			mPublisherRep.add(publisher);
 			mPublisherRep.setIdentifierColor(ident);
 			mPublisherRep.setMetadataColor(meta);
@@ -241,7 +246,7 @@ public class SynchronisationService {
 
 	private ConnectionParameter createConnectionParam(int i)
 			throws ConnectionCreationException {
-		String PREFIX = Config.USER_CONNECTIONS_PREFIX.toString() + i +".";		
+		String PREFIX = Config.USER_CONNECTIONS_PREFIX.toString() + i + ".";
 		ConnectionParameter param = ConnectionFactory
 				.createConnectionParameter(mPropertiesRep.getProperty(PREFIX
 						+ Config.USER_CONNECTIONS_NAME.toString()));
@@ -256,12 +261,12 @@ public class SynchronisationService {
 		param.setTruststorePass(mPropertiesRep.getProperty(PREFIX
 				+ Config.USER_CONNECTIONS_TRUSTSTORE_PASSWORD.toString()));
 		try {
-			param.setMaxPollSize(Integer.parseInt(mPropertiesRep.getProperty(PREFIX
-					+ Config.USER_CONNECTIONS_MAX_POLL_SIZE.toString())));
+			param.setMaxPollSize(Integer.parseInt(mPropertiesRep
+					.getProperty(PREFIX
+							+ Config.USER_CONNECTIONS_MAX_POLL_SIZE.toString())));
+		} catch (NumberFormatException err) {
 		}
-		catch(NumberFormatException err) {			
-		}
-		
+
 		param.setBasicAuthEnabled(mPropertiesRep
 				.getProperty(
 						(PREFIX + Config.USER_CONNECTIONS_BASICAUTH_ENABLED
@@ -270,14 +275,12 @@ public class SynchronisationService {
 				+ Config.USER_CONNECTIONS_BASICAUTH_USER.toString()));
 		param.setBasicauthPass(mPropertiesRep.getProperty(PREFIX
 				+ Config.USER_CONNECTIONS_BASICAUTH_PASS.toString()));
-		param.setDump(mPropertiesRep
-				.getProperty(
-						(PREFIX + Config.USER_CONNECTIONS_DUMP
-								.toString())).equals("true") ? true : false);
-		param.setAutoConnect(mPropertiesRep
-				.getProperty(
-						(PREFIX + Config.USER_CONNECTIONS_AUTOCONNECT
-								.toString())).equals("true") ? true : false);
+		param.setDump(mPropertiesRep.getProperty(
+				(PREFIX + Config.USER_CONNECTIONS_DUMP.toString())).equals(
+				"true") ? true : false);
+		param.setAutoConnect(mPropertiesRep.getProperty(
+				(PREFIX + Config.USER_CONNECTIONS_AUTOCONNECT.toString()))
+				.equals("true") ? true : false);
 		return param;
 	}
 }

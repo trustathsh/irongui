@@ -37,11 +37,7 @@
  * #L%
  */
 
-
-
 package de.hshannover.f4.trust.irongui.view.dialog;
-
-
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -89,12 +85,12 @@ public class PublisherDialog extends JFrame {
 	private static final long serialVersionUID = 4987920837309147302L;
 	private final HashMap<String, Color> mPublisher;
 	private JPanel publisherPanel;
-	private JLabel jLabel2;
-	private JLabel jLabel1;
-	private JPanel defaultPanel;
-	private JButton cancelButton;
-	public JButton okButton;
-	private JPanel jPanel1;
+	private JLabel mJLabel2;
+	private JLabel mJLabel1;
+	private JPanel mDefaultPanel;
+	private JButton mCancelButton;
+	public JButton mOkButton;
+	private JPanel mJPanel1;
 	private Color DEFAULT_IDENTIFIER_COLOR = new Color(153, 153, 255);
 	private Color DEFAULT_METADATA_COLOR = new Color(255, 153, 102);
 	// private Color DEFAULT_PUBLISHER_COLOR = new Color(200, 153, 102);
@@ -103,19 +99,21 @@ public class PublisherDialog extends JFrame {
 	private int CURRENT_PUBLISHER_LINE_NO = 0;
 
 	public PublisherDialog() {
-		super();		
+		super();
 		mPublisher = new HashMap<String, Color>();
-		initGUI();
+		initGui();
 	}
 
 	public PublisherDialog(Color ci, Color cm) {
 		super();
 		mPublisher = new HashMap<String, Color>();
-		if (ci != null)
+		if (ci != null) {
 			DEFAULT_IDENTIFIER_COLOR = ci;
-		if (cm != null)
+		}
+		if (cm != null) {
 			DEFAULT_METADATA_COLOR = cm;
-		initGUI();
+		}
+		initGui();
 	}
 
 	public PublisherDialog(HashMap<String, Color> publisher, Color ci, Color cm) {
@@ -128,11 +126,11 @@ public class PublisherDialog extends JFrame {
 		this.mReceiver.add(rec);
 	}
 
-	private void initGUI() {
+	private void initGui() {
 		try {
 			setIconImage(ResourceHelper.getAppIconImage().getImage());
 			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-			setBackground(new java.awt.Color(255, 255, 255));			
+			setBackground(new java.awt.Color(255, 255, 255));
 			setTitle("Publishers");
 			// setResizable(false);
 			getContentPane().setLayout(new BorderLayout(0, 0));
@@ -141,10 +139,10 @@ public class PublisherDialog extends JFrame {
 				getContentPane().add(publisherPanel, BorderLayout.CENTER);
 				publisherPanel.setBorder(BorderFactory
 						.createTitledBorder("Publisher"));
-				GridBagLayout gbl_publisherPanel = new GridBagLayout();
-				gbl_publisherPanel.rowWeights = new double[] {};
-				gbl_publisherPanel.columnWeights = new double[] {};
-				publisherPanel.setLayout(gbl_publisherPanel);
+				GridBagLayout gblPublisherPanel = new GridBagLayout();
+				gblPublisherPanel.rowWeights = new double[] {};
+				gblPublisherPanel.columnWeights = new double[] {};
+				publisherPanel.setLayout(gblPublisherPanel);
 				/*
 				 * { btnNewButton_2 = new JButton("New button");
 				 * GridBagConstraints gbc_btnNewButton_2 = new
@@ -176,59 +174,59 @@ public class PublisherDialog extends JFrame {
 				 */
 			}
 			{
-				jPanel1 = new JPanel();
+				mJPanel1 = new JPanel();
 				FlowLayout jPanel1Layout = new FlowLayout();
 				jPanel1Layout.setAlignment(FlowLayout.RIGHT);
-				jPanel1.setLayout(jPanel1Layout);
-				getContentPane().add(jPanel1, BorderLayout.SOUTH);
+				mJPanel1.setLayout(jPanel1Layout);
+				getContentPane().add(mJPanel1, BorderLayout.SOUTH);
 				{
-					okButton = new JButton();
-					jPanel1.add(okButton);
-					okButton.setText("Ok");
+					mOkButton = new JButton();
+					mJPanel1.add(mOkButton);
+					mOkButton.setText("Ok");
 				}
 				{
-					cancelButton = new JButton();
-					cancelButton.addActionListener(new ActionListener() {
+					mCancelButton = new JButton();
+					mCancelButton.addActionListener(new ActionListener() {
 
 						@Override
 						public void actionPerformed(ActionEvent arg0) {
 							mPublisherPanel.setVisible(false);
 						}
 					});
-					jPanel1.add(cancelButton);
-					cancelButton.setText("Cancel");
+					mJPanel1.add(mCancelButton);
+					mCancelButton.setText("Cancel");
 				}
 			}
 			{
-				defaultPanel = new JPanel();
-				defaultPanel.setBorder(new TitledBorder(UIManager
+				mDefaultPanel = new JPanel();
+				mDefaultPanel.setBorder(new TitledBorder(UIManager
 						.getBorder("TitledBorder.border"), "Default",
 						TitledBorder.LEADING, TitledBorder.TOP, null,
 						new Color(0, 0, 0)));
-				getContentPane().add(defaultPanel, BorderLayout.NORTH);
-				GridBagLayout gbl_defaultPanel = new GridBagLayout();
-				gbl_defaultPanel.columnWeights = new double[] { 0.0, 0.0 };
+				getContentPane().add(mDefaultPanel, BorderLayout.NORTH);
+				GridBagLayout gblDefaultPanel = new GridBagLayout();
+				gblDefaultPanel.columnWeights = new double[] { 0.0, 0.0 };
 
-				defaultPanel.setLayout(gbl_defaultPanel);
+				mDefaultPanel.setLayout(gblDefaultPanel);
 				{
-					jLabel1 = new JLabel();
-					GridBagConstraints gbc_jLabel1 = new GridBagConstraints();
-					gbc_jLabel1.anchor = GridBagConstraints.EAST;
-					gbc_jLabel1.insets = new Insets(0, 0, 5, 5);
-					gbc_jLabel1.gridx = 0;
-					gbc_jLabel1.gridy = 0;
-					defaultPanel.add(jLabel1, gbc_jLabel1);
-					jLabel1.setText("Identifier");
+					mJLabel1 = new JLabel();
+					GridBagConstraints gbcJLabel1 = new GridBagConstraints();
+					gbcJLabel1.anchor = GridBagConstraints.EAST;
+					gbcJLabel1.insets = new Insets(0, 0, 5, 5);
+					gbcJLabel1.gridx = 0;
+					gbcJLabel1.gridy = 0;
+					mDefaultPanel.add(mJLabel1, gbcJLabel1);
+					mJLabel1.setText("Identifier");
 				}
 				{
 					final ColorButton but = new ColorButton(
 							DEFAULT_IDENTIFIER_COLOR, 64, 32);
-					GridBagConstraints gbc_but = new GridBagConstraints();
-					gbc_but.anchor = GridBagConstraints.WEST;
-					gbc_but.insets = new Insets(0, 0, 5, 5);
-					gbc_but.gridx = 1;
-					gbc_but.gridy = 0;
-					defaultPanel.add(but, gbc_but);
+					GridBagConstraints gbcBut = new GridBagConstraints();
+					gbcBut.anchor = GridBagConstraints.WEST;
+					gbcBut.insets = new Insets(0, 0, 5, 5);
+					gbcBut.gridx = 1;
+					gbcBut.gridy = 0;
+					mDefaultPanel.add(but, gbcBut);
 					but.addActionListener(new ActionListener() {
 
 						@Override
@@ -243,24 +241,24 @@ public class PublisherDialog extends JFrame {
 					});
 				}
 				{
-					jLabel2 = new JLabel();
-					GridBagConstraints gbc_jLabel2 = new GridBagConstraints();
-					gbc_jLabel2.anchor = GridBagConstraints.EAST;
-					gbc_jLabel2.insets = new Insets(0, 0, 0, 5);
-					gbc_jLabel2.gridx = 0;
-					gbc_jLabel2.gridy = 1;
-					defaultPanel.add(jLabel2, gbc_jLabel2);
-					jLabel2.setText("Metadata");
+					mJLabel2 = new JLabel();
+					GridBagConstraints gbcJLabel2 = new GridBagConstraints();
+					gbcJLabel2.anchor = GridBagConstraints.EAST;
+					gbcJLabel2.insets = new Insets(0, 0, 0, 5);
+					gbcJLabel2.gridx = 0;
+					gbcJLabel2.gridy = 1;
+					mDefaultPanel.add(mJLabel2, gbcJLabel2);
+					mJLabel2.setText("Metadata");
 				}
 				{
 					final ColorButton but2 = new ColorButton(
 							DEFAULT_METADATA_COLOR, 64, 32);
-					GridBagConstraints gbc_but2 = new GridBagConstraints();
-					gbc_but2.anchor = GridBagConstraints.WEST;
-					gbc_but2.insets = new Insets(0, 0, 0, 5);
-					gbc_but2.gridx = 1;
-					gbc_but2.gridy = 1;
-					defaultPanel.add(but2, gbc_but2);
+					GridBagConstraints gbcBut2 = new GridBagConstraints();
+					gbcBut2.anchor = GridBagConstraints.WEST;
+					gbcBut2.insets = new Insets(0, 0, 0, 5);
+					gbcBut2.gridx = 1;
+					gbcBut2.gridy = 1;
+					mDefaultPanel.add(but2, gbcBut2);
 					but2.addActionListener(new ActionListener() {
 
 						@Override
@@ -347,7 +345,7 @@ public class PublisherDialog extends JFrame {
 			uniquePublishers.addAll(extractPublishersFromData(newData));
 		}
 
-		if (updateData != null) {			
+		if (updateData != null) {
 			uniquePublishers.addAll(extractPublishersFromData(updateData));
 		}
 

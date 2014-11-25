@@ -37,12 +37,7 @@
  * #L%
  */
 
-
-
 package de.hshannover.f4.trust.irongui.view.subscription;
-
-
-
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -57,18 +52,18 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 
 public class QuickMetaSubscribe extends JPanel {
-	
+
 	private static final long serialVersionUID = -9105336717460904279L;
-	public JTextField textFieldResultFilter;
-	public JTextField textFieldMatchLinks;
-	private JSpinner maxDepth;
-	private JSpinner maxSize;
-	private JCheckBox chckbxAr;
-	private JCheckBox chckbxId;
-	private JCheckBox chckbxIp;
-	private JCheckBox chckbxDevice;
-	private JCheckBox chckbxMac;
-	
+	public JTextField mTextFieldResultFilter;
+	public JTextField mTextFieldMatchLinks;
+	private JSpinner mMaxDepth;
+	private JSpinner mMaxSize;
+	private JCheckBox mChckbxAr;
+	private JCheckBox mChckbxId;
+	private JCheckBox mChckbxIp;
+	private JCheckBox mChckbxDevice;
+	private JCheckBox mChckbxMac;
+
 	/**
 	 * Create the panel.
 	 */
@@ -76,183 +71,190 @@ public class QuickMetaSubscribe extends JPanel {
 		setAlignmentY(2.0f);
 		setAlignmentX(2.0f);
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 29, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWidths = new int[] {0, 0, 0, 0, 0, 0, 0 };
+		gridBagLayout.rowHeights = new int[] {0, 29, 0, 0, 0 };
+		gridBagLayout.columnWeights = new double[] {0.0, 0.0, 0.0, 0.0, 0.0,
+				0.0, Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] {0.0, 0.0, 0.0, 0.0,
+				Double.MIN_VALUE };
 		setLayout(gridBagLayout);
-		
+
 		JLabel lblTerminals = new JLabel("terminals");
-		GridBagConstraints gbc_lblTerminals = new GridBagConstraints();
-		gbc_lblTerminals.anchor = GridBagConstraints.EAST;
-		gbc_lblTerminals.insets = new Insets(0, 0, 5, 5);
-		gbc_lblTerminals.gridx = 0;
-		gbc_lblTerminals.gridy = 0;
-		add(lblTerminals, gbc_lblTerminals);
-		
-		chckbxMac = new JCheckBox("mac");
-		GridBagConstraints gbc_chckbxMac = new GridBagConstraints();
-		gbc_chckbxMac.anchor = GridBagConstraints.WEST;
-		gbc_chckbxMac.insets = new Insets(0, 0, 5, 5);
-		gbc_chckbxMac.gridx = 1;
-		gbc_chckbxMac.gridy = 0;
-		add(chckbxMac, gbc_chckbxMac);
-		
-		chckbxDevice = new JCheckBox("dev");
-		GridBagConstraints gbc_chckbxDevice = new GridBagConstraints();
-		gbc_chckbxDevice.anchor = GridBagConstraints.WEST;
-		gbc_chckbxDevice.insets = new Insets(0, 0, 5, 5);
-		gbc_chckbxDevice.gridx = 2;
-		gbc_chckbxDevice.gridy = 0;
-		add(chckbxDevice, gbc_chckbxDevice);
-		
-		chckbxIp = new JCheckBox("ip");
-		GridBagConstraints gbc_chckbxIp = new GridBagConstraints();
-		gbc_chckbxIp.anchor = GridBagConstraints.WEST;
-		gbc_chckbxIp.insets = new Insets(0, 0, 5, 5);
-		gbc_chckbxIp.gridx = 3;
-		gbc_chckbxIp.gridy = 0;
-		add(chckbxIp, gbc_chckbxIp);
-		
-		chckbxId = new JCheckBox("id");
-		GridBagConstraints gbc_chckbxId = new GridBagConstraints();
-		gbc_chckbxId.anchor = GridBagConstraints.WEST;
-		gbc_chckbxId.insets = new Insets(0, 0, 5, 5);
-		gbc_chckbxId.gridx = 4;
-		gbc_chckbxId.gridy = 0;
-		add(chckbxId, gbc_chckbxId);
-		
-		chckbxAr = new JCheckBox("ar");
-		GridBagConstraints gbc_chckbxAr = new GridBagConstraints();
-		gbc_chckbxAr.anchor = GridBagConstraints.WEST;
-		gbc_chckbxAr.insets = new Insets(0, 0, 5, 0);
-		gbc_chckbxAr.gridx = 5;
-		gbc_chckbxAr.gridy = 0;
-		add(chckbxAr, gbc_chckbxAr);
-		
+		GridBagConstraints gbcLblTerminals = new GridBagConstraints();
+		gbcLblTerminals.anchor = GridBagConstraints.EAST;
+		gbcLblTerminals.insets = new Insets(0, 0, 5, 5);
+		gbcLblTerminals.gridx = 0;
+		gbcLblTerminals.gridy = 0;
+		add(lblTerminals, gbcLblTerminals);
+
+		mChckbxMac = new JCheckBox("mac");
+		GridBagConstraints gbcChckbxMac = new GridBagConstraints();
+		gbcChckbxMac.anchor = GridBagConstraints.WEST;
+		gbcChckbxMac.insets = new Insets(0, 0, 5, 5);
+		gbcChckbxMac.gridx = 1;
+		gbcChckbxMac.gridy = 0;
+		add(mChckbxMac, gbcChckbxMac);
+
+		mChckbxDevice = new JCheckBox("dev");
+		GridBagConstraints gbcChckbxDevice = new GridBagConstraints();
+		gbcChckbxDevice.anchor = GridBagConstraints.WEST;
+		gbcChckbxDevice.insets = new Insets(0, 0, 5, 5);
+		gbcChckbxDevice.gridx = 2;
+		gbcChckbxDevice.gridy = 0;
+		add(mChckbxDevice, gbcChckbxDevice);
+
+		mChckbxIp = new JCheckBox("ip");
+		GridBagConstraints gbcChckbxIp = new GridBagConstraints();
+		gbcChckbxIp.anchor = GridBagConstraints.WEST;
+		gbcChckbxIp.insets = new Insets(0, 0, 5, 5);
+		gbcChckbxIp.gridx = 3;
+		gbcChckbxIp.gridy = 0;
+		add(mChckbxIp, gbcChckbxIp);
+
+		mChckbxId = new JCheckBox("id");
+		GridBagConstraints gbcChckbxId = new GridBagConstraints();
+		gbcChckbxId.anchor = GridBagConstraints.WEST;
+		gbcChckbxId.insets = new Insets(0, 0, 5, 5);
+		gbcChckbxId.gridx = 4;
+		gbcChckbxId.gridy = 0;
+		add(mChckbxId, gbcChckbxId);
+
+		mChckbxAr = new JCheckBox("ar");
+		GridBagConstraints gbcChckbxAr = new GridBagConstraints();
+		gbcChckbxAr.anchor = GridBagConstraints.WEST;
+		gbcChckbxAr.insets = new Insets(0, 0, 5, 0);
+		gbcChckbxAr.gridx = 5;
+		gbcChckbxAr.gridy = 0;
+		add(mChckbxAr, gbcChckbxAr);
+
 		JLabel lblMaxdepth = new JLabel("max-depth");
-		GridBagConstraints gbc_lblMaxdepth = new GridBagConstraints();
-		gbc_lblMaxdepth.anchor = GridBagConstraints.EAST;
-		gbc_lblMaxdepth.insets = new Insets(0, 0, 5, 5);
-		gbc_lblMaxdepth.gridx = 0;
-		gbc_lblMaxdepth.gridy = 1;
-		add(lblMaxdepth, gbc_lblMaxdepth);
-		
-		maxDepth = new JSpinner();
-		maxDepth.setModel(new SpinnerNumberModel(new Integer(8), null, null, new Integer(1)));
-		GridBagConstraints gbc_maxDepth = new GridBagConstraints();
-		gbc_maxDepth.fill = GridBagConstraints.HORIZONTAL;
-		gbc_maxDepth.insets = new Insets(0, 0, 5, 5);
-		gbc_maxDepth.gridx = 1;
-		gbc_maxDepth.gridy = 1;
-		add(maxDepth, gbc_maxDepth);
-		
+		GridBagConstraints gbcLblMaxdepth = new GridBagConstraints();
+		gbcLblMaxdepth.anchor = GridBagConstraints.EAST;
+		gbcLblMaxdepth.insets = new Insets(0, 0, 5, 5);
+		gbcLblMaxdepth.gridx = 0;
+		gbcLblMaxdepth.gridy = 1;
+		add(lblMaxdepth, gbcLblMaxdepth);
+
+		mMaxDepth = new JSpinner();
+		mMaxDepth.setModel(new SpinnerNumberModel(new Integer(8), null, null,
+				new Integer(1)));
+		GridBagConstraints gbcMaxDepth = new GridBagConstraints();
+		gbcMaxDepth.fill = GridBagConstraints.HORIZONTAL;
+		gbcMaxDepth.insets = new Insets(0, 0, 5, 5);
+		gbcMaxDepth.gridx = 1;
+		gbcMaxDepth.gridy = 1;
+		add(mMaxDepth, gbcMaxDepth);
+
 		JLabel lblMaxsize = new JLabel("max-size");
-		GridBagConstraints gbc_lblMaxsize = new GridBagConstraints();
-		gbc_lblMaxsize.anchor = GridBagConstraints.EAST;
-		gbc_lblMaxsize.insets = new Insets(0, 0, 5, 5);
-		gbc_lblMaxsize.gridx = 2;
-		gbc_lblMaxsize.gridy = 1;
-		add(lblMaxsize, gbc_lblMaxsize);
-		
-		maxSize = new JSpinner();
-		maxSize.setModel(new SpinnerNumberModel(new Integer(64384), null, null, new Integer(1)));
-		GridBagConstraints gbc_maxSize = new GridBagConstraints();
-		gbc_maxSize.fill = GridBagConstraints.HORIZONTAL;
-		gbc_maxSize.gridwidth = 2;
-		gbc_maxSize.insets = new Insets(0, 0, 5, 5);
-		gbc_maxSize.gridx = 3;
-		gbc_maxSize.gridy = 1;
-		add(maxSize, gbc_maxSize);
-		
+		GridBagConstraints gbcLblMaxsize = new GridBagConstraints();
+		gbcLblMaxsize.anchor = GridBagConstraints.EAST;
+		gbcLblMaxsize.insets = new Insets(0, 0, 5, 5);
+		gbcLblMaxsize.gridx = 2;
+		gbcLblMaxsize.gridy = 1;
+		add(lblMaxsize, gbcLblMaxsize);
+
+		mMaxSize = new JSpinner();
+		mMaxSize.setModel(new SpinnerNumberModel(new Integer(64384), null, null,
+				new Integer(1)));
+		GridBagConstraints gbcMaxSize = new GridBagConstraints();
+		gbcMaxSize.fill = GridBagConstraints.HORIZONTAL;
+		gbcMaxSize.gridwidth = 2;
+		gbcMaxSize.insets = new Insets(0, 0, 5, 5);
+		gbcMaxSize.gridx = 3;
+		gbcMaxSize.gridy = 1;
+		add(mMaxSize, gbcMaxSize);
+
 		JLabel lblResultfilter = new JLabel("result-filter");
-		GridBagConstraints gbc_lblResultfilter = new GridBagConstraints();
-		gbc_lblResultfilter.anchor = GridBagConstraints.EAST;
-		gbc_lblResultfilter.insets = new Insets(0, 0, 5, 5);
-		gbc_lblResultfilter.gridx = 0;
-		gbc_lblResultfilter.gridy = 2;
-		add(lblResultfilter, gbc_lblResultfilter);
-		
-		textFieldResultFilter = new JTextField();
-		GridBagConstraints gbc_textFieldResultFilter = new GridBagConstraints();
-		gbc_textFieldResultFilter.gridwidth = 5;
-		gbc_textFieldResultFilter.insets = new Insets(0, 0, 5, 0);
-		gbc_textFieldResultFilter.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldResultFilter.gridx = 1;
-		gbc_textFieldResultFilter.gridy = 2;
-		add(textFieldResultFilter, gbc_textFieldResultFilter);
-		textFieldResultFilter.setColumns(10);
-		
+		GridBagConstraints gbcLblResultfilter = new GridBagConstraints();
+		gbcLblResultfilter.anchor = GridBagConstraints.EAST;
+		gbcLblResultfilter.insets = new Insets(0, 0, 5, 5);
+		gbcLblResultfilter.gridx = 0;
+		gbcLblResultfilter.gridy = 2;
+		add(lblResultfilter, gbcLblResultfilter);
+
+		mTextFieldResultFilter = new JTextField();
+		GridBagConstraints gbcTextFieldResultFilter = new GridBagConstraints();
+		gbcTextFieldResultFilter.gridwidth = 5;
+		gbcTextFieldResultFilter.insets = new Insets(0, 0, 5, 0);
+		gbcTextFieldResultFilter.fill = GridBagConstraints.HORIZONTAL;
+		gbcTextFieldResultFilter.gridx = 1;
+		gbcTextFieldResultFilter.gridy = 2;
+		add(mTextFieldResultFilter, gbcTextFieldResultFilter);
+		mTextFieldResultFilter.setColumns(10);
+
 		JLabel lblMatchlinks = new JLabel("match-links");
-		GridBagConstraints gbc_lblMatchlinks = new GridBagConstraints();
-		gbc_lblMatchlinks.anchor = GridBagConstraints.EAST;
-		gbc_lblMatchlinks.insets = new Insets(0, 0, 0, 5);
-		gbc_lblMatchlinks.gridx = 0;
-		gbc_lblMatchlinks.gridy = 3;
-		add(lblMatchlinks, gbc_lblMatchlinks);
-		
-		textFieldMatchLinks = new JTextField();
-		GridBagConstraints gbc_textFieldMatchLinks = new GridBagConstraints();
-		gbc_textFieldMatchLinks.gridwidth = 5;
-		gbc_textFieldMatchLinks.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldMatchLinks.gridx = 1;
-		gbc_textFieldMatchLinks.gridy = 3;
-		add(textFieldMatchLinks, gbc_textFieldMatchLinks);
-		textFieldMatchLinks.setColumns(10);
+		GridBagConstraints gbcLblMatchlinks = new GridBagConstraints();
+		gbcLblMatchlinks.anchor = GridBagConstraints.EAST;
+		gbcLblMatchlinks.insets = new Insets(0, 0, 0, 5);
+		gbcLblMatchlinks.gridx = 0;
+		gbcLblMatchlinks.gridy = 3;
+		add(lblMatchlinks, gbcLblMatchlinks);
+
+		mTextFieldMatchLinks = new JTextField();
+		GridBagConstraints gbcTextFieldMatchLinks = new GridBagConstraints();
+		gbcTextFieldMatchLinks.gridwidth = 5;
+		gbcTextFieldMatchLinks.fill = GridBagConstraints.HORIZONTAL;
+		gbcTextFieldMatchLinks.gridx = 1;
+		gbcTextFieldMatchLinks.gridy = 3;
+		add(mTextFieldMatchLinks, gbcTextFieldMatchLinks);
+		mTextFieldMatchLinks.setColumns(10);
 
 	}
-	
-	public int getMaxDepth(){
+
+	public int getMaxDepth() {
 		int l = 0;
-		try{
-			l = Integer.parseInt(String.valueOf(maxDepth.getValue()));
-		}
-		catch(NumberFormatException err){
+		try {
+			l = Integer.parseInt(String.valueOf(mMaxDepth.getValue()));
+		} catch (NumberFormatException err) {
 			return l;
 		}
 		return l;
 	}
-	
-	public int getMaxSize(){
+
+	public int getMaxSize() {
 		int l = 0;
-		try{
-			l = Integer.parseInt(String.valueOf(maxSize.getValue()));
-		}
-		catch(NumberFormatException err){
+		try {
+			l = Integer.parseInt(String.valueOf(mMaxSize.getValue()));
+		} catch (NumberFormatException err) {
 			return l;
 		}
 		return l;
 	}
-	
-	public String getResultFilter(){
-		return textFieldResultFilter.getText();
+
+	public String getResultFilter() {
+		return mTextFieldResultFilter.getText();
 	}
-	
-	public String getMatchLinks(){
-		return textFieldMatchLinks.getText();
+
+	public String getMatchLinks() {
+		return mTextFieldMatchLinks.getText();
 	}
-	
-	public String[] getTerminals(){
+
+	public String[] getTerminals() {
 		ArrayList<String> arr = new ArrayList<String>();
-		
-		if(chckbxIp.isSelected())
-			arr.add(chckbxIp.getText());
-		if(chckbxAr.isSelected())
-			arr.add(chckbxAr.getText());
-		if(chckbxMac.isSelected())
-			arr.add(chckbxMac.getText());
-		if(chckbxId.isSelected())
-			arr.add(chckbxId.getText());
-		if(chckbxDevice.isSelected())
-			arr.add(chckbxDevice.getText());
-		
+
+		if (mChckbxIp.isSelected()) {
+			arr.add(mChckbxIp.getText());
+		}
+		if (mChckbxAr.isSelected()) {
+			arr.add(mChckbxAr.getText());
+		}
+		if (mChckbxMac.isSelected()) {
+			arr.add(mChckbxMac.getText());
+		}
+		if (mChckbxId.isSelected()) {
+			arr.add(mChckbxId.getText());
+		}
+		if (mChckbxDevice.isSelected()) {
+			arr.add(mChckbxDevice.getText());
+		}
+
 		String[] arrString = new String[arr.size()];
-		
-		for(int i = 0; i < arr.size(); i++){
+
+		for (int i = 0; i < arr.size(); i++) {
 			arrString[i] = arr.get(i);
 		}
 		arr = null;
-		return arrString;		
+		return arrString;
 	}
 
 }

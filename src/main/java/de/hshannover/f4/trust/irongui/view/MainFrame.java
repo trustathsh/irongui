@@ -37,12 +37,7 @@
  * #L%
  */
 
-
-
 package de.hshannover.f4.trust.irongui.view;
-
-
-
 
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -85,37 +80,37 @@ import de.hshannover.f4.trust.irongui.view.component.ToolbarPanel;
 @SuppressWarnings("serial")
 public class MainFrame extends JFrame {
 	ViewController mViewController;
-	MetadataPanel metadataPanel;
-	private JPanel statusPanel;
-	NavigationPanel navigationPanel;
-	ToolbarPanel toolbarPanel;
-	JTabbedPane tabbedPane;
-	JLabel status;
-	private JMenuBar menuBar;
-	private JMenu mnConnection;
-	private JMenu mnEdit;
-	private JMenuItem mntmManageConnections;
-	private JSeparator separator;
-	private JSeparator separator_1;
-	public JMenu menuConnectTo;
-	private JMenuItem mntmQuitProgram;
-	private JMenuItem mntmPublisherColor;
-	private JMenu mnAbout;
-	private JMenuItem mntmIrongui;
+	MetadataPanel mMetadataPanel;
+	private JPanel mStatusPanel;
+	NavigationPanel mNavigationPanel;
+	ToolbarPanel mToolbarPanel;
+	JTabbedPane mTabbedPane;
+	JLabel mStatus;
+	private JMenuBar mMenuBar;
+	private JMenu mMnConnection;
+	private JMenu mMnEdit;
+	private JMenuItem mMntmManageConnections;
+	private JSeparator mSeparator;
+	private JSeparator mSeparator1;
+	public JMenu mMenuConnectTo;
+	private JMenuItem mMntmQuitProgram;
+	private JMenuItem mMntmPublisherColor;
+	private JMenu mMnAbout;
+	private JMenuItem mMntmIrongui;
 
 	public MainFrame(ViewController vc) {
-		menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
+		mMenuBar = new JMenuBar();
+		setJMenuBar(mMenuBar);
 
-		mnConnection = new JMenu("Connection");
-		menuBar.add(mnConnection);
+		mMnConnection = new JMenu("Connection");
+		mMenuBar.add(mMnConnection);
 
-		mntmManageConnections = new JMenuItem("Manage connections...");
-		mntmManageConnections.setMnemonic(KeyEvent.VK_M);
-		mntmManageConnections.setIcon(ResourceHelper
+		mMntmManageConnections = new JMenuItem("Manage connections...");
+		mMntmManageConnections.setMnemonic(KeyEvent.VK_M);
+		mMntmManageConnections.setIcon(ResourceHelper
 				.getImage("computer_add_16x16.png"));
-		mnConnection.add(mntmManageConnections);
-		mntmManageConnections.addActionListener(new ActionListener() {
+		mMnConnection.add(mMntmManageConnections);
+		mMntmManageConnections.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -123,19 +118,19 @@ public class MainFrame extends JFrame {
 			}
 		});
 
-		separator = new JSeparator();
-		mnConnection.add(separator);
+		mSeparator = new JSeparator();
+		mMnConnection.add(mSeparator);
 
-		menuConnectTo = new JMenu("Connect to");
-		menuConnectTo.setIcon(ResourceHelper.getImage("control_play_blue.png"));
-		mnConnection.add(menuConnectTo);
+		mMenuConnectTo = new JMenu("Connect to");
+		mMenuConnectTo.setIcon(ResourceHelper.getImage("control_play_blue.png"));
+		mMnConnection.add(mMenuConnectTo);
 
-		separator_1 = new JSeparator();
-		mnConnection.add(separator_1);
+		mSeparator1 = new JSeparator();
+		mMnConnection.add(mSeparator1);
 
-		mntmQuitProgram = new JMenuItem("Exit");
-		mntmQuitProgram.setIcon(ResourceHelper.getImage("cancel.png"));
-		mntmQuitProgram.addActionListener(new ActionListener() {
+		mMntmQuitProgram = new JMenuItem("Exit");
+		mMntmQuitProgram.setIcon(ResourceHelper.getImage("cancel.png"));
+		mMntmQuitProgram.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -143,22 +138,22 @@ public class MainFrame extends JFrame {
 				System.exit(0);
 			}
 		});
-		mnConnection.add(mntmQuitProgram);
+		mMnConnection.add(mMntmQuitProgram);
 
-		mnEdit = new JMenu("Edit");
-		menuBar.add(mnEdit);
+		mMnEdit = new JMenu("Edit");
+		mMenuBar.add(mMnEdit);
 
-		mntmPublisherColor = new JMenuItem("Publisher color...");
-		mntmPublisherColor.setIcon(ResourceHelper
+		mMntmPublisherColor = new JMenuItem("Publisher color...");
+		mMntmPublisherColor.setIcon(ResourceHelper
 				.getImage("color_management_16x16.png"));
-		mntmPublisherColor.addActionListener(new ActionListener() {
+		mMntmPublisherColor.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				mViewController.showPublisherDialog();
 			}
 		});
-		mnEdit.add(mntmPublisherColor);
+		mMnEdit.add(mMntmPublisherColor);
 
 		/*
 		 * mnAction = new JMenu("Action"); menuBar.add(mnAction);
@@ -172,14 +167,14 @@ public class MainFrame extends JFrame {
 		 * 
 		 * mnAction.add(mntmSubscribe);
 		 */
-		menuBar.add(Box.createHorizontalGlue());
+		mMenuBar.add(Box.createHorizontalGlue());
 
-		mnAbout = new JMenu("About");
-		menuBar.add(mnAbout);
+		mMnAbout = new JMenu("About");
+		mMenuBar.add(mMnAbout);
 
-		mntmIrongui = new JMenuItem("Irongui ...");
-		mntmIrongui.setIcon(ResourceHelper.getImage("information.png"));
-		mntmIrongui.addActionListener(new ActionListener() {
+		mMntmIrongui = new JMenuItem("Irongui ...");
+		mMntmIrongui.setIcon(ResourceHelper.getImage("information.png"));
+		mMntmIrongui.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -196,7 +191,7 @@ public class MainFrame extends JFrame {
 								ResourceHelper.getAppIconImage());
 			}
 		});
-		mnAbout.add(mntmIrongui);
+		mMnAbout.add(mMntmIrongui);
 		mViewController = vc;
 		init();
 	}
@@ -205,8 +200,8 @@ public class MainFrame extends JFrame {
 		Container mainPanel = this.getContentPane();
 		mainPanel.setLayout(new BorderLayout());
 
-		toolbarPanel = new ToolbarPanel();
-		getContentPane().add(toolbarPanel, BorderLayout.NORTH);
+		mToolbarPanel = new ToolbarPanel();
+		getContentPane().add(mToolbarPanel, BorderLayout.NORTH);
 
 		JSplitPane splitPane1 = new JSplitPane();
 		splitPane1.setOneTouchExpandable(true);
@@ -217,36 +212,36 @@ public class MainFrame extends JFrame {
 		splitPane2.setOneTouchExpandable(true);
 		splitPane1.setLeftComponent(splitPane2);
 
-		navigationPanel = new NavigationPanel();
-		splitPane2.setLeftComponent(navigationPanel);
+		mNavigationPanel = new NavigationPanel();
+		splitPane2.setLeftComponent(mNavigationPanel);
 
-		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
-		tabbedPane.setFocusable(false);
-		splitPane2.setRightComponent(tabbedPane);
+		mTabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		mTabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
+		mTabbedPane.setFocusable(false);
+		splitPane2.setRightComponent(mTabbedPane);
 
-		metadataPanel = new MetadataPanel();
+		mMetadataPanel = new MetadataPanel();
 
-		splitPane1.setRightComponent(metadataPanel);
+		splitPane1.setRightComponent(mMetadataPanel);
 		splitPane1.setDividerLocation(450);
 
-		statusPanel = new JPanel();
-		statusPanel
+		mStatusPanel = new JPanel();
+		mStatusPanel
 				.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		FlowLayout flowLayout = (FlowLayout) statusPanel.getLayout();
+		FlowLayout flowLayout = (FlowLayout) mStatusPanel.getLayout();
 		flowLayout.setAlignment(FlowLayout.RIGHT);
-		getContentPane().add(statusPanel, BorderLayout.SOUTH);
-		statusPanel.setPreferredSize(new Dimension(getWidth(), 24));
+		getContentPane().add(mStatusPanel, BorderLayout.SOUTH);
+		mStatusPanel.setPreferredSize(new Dimension(getWidth(), 24));
 
-		status = new JLabel("irongui started successfully.");
-		statusPanel.add(status);
+		mStatus = new JLabel("irongui started successfully.");
+		mStatusPanel.add(mStatus);
 
 		/*********************************************************************************
 		 * ActionListener
 		 */
 
 		// Connection Button
-		toolbarPanel.buttonConnections.addActionListener(new ActionListener() {
+		mToolbarPanel.mButtonConnections.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -255,17 +250,17 @@ public class MainFrame extends JFrame {
 		});
 
 		// Quick subscribe
-		navigationPanel.buttonSubscribe.addActionListener(new ActionListener() {
+		mNavigationPanel.mButtonSubscribe.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				mViewController
-						.showQuickSubscribe(navigationPanel.buttonSubscribe);
+						.showQuickSubscribe(mNavigationPanel.mButtonSubscribe);
 			}
 		});
 
 		// Tab selected
-		tabbedPane.addChangeListener(new ChangeListener() {
+		mTabbedPane.addChangeListener(new ChangeListener() {
 
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
@@ -274,30 +269,30 @@ public class MainFrame extends JFrame {
 		});
 
 		// A single connection in Navigator-Panel is selected
-		navigationPanel.panelList.addMouseListener(new MouseAdapter() {
+		mNavigationPanel.mPanelList.addMouseListener(new MouseAdapter() {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2) {
-					DefaultListModel model = (DefaultListModel) navigationPanel.panelList
+					DefaultListModel model = (DefaultListModel) mNavigationPanel.mPanelList
 							.getModel();
 					Connection con = (Connection) model
-							.get(navigationPanel.panelList.getSelectedIndex());
+							.get(mNavigationPanel.mPanelList.getSelectedIndex());
 					mViewController.selectConnection(con);
 				}
 			}
 		});
 
-		navigationPanel.panelList
+		mNavigationPanel.mPanelList
 				.addListSelectionListener(new ListSelectionListener() {
 
 					@Override
 					public void valueChanged(ListSelectionEvent e) {
-						if (navigationPanel.panelList.getSelectedIndex() != -1) {
-							DefaultListModel model = (DefaultListModel) navigationPanel.panelList
+						if (mNavigationPanel.mPanelList.getSelectedIndex() != -1) {
+							DefaultListModel model = (DefaultListModel) mNavigationPanel.mPanelList
 									.getModel();
 							Connection con = (Connection) model
-									.get(navigationPanel.panelList
+									.get(mNavigationPanel.mPanelList
 											.getSelectedIndex());
 							mViewController
 									.selectConnectionWithoutCreatingTab(con);
@@ -305,22 +300,22 @@ public class MainFrame extends JFrame {
 					}
 				});
 		// Connect
-		navigationPanel.buttonPlay.addActionListener(new ActionListener() {
+		mNavigationPanel.mButtonPlay.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				SwingUtilities.invokeLater(new Runnable() {
 					public void run() {
-						final int index = navigationPanel.panelList
+						final int index = mNavigationPanel.mPanelList
 								.getSelectedIndex();
 						if (index > -1) {
-							DefaultListModel model = (DefaultListModel) navigationPanel.panelList
+							DefaultListModel model = (DefaultListModel) mNavigationPanel.mPanelList
 									.getModel();
 							Connection con = (Connection) model.get(index);
 							mViewController.selectConnection(con);
 							mViewController.toggleConnection();
 						} else {
-							navigationPanel.buttonPlay.setSelected(false);
+							mNavigationPanel.mButtonPlay.setSelected(false);
 							JOptionPane
 									.showMessageDialog(MainFrame.this,
 											"Please select a connection on the left side first.");
@@ -347,7 +342,7 @@ public class MainFrame extends JFrame {
 		 * mViewController.showSubsriptionDialog(); } });
 		 */
 		// Tree button
-		navigationPanel.buttonTree.addItemListener(new ItemListener() {
+		mNavigationPanel.mButtonTree.addItemListener(new ItemListener() {
 
 			@Override
 			public void itemStateChanged(ItemEvent e) {
@@ -359,7 +354,7 @@ public class MainFrame extends JFrame {
 		});
 
 		// Connection button
-		navigationPanel.buttonConnections.addItemListener(new ItemListener() {
+		mNavigationPanel.mButtonConnections.addItemListener(new ItemListener() {
 
 			@Override
 			public void itemStateChanged(ItemEvent e) {
@@ -372,18 +367,18 @@ public class MainFrame extends JFrame {
 
 		// Publisher button
 
-		toolbarPanel.buttonPublisher.addActionListener(new ActionListener() {
+		mToolbarPanel.mButtonPublisher.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				mViewController.showPublisherDialog();
 			}
 		});
-		
+
 		// Stop animation
-		
-		toolbarPanel.buttonAnimation.addActionListener(new ActionListener() {
-			
+
+		mToolbarPanel.mButtonAnimation.addActionListener(new ActionListener() {
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				mViewController.toggleAnimation();

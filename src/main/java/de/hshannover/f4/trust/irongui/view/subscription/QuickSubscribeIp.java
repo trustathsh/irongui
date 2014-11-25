@@ -37,12 +37,7 @@
  * #L%
  */
 
-
-
 package de.hshannover.f4.trust.irongui.view.subscription;
-
-
-
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -59,11 +54,11 @@ import javax.swing.border.MatteBorder;
 
 public class QuickSubscribeIp extends JPanel {
 	private static final long serialVersionUID = -9105336717460904279L;
-	public JTextField textFieldIp;
-	public final ButtonGroup type = new ButtonGroup();
-	public JRadioButton ip4;
-	public JRadioButton ip6;
-	public JTextField textFieldDomain;
+	public JTextField mTextFieldIp;
+	public final ButtonGroup mType = new ButtonGroup();
+	public JRadioButton mIp4;
+	public JRadioButton mIp6;
+	public JTextField mTextFieldDomain;
 
 	/**
 	 * Create the panel.
@@ -71,80 +66,81 @@ public class QuickSubscribeIp extends JPanel {
 	public QuickSubscribeIp() {
 		setBorder(new MatteBorder(1, 1, 1, 1, (Color) null));
 		setLayout(new BorderLayout(5, 5));
-		
+
 		JPanel panel = new JPanel();
 		add(panel, BorderLayout.NORTH);
-		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{69, 69, 69, 0};
-		gbl_panel.rowHeights = new int[]{25, 0, 0, 0};
-		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
-		panel.setLayout(gbl_panel);
-		
+		GridBagLayout gblPanel = new GridBagLayout();
+		gblPanel.columnWidths = new int[] {69, 69, 69, 0 };
+		gblPanel.rowHeights = new int[] {25, 0, 0, 0 };
+		gblPanel.columnWeights = new double[] {0.0, 0.0, 0.0,
+				Double.MIN_VALUE };
+		gblPanel.rowWeights = new double[] {0.0, 0.0, 0.0, Double.MIN_VALUE };
+		panel.setLayout(gblPanel);
+
 		JLabel lblIpaddress = new JLabel("value");
-		GridBagConstraints gbc_lblIpaddress = new GridBagConstraints();
-		gbc_lblIpaddress.anchor = GridBagConstraints.EAST;
-		gbc_lblIpaddress.fill = GridBagConstraints.VERTICAL;
-		gbc_lblIpaddress.insets = new Insets(0, 0, 5, 5);
-		gbc_lblIpaddress.gridx = 0;
-		gbc_lblIpaddress.gridy = 0;
-		panel.add(lblIpaddress, gbc_lblIpaddress);
-		
-		textFieldIp = new JTextField();
-		GridBagConstraints gbc_textFieldDomain = new GridBagConstraints();
-		gbc_textFieldDomain.gridwidth = 2;
-		gbc_textFieldDomain.fill = GridBagConstraints.BOTH;
-		gbc_textFieldDomain.insets = new Insets(0, 0, 5, 0);
-		gbc_textFieldDomain.gridx = 1;
-		gbc_textFieldDomain.gridy = 0;
-		panel.add(textFieldIp, gbc_textFieldDomain);
-		textFieldIp.setColumns(10);
-		
+		GridBagConstraints gbcLblIpaddress = new GridBagConstraints();
+		gbcLblIpaddress.anchor = GridBagConstraints.EAST;
+		gbcLblIpaddress.fill = GridBagConstraints.VERTICAL;
+		gbcLblIpaddress.insets = new Insets(0, 0, 5, 5);
+		gbcLblIpaddress.gridx = 0;
+		gbcLblIpaddress.gridy = 0;
+		panel.add(lblIpaddress, gbcLblIpaddress);
+
+		mTextFieldIp = new JTextField();
+		GridBagConstraints gbcTextFieldDomain = new GridBagConstraints();
+		gbcTextFieldDomain.gridwidth = 2;
+		gbcTextFieldDomain.fill = GridBagConstraints.BOTH;
+		gbcTextFieldDomain.insets = new Insets(0, 0, 5, 0);
+		gbcTextFieldDomain.gridx = 1;
+		gbcTextFieldDomain.gridy = 0;
+		panel.add(mTextFieldIp, gbcTextFieldDomain);
+		mTextFieldIp.setColumns(10);
+
 		JLabel lblIptype = new JLabel("type");
-		GridBagConstraints gbc_lblIptype = new GridBagConstraints();
-		gbc_lblIptype.anchor = GridBagConstraints.EAST;
-		gbc_lblIptype.fill = GridBagConstraints.VERTICAL;
-		gbc_lblIptype.insets = new Insets(0, 0, 5, 5);
-		gbc_lblIptype.gridx = 0;
-		gbc_lblIptype.gridy = 1;
-		panel.add(lblIptype, gbc_lblIptype);
-		
-		ip4 = new JRadioButton("IPv4");
-		GridBagConstraints gbc_ip4 = new GridBagConstraints();
-		gbc_ip4.fill = GridBagConstraints.BOTH;
-		gbc_ip4.insets = new Insets(0, 0, 5, 5);
-		gbc_ip4.gridx = 1;
-		gbc_ip4.gridy = 1;
-		panel.add(ip4, gbc_ip4);
-		type.add(ip4);
-		ip4.setSelected(true);
-		
-		ip6 = new JRadioButton("IPv6");
-		GridBagConstraints gbc_ip6 = new GridBagConstraints();
-		gbc_ip6.insets = new Insets(0, 0, 5, 0);
-		gbc_ip6.fill = GridBagConstraints.BOTH;
-		gbc_ip6.gridx = 2;
-		gbc_ip6.gridy = 1;
-		panel.add(ip6, gbc_ip6);
-		type.add(ip6);
-		
+		GridBagConstraints gbcLblIptype = new GridBagConstraints();
+		gbcLblIptype.anchor = GridBagConstraints.EAST;
+		gbcLblIptype.fill = GridBagConstraints.VERTICAL;
+		gbcLblIptype.insets = new Insets(0, 0, 5, 5);
+		gbcLblIptype.gridx = 0;
+		gbcLblIptype.gridy = 1;
+		panel.add(lblIptype, gbcLblIptype);
+
+		mIp4 = new JRadioButton("IPv4");
+		GridBagConstraints gbcIp4 = new GridBagConstraints();
+		gbcIp4.fill = GridBagConstraints.BOTH;
+		gbcIp4.insets = new Insets(0, 0, 5, 5);
+		gbcIp4.gridx = 1;
+		gbcIp4.gridy = 1;
+		panel.add(mIp4, gbcIp4);
+		mType.add(mIp4);
+		mIp4.setSelected(true);
+
+		mIp6 = new JRadioButton("IPv6");
+		GridBagConstraints gbcIp6 = new GridBagConstraints();
+		gbcIp6.insets = new Insets(0, 0, 5, 0);
+		gbcIp6.fill = GridBagConstraints.BOTH;
+		gbcIp6.gridx = 2;
+		gbcIp6.gridy = 1;
+		panel.add(mIp6, gbcIp6);
+		mType.add(mIp6);
+
 		JLabel label = new JLabel("administrative-domain");
-		GridBagConstraints gbc_label = new GridBagConstraints();
-		gbc_label.anchor = GridBagConstraints.EAST;
-		gbc_label.insets = new Insets(0, 0, 0, 5);
-		gbc_label.gridx = 0;
-		gbc_label.gridy = 2;
-		panel.add(label, gbc_label);
-		
-		textFieldDomain = new JTextField();
-		textFieldDomain.setColumns(10);
-		GridBagConstraints gbc_textFieldDomain1 = new GridBagConstraints();
-		gbc_textFieldDomain1.gridwidth = 2;
-		gbc_textFieldDomain1.insets = new Insets(0, 0, 0, 5);
-		gbc_textFieldDomain1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldDomain1.gridx = 1;
-		gbc_textFieldDomain1.gridy = 2;
-		panel.add(textFieldDomain, gbc_textFieldDomain1);
+		GridBagConstraints gbcLabel = new GridBagConstraints();
+		gbcLabel.anchor = GridBagConstraints.EAST;
+		gbcLabel.insets = new Insets(0, 0, 0, 5);
+		gbcLabel.gridx = 0;
+		gbcLabel.gridy = 2;
+		panel.add(label, gbcLabel);
+
+		mTextFieldDomain = new JTextField();
+		mTextFieldDomain.setColumns(10);
+		GridBagConstraints gbcTextFieldDomain1 = new GridBagConstraints();
+		gbcTextFieldDomain1.gridwidth = 2;
+		gbcTextFieldDomain1.insets = new Insets(0, 0, 0, 5);
+		gbcTextFieldDomain1.fill = GridBagConstraints.HORIZONTAL;
+		gbcTextFieldDomain1.gridx = 1;
+		gbcTextFieldDomain1.gridy = 2;
+		panel.add(mTextFieldDomain, gbcTextFieldDomain1);
 	}
 
 }

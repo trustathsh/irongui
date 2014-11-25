@@ -37,12 +37,7 @@
  * #L%
  */
 
-
-
 package de.hshannover.f4.trust.irongui.view.component;
-
-
-
 
 /**
  * The Implementation of a Prefuse-Graph
@@ -114,8 +109,8 @@ import de.hshannover.f4.trust.irongui.event.NodeSelectedReceiver;
 @SuppressWarnings("serial")
 public class GraphPanel extends Display implements ComponentListener {
 
-	private MultiHashMap<IdentifierData, Node> identifier2node = new MultiHashMap<IdentifierData, Node>();
-	private MultiHashMap<Link, Node> link2node = new MultiHashMap<Link, Node>();
+	private MultiHashMap<IdentifierData, Node> mIdentifier2node = new MultiHashMap<IdentifierData, Node>();
+	private MultiHashMap<Link, Node> mLink2node = new MultiHashMap<Link, Node>();
 	private final Semaphore mSemaphore = new Semaphore(1);
 	private final Semaphore mSemaphore2 = new Semaphore(1);
 	private Graph mGraph;
@@ -127,13 +122,13 @@ public class GraphPanel extends Display implements ComponentListener {
 	private Predicate mPredicateMetadata;
 	private JTable mTable;
 	private ArrayList<NodeSelectedReceiver> mReceiver = new ArrayList<NodeSelectedReceiver>();
-	private String[] mMetatableColumns = new String[] { "Element",
+	private String[] mMetatableColumns = new String[] {"Element",
 			"Value / Attribute-Name", "Attribute-Value" };
 	private boolean mAnimation = true;
 	// private Logger mLogger = Logger.getLogger(GraphPanel.class);
 	private ActionList mLayout;
-	private RepaintAction repaintAction;
-	private ForceDirectedLayout forceLayoutAction;
+	private RepaintAction mRepaintAction;
+	private ForceDirectedLayout mForceLayoutAction;
 	private int mLastSelectedItem = -1;
 	private int mLastSelectedColor = 0;
 	private Font mLastSelectedFont = null;
@@ -145,8 +140,9 @@ public class GraphPanel extends Display implements ComponentListener {
 	}
 
 	public void addNodeSelectedListener(NodeSelectedReceiver r) {
-		if (!mReceiver.contains(r))
+		if (!mReceiver.contains(r)) {
 			mReceiver.add(r);
+		}
 	}
 
 	@Override
@@ -175,12 +171,12 @@ public class GraphPanel extends Display implements ComponentListener {
 
 	public String[] getPublishers() {
 		mPublishers.clear();
-		for (IdentifierData ident : identifier2node.keys()) {
+		for (IdentifierData ident : mIdentifier2node.keys()) {
 			for (Metadata meta : ident.getMetadata()) {
 				mPublishers.add(meta.getPublisher());
 			}
 		}
-		for (Link link : link2node.keys()) {
+		for (Link link : mLink2node.keys()) {
 			for (Metadata meta : link.getMetadata()) {
 				mPublishers.add(meta.getPublisher());
 			}
@@ -194,8 +190,9 @@ public class GraphPanel extends Display implements ComponentListener {
 				pub[i++] = it.next();
 			}
 			return pub;
-		} else
+		} else {
 			return null;
+		}
 	}
 
 	public void notifyNodeSelectedReceiver(VisualItem item) {
@@ -281,7 +278,7 @@ public class GraphPanel extends Display implements ComponentListener {
 		// update flag
 		mAnimation = !mAnimation;
 	}
-	
+
 	public synchronized void enableAnimation(boolean e) {
 		if (!e) {
 			// disable it
@@ -297,35 +294,35 @@ public class GraphPanel extends Display implements ComponentListener {
 	public synchronized boolean isAnimationEnabled() {
 		return mAnimation;
 	}
-	
+
 	private void addIdentifier(IdentifierData identifier) {
 		Node iNode = null;
 		ArrayList<Metadata> metaListNew = identifier.getMetadata();
-		if (!identifier2node.hasKey(identifier)) {
+		if (!mIdentifier2node.hasKey(identifier)) {
 			Node n = mGraph.addNode();
 			setIdentifierNodeValue(n, identifier);
-			identifier2node.put(identifier, n);
+			mIdentifier2node.put(identifier, n);
 			iNode = n;
 			for (Metadata meta : metaListNew) {
 				Node m = mGraph.addNode();
 				setMetadataNodeValue(m, meta);
 				mGraph.addEdge(m, iNode);
-				identifier2node.put(identifier, m);
+				mIdentifier2node.put(identifier, m);
 				this.mPublishers.add(meta.getPublisher());
 			}
 		} else {
-			iNode = identifier2node.get(identifier).get(0);
-			ArrayList<Metadata> metaListOld = identifier2node
+			iNode = mIdentifier2node.get(identifier).get(0);
+			ArrayList<Metadata> metaListOld = mIdentifier2node
 					.getKey(identifier).getMetadata();
 			if (metaListNew != null && !metaListNew.isEmpty()) {
-				IdentifierData oldIdent = (IdentifierData) identifier2node
+				IdentifierData oldIdent = (IdentifierData) mIdentifier2node
 						.getKey(identifier);
 				for (Metadata meta : metaListNew) {
 					if (!metaListOld.contains(meta)) {
 						Node m = mGraph.addNode();
 						setMetadataNodeValue(m, meta);
 						mGraph.addEdge(m, iNode);
-						identifier2node.put(identifier, m);
+						mIdentifier2node.put(identifier, m);
 						this.mPublishers.add(meta.getPublisher());
 						if (oldIdent != null) {
 							oldIdent.addOrReplaceMetadata(meta);
@@ -341,7 +338,7 @@ public class GraphPanel extends Display implements ComponentListener {
 							Node m = mGraph.addNode();
 							setMetadataNodeValue(m, meta);
 							mGraph.addEdge(m, iNode);
-							identifier2node.put(identifier, m);
+							mIdentifier2node.put(identifier, m);
 							if (oldIdent != null) {
 								oldIdent.addOrReplaceMetadata(meta);
 							}
@@ -361,25 +358,25 @@ public class GraphPanel extends Display implements ComponentListener {
 			this.addIdentifier(i1);
 			this.addIdentifier(i2);
 			ArrayList<Metadata> metaData = link.getMetadata();
-			if (!link2node.hasKey(link)) {
+			if (!mLink2node.hasKey(link)) {
 				for (Metadata meta : metaData) {
 					Node l = mGraph.addNode();
 					setMetadataNodeValue(l, meta);
 
 					// add edges
-					mGraph.addEdge(identifier2node.get(i1).get(0), l);
-					mGraph.addEdge(identifier2node.get(i2).get(0), l);
+					mGraph.addEdge(mIdentifier2node.get(i1).get(0), l);
+					mGraph.addEdge(mIdentifier2node.get(i2).get(0), l);
 
-					link2node.put(link, l);
+					mLink2node.put(link, l);
 					this.mPublishers.add(meta.getPublisher());
 				}
 			} else {
-				Link oldLink = (Link) link2node.getKey(link);
+				Link oldLink = (Link) mLink2node.getKey(link);
 				if (oldLink != null) {
 					for (Metadata meta : link.getMetadata()) {
 						oldLink.addOrReplaceMetadata(meta);
 					}
-					ArrayList<Node> nodeList = link2node.get(oldLink);
+					ArrayList<Node> nodeList = mLink2node.get(oldLink);
 					for (Node node : nodeList) {
 						mGraph.removeNode(node);
 					}
@@ -388,8 +385,8 @@ public class GraphPanel extends Display implements ComponentListener {
 						Node l = mGraph.addNode();
 						setMetadataNodeValue(l, meta);
 						// add edges
-						mGraph.addEdge(identifier2node.get(i1).get(0), l);
-						mGraph.addEdge(identifier2node.get(i2).get(0), l);
+						mGraph.addEdge(mIdentifier2node.get(i1).get(0), l);
+						mGraph.addEdge(mIdentifier2node.get(i2).get(0), l);
 						nodeList.add(l);
 					}
 				}
@@ -418,7 +415,7 @@ public class GraphPanel extends Display implements ComponentListener {
 
 	private boolean hasLinks(IdentifierData ident) {
 		boolean hasLinks = false;
-		for (Link link : this.link2node.keys()) {
+		for (Link link : this.mLink2node.keys()) {
 			if (link.getIdentifier1().equals(ident)
 					|| link.getIdentifier2().equals(ident)) {
 				hasLinks = true;
@@ -497,7 +494,7 @@ public class GraphPanel extends Display implements ComponentListener {
 		stroke.add(new StrokeAction("graph.edges", new BasicStroke(2)));
 
 		mLayout = new ActionList(ActionList.INFINITY);
-		forceLayoutAction = new ForceDirectedLayout("graph", false);
+		mForceLayoutAction = new ForceDirectedLayout("graph", false);
 		ForceSimulator fsim = new ForceSimulator(new RungeKuttaIntegrator());
 		float gravConstant = -40f; // the more negative, the more repelling
 		float minDistance = 300f; // -1 for always on, the more positive, the
@@ -510,12 +507,12 @@ public class GraphPanel extends Display implements ComponentListener {
 		fsim.addForce(new DragForce(drag));
 		fsim.addForce(new SpringForce(springCoeff, 5));
 		fsim.getForces()[2].setParameter(SpringForce.SPRING_LENGTH, 150f);
-		forceLayoutAction.setForceSimulator(fsim);
+		mForceLayoutAction.setForceSimulator(fsim);
 
-		repaintAction = new RepaintAction();
+		mRepaintAction = new RepaintAction();
 
-		mLayout.add(0, forceLayoutAction);
-		mLayout.add(1, repaintAction);
+		mLayout.add(0, mForceLayoutAction);
+		mLayout.add(1, mRepaintAction);
 
 		// putting it all in the Visualisation
 		mVis.putAction("color", color);
@@ -536,8 +533,8 @@ public class GraphPanel extends Display implements ComponentListener {
 
 		// listener for node selection
 		this.addControlListener(new ControlAdapter() {
-			private int oldColor;
-			private Font oldFont;
+			private int mOldColor;
+			private Font mOldFont;
 
 			public void itemPressed(VisualItem item, MouseEvent e) {
 				// mLastSelectedNode.setFillColor(mLastSelectedColor);
@@ -548,17 +545,17 @@ public class GraphPanel extends Display implements ComponentListener {
 					 * mLastSelectedItem.setFillColor(oldColor);
 					 * mLastSelectedItem.setFont(oldFont); }
 					 */
-					oldColor = item.getFillColor();
-					oldFont = item.getFont();
-					
-					mLastSelectedItem = ((Node)item.getSourceTuple()).getRow();
+					mOldColor = item.getFillColor();
+					mOldFont = item.getFont();
+
+					mLastSelectedItem = ((Node) item.getSourceTuple()).getRow();
 					mLastSelectedColor = item.getFillColor();
 					mLastSelectedFont = item.getFont();
 					item.setFillColor(ColorLib.color(Color.RED));
-					item.setFont(oldFont.deriveFont(Font.BOLD));
+					item.setFont(mOldFont.deriveFont(Font.BOLD));
 					showMetaInTable(item);
 					notifyNodeSelectedReceiver(item);
-					
+
 					if (e.getClickCount() == 2) {
 						Point2D point = new Point2D.Double(item.getX(), item
 								.getY());
@@ -568,8 +565,8 @@ public class GraphPanel extends Display implements ComponentListener {
 			}
 
 			public void itemReleased(VisualItem item, MouseEvent e) {
-				item.setFillColor(oldColor);
-				item.setFont(oldFont);
+				item.setFillColor(mOldColor);
+				item.setFont(mOldFont);
 			}
 		});
 
@@ -649,11 +646,11 @@ public class GraphPanel extends Display implements ComponentListener {
 	}
 
 	private void removeIdentifier(IdentifierData identifier) {
-		if (identifier2node.hasKey(identifier)) {
-			IdentifierData oldIdent = (IdentifierData) identifier2node
+		if (mIdentifier2node.hasKey(identifier)) {
+			IdentifierData oldIdent = (IdentifierData) mIdentifier2node
 					.getKey(identifier);
 			if (oldIdent != null) {
-				ArrayList<Node> nodeList = identifier2node.get(oldIdent);
+				ArrayList<Node> nodeList = mIdentifier2node.get(oldIdent);
 				ArrayList<Metadata> metaListOld = oldIdent.getMetadata();
 				ArrayList<Metadata> metaListNew = identifier.getMetadata();
 				for (int i = 0; i < metaListNew.size(); i++) {
@@ -687,12 +684,12 @@ public class GraphPanel extends Display implements ComponentListener {
 					if (!hasLinks(identifier)) {
 						// mLogger.trace("identifier has no metadata left, removing it ... "
 						// + identifier);
-						synchronized (this) {							
+						synchronized (this) {
 							clearTable();
 							mGraph.removeNode(nodeList.get(0));
-							identifier2node.remove(identifier);							
+							mIdentifier2node.remove(identifier);
 							nodeList.remove(0);
-							
+
 						}
 					}
 				}
@@ -702,10 +699,10 @@ public class GraphPanel extends Display implements ComponentListener {
 	}
 
 	private void removeLink(Link link) {
-		if (link2node.hasKey(link)) {
-			Link oldLink = (Link) link2node.getKey(link);
+		if (mLink2node.hasKey(link)) {
+			Link oldLink = (Link) mLink2node.getKey(link);
 			if (oldLink != null) {
-				ArrayList<Node> nodeList = link2node.get(oldLink);
+				ArrayList<Node> nodeList = mLink2node.get(oldLink);
 				ArrayList<Metadata> metaListOld = oldLink.getMetadata();
 				ArrayList<Metadata> metaListNew = link.getMetadata();
 				for (int i = 0; i < metaListNew.size(); i++) {
@@ -718,7 +715,7 @@ public class GraphPanel extends Display implements ComponentListener {
 								// mLogger.trace("removing metadata from link: "
 								// + meta);
 								synchronized (this) {
-									clearTable();																
+									clearTable();
 									mGraph.removeNode(node);
 									metaListOld.remove(meta);
 									nodeList.remove(node);
@@ -734,7 +731,7 @@ public class GraphPanel extends Display implements ComponentListener {
 					if (nodeList.size() == 0) {
 						// mLogger.trace("link has no metadata left, removing it ... "
 						// + link);
-						link2node.remove(link);
+						mLink2node.remove(link);
 						this.removeIdentifier(oldLink.getIdentifier1());
 						this.removeIdentifier(oldLink.getIdentifier2());
 					}
@@ -789,7 +786,7 @@ public class GraphPanel extends Display implements ComponentListener {
 		node.set("object", meta);
 	}
 
-	public void clearTable(){
+	public void clearTable() {
 		if (mTable != null) {
 			DefaultTableModel model = new DefaultTableModel();
 			for (String s : mMetatableColumns) {
@@ -798,7 +795,7 @@ public class GraphPanel extends Display implements ComponentListener {
 			mTable.setModel(model);
 		}
 	}
-	
+
 	private void showMetaInTable(VisualItem item) {
 		if (mTable != null) {
 			if (item.canGet("object", Object.class)) {
@@ -832,7 +829,7 @@ public class GraphPanel extends Display implements ComponentListener {
 							HashMap<String, String> attr = entry
 									.getAttributes();
 							for (String key : attr.keySet()) {
-								String[] row = { "", key, attr.get(key) };
+								String[] row = {"", key, attr.get(key) };
 								model.addRow(row);
 							}
 						}
@@ -862,8 +859,8 @@ public class GraphPanel extends Display implements ComponentListener {
 		try {
 			mSemaphore.acquire();
 			this.stopActions();
-			identifier2node.clear();
-			link2node.clear();
+			mIdentifier2node.clear();
+			mLink2node.clear();
 			mGraph.clear();
 			mSemaphore.release();
 		} catch (Exception e) {
@@ -872,7 +869,7 @@ public class GraphPanel extends Display implements ComponentListener {
 	}
 
 	public void panToNode(IdentifierData ident) {
-		ArrayList<Node> nodes = identifier2node.get(ident);
+		ArrayList<Node> nodes = mIdentifier2node.get(ident);
 		if (nodes != null) {
 			Node n = nodes.get(0);
 			panAndSelectToNode(n);
@@ -881,8 +878,9 @@ public class GraphPanel extends Display implements ComponentListener {
 
 	public void panToNode(Metadata meta, IdentifierData ident) {
 		Node node = getNodeFromMetadata(meta, ident);
-		if (node != null)
+		if (node != null) {
 			panAndSelectToNode(node);
+		}
 	}
 
 	private void panAndSelectToNode(Node node) {
@@ -890,12 +888,14 @@ public class GraphPanel extends Display implements ComponentListener {
 			mSemaphore2.acquire();
 			VisualItem item = mVis.getVisualItem("graph.nodes", node);
 			if (mLastSelectedItem != -1) {
-				mVis.getVisualItem("graph.nodes", mGraph.getNode(mLastSelectedItem)).setFillColor(
+				mVis.getVisualItem("graph.nodes",
+						mGraph.getNode(mLastSelectedItem)).setFillColor(
 						mLastSelectedColor);
-				mVis.getVisualItem("graph.nodes", mGraph.getNode(mLastSelectedItem)).setFont(
+				mVis.getVisualItem("graph.nodes",
+						mGraph.getNode(mLastSelectedItem)).setFont(
 						mLastSelectedFont);
 			}
-			mLastSelectedItem = ((Node)item.getSourceTuple()).getRow();
+			mLastSelectedItem = ((Node) item.getSourceTuple()).getRow();
 			mLastSelectedColor = item.getFillColor();
 			mLastSelectedFont = item.getFont();
 
@@ -924,29 +924,29 @@ public class GraphPanel extends Display implements ComponentListener {
 
 	private Node getNodeFromMetadata(Metadata meta, IdentifierData parent) {
 		Node node = null;
-		for (Link link : link2node.keys()) {
+		for (Link link : mLink2node.keys()) {
 			ArrayList<Metadata> list = link.getMetadata();
 			int i = 0;
 			for (Metadata m : list) {
 				if (m.equals(meta)) {
 					if (link.getIdentifier1().equals(parent)) {
-						ArrayList<Node> nodes = link2node.get(link);
+						ArrayList<Node> nodes = mLink2node.get(link);
 						node = nodes.get(i);
 					} else if (link.getIdentifier2() != null
 							&& link.getIdentifier2().equals(parent)) {
-						ArrayList<Node> nodes = link2node.get(link);
+						ArrayList<Node> nodes = mLink2node.get(link);
 						node = nodes.get(i);
 					}
 				}
 				i++;
 			}
 		}
-		for (IdentifierData ident : identifier2node.keys()) {
+		for (IdentifierData ident : mIdentifier2node.keys()) {
 			ArrayList<Metadata> list = ident.getMetadata();
 			int i = 1;
 			for (Metadata m : list) {
 				if (m.equals(meta)) {
-					ArrayList<Node> nodes = identifier2node.get(ident);
+					ArrayList<Node> nodes = mIdentifier2node.get(ident);
 					Node n = nodes.get(i);
 					Object o = n.get("object");
 					if (o instanceof Metadata) {
@@ -963,7 +963,7 @@ public class GraphPanel extends Display implements ComponentListener {
 		}
 		return node;
 	}
-	
+
 	public synchronized void startActions() {
 		if (mGraph.getTupleCount() > 0) {
 			mVis.run("fill");
