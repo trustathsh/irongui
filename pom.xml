@@ -10,12 +10,12 @@
 	<!-- general project information -->
 	<groupId>de.hshannover.f4.trust</groupId>
 	<artifactId>irongui</artifactId>
-	<version>0.4.5</version>
+	<version>0.4.6</version>
 	<packaging>jar</packaging>
 	<name>irongui</name>
 	<url>http://trust.f4.hs-hannover.de</url>
 	<description>
-		an IF-MAP 2.0 visualization client
+		an IF-MAP 2.2 visualization client
 	</description>
 	<organization>
 		<name>Trust@HsH</name>
