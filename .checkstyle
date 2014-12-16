@@ -6,7 +6,7 @@
     <property name="checkstyle.cache.file" value="${project_loc}/target/cachefile"/>
     <additional-data name="cache-file" value="false"/>
   </local-check-config>
-  <fileset name="all" enabled="true" check-config-name="cst" local="false">
+  <fileset name="all" enabled="true" check-config-name="trustAtHsHCheckstyle" local="true">
     <file-match-pattern match-pattern="." include-pattern="true"/>
   </fileset>
 </fileset-config>
