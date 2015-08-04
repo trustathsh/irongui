@@ -2,8 +2,8 @@ irongui
 =======
 
 This package contains irongui, a program to visualize the content
-of a MAP Server (MAPS), a crucial component within the TNC
-architecture [1].
+of a MAP Server (MAPS), a crucial component within the [TNC
+architecture][1].
 
 irongui generally acts as a MAP client. However, there are two
 ways to actually retrieve the data from the MAPS
@@ -26,7 +26,7 @@ The development was started within the bachelor
 thesis of Tobias Ruhe at Hochschule Hannover (University of
 Applied Sciences and Arts Hannover). irongui is now maintained
 and extended within the ESUKOM research project. More information
-can be found at the Trust@HsH website [2].
+can be found at the [Trust@HsH website][2].
 
 
 Software Requirements
@@ -92,14 +92,12 @@ If you have any questions, problems or comments, please contact
 
 LICENSE
 =======
-irongui is licensed under the Apache License, Version 2.0 [3].
+irongui is licensed under the [Apache License, Version 2.0][3].
 
 
-URLs
-====
-[1] http://www.trustedcomputinggroup.org/developers/trusted_network_connect
+[1]: http://www.trustedcomputinggroup.org/developers/trusted_network_connect
 
-[2] http://trust.f4.hs-hannover.de
+[2]: http://trust.f4.hs-hannover.de
 
-[3] http://www.apache.org/licenses/LICENSE-2.0.html
+[3]: http://www.apache.org/licenses/LICENSE-2.0.html
 
